@@ -6,4 +6,5 @@
 ## Team Members 
 - McKenzie Staton 
 - Nathan Tołodziecki
-- Syed Amad Shah 
+- Syed Amad Shah
+- Hubert Liu
