@@ -1,5 +1,8 @@
 /*Top Section*/
 
+body{
+    margin: 0; 
+}
 
 .top-container{
     background-color: #d2a87d;
