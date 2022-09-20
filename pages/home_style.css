@@ -24,7 +24,7 @@
 }
 
 .logo{
-    font-size: 30px;
+    font-size: 35px;
     font-weight: 700;
     font-family: Bookman, URW Bookman L, serif; 
     margin-block-start: 1em;
@@ -32,7 +32,7 @@
 }
 
 .top-links{
-    font-size: 18px; 
+    font-size: 20px; 
     color: #644c33; 
     font-family: Bookman, URW Bookman L, serif;
     margin-left: auto;
@@ -59,7 +59,8 @@
 
 .top-image{
     width: auto; 
-    height: 400px; 
+    height: 350px;
+    border:5px solid #fefae0; 
 }
 
 .header{
@@ -100,8 +101,15 @@
 .info-container{
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    margin-bottom: 60px;
+    
+}
+
+.info-side{
+    font-family: Bookman, URW Bookman L, serif;
+    width: 70%;
+    height: 100vh;
+    margin: 50px;
+    font-size: 18px;
 }
 
 .info{
