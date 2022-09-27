@@ -23,25 +23,28 @@ body{
     color: #644c33; 
     font-size: 48px;
     font-weight: 900;
-    font-family: Bookman, URW Bookman L, serif; 
+    font-family: 'Vollkorn', serif;
 }
 
 .logo{
     font-size: 35px;
     font-weight: 700;
-    font-family: Bookman, URW Bookman L, serif; 
+    font-family: 'Vollkorn', serif; 
     margin-block-start: 1em;
     margin-block-end: 1em;
 }
 
 .top-links{
-    font-size: 20px; 
+    text-decoration: underline  #7f5539;
+    height: 30px; 
+    font-size: 22px;
+    font-weight: 700; 
     color: #644c33; 
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
     margin-left: auto;
     list-style-type: none;
     display: flex;
-    width: 50%;
+    width: 35%;
     justify-content: space-around;
 }
 
@@ -66,69 +69,44 @@ body{
     border:5px solid #fefae0; 
 }
 
-.header{
-    font-size: 48px; 
-    font-weight: 700;
-    font-family: Bookman, URW Bookman L, serif;
-}
 
 .about-text{
     font-size: 18px;
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
+    font-weight: 530; 
 }
 
 .top-sign-up{
     background-color: #606c38;
     color: #fefae0; 
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
     font-size: 15px; 
     border-radius: 5px;
     width: 100px; 
     height: 30px; 
 }
 
-.random-info-container{
-    padding: 10px 0 40px 0;
-    height: 450px;  
-    padding: 1em 13em;
-}
-
-.info-header{
-    font-size: 36px;
-    color: #283618;
-    text-align: center;
-    font-family: Bookman, URW Bookman L, serif;
-    font-weight: 900;
-}
-
 .info-container{
     display: flex;
     flex-direction: row;
-    
+    height: 400px; 
 }
 
 .info-side{
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
     width: 70%;
     height: 100vh;
     margin: 50px;
-    font-size: 18px;
+    font-size: 22px;
+    line-height: 2;
 }
 
-.info{
-    width: 200px;
-    height: 200px;
-    padding: 20px;
+.photo-side{
+    margin: 50px;
+   
+    padding-right: 60px; 
 }
 
-.info-img{
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border: 4px solid #dda15e;
-    border-radius: 15px;
-    
-}
 
 .subtext{
     font-family: Bookman, URW Bookman L, serif; 
@@ -177,8 +155,7 @@ body{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    height: 350px; 
+    justify-content: space-around; 
     background-color: #9A774F;
     width: 1000px;
     height: 150px; 
