@@ -1,5 +1,8 @@
 /*Top Section*/
 
+body{
+    margin: 0; 
+}
 
 .top-container{
     background-color: #d2a87d;
@@ -12,7 +15,6 @@
 .header{
     display: flex;
     justify-content: space-between;
-   
     padding-right: 20px; 
 }
 
@@ -20,25 +22,28 @@
     color: #644c33; 
     font-size: 48px;
     font-weight: 900;
-    font-family: Bookman, URW Bookman L, serif; 
+    font-family: 'Vollkorn', serif;
 }
 
 .logo{
-    font-size: 30px;
+    font-size: 35px;
     font-weight: 700;
-    font-family: Bookman, URW Bookman L, serif; 
+    font-family: 'Vollkorn', serif; 
     margin-block-start: 1em;
     margin-block-end: 1em;
 }
 
-.top-links{
-    font-size: 18px; 
+.top-links, .link-color{
+    text-decoration: underline  #7f5539;
+    height: 30px; 
+    font-size: 22px;
+    font-weight: 700; 
     color: #644c33; 
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
     margin-left: auto;
     list-style-type: none;
     display: flex;
-    width: 50%;
+    width: 35%;
     justify-content: space-around;
 }
 
@@ -59,98 +64,45 @@
 
 .top-image{
     width: auto; 
-    height: 400px; 
+    height: 350px;
+    border:5px solid #fefae0; 
 }
 
-.header{
-    font-size: 48px; 
-    font-weight: 700;
-    font-family: Bookman, URW Bookman L, serif;
-}
 
 .about-text{
     font-size: 18px;
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
+    font-weight: 530; 
 }
 
 .top-sign-up{
     background-color: #606c38;
     color: #fefae0; 
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
     font-size: 15px; 
     border-radius: 5px;
     width: 100px; 
     height: 30px; 
 }
 
-.random-info-container{
-    padding: 10px 0 40px 0;
-    height: 450px;  
-    padding: 1em 13em;
-}
-
-.info-header{
-    font-size: 36px;
-    color: #283618;
-    text-align: center;
-    font-family: Bookman, URW Bookman L, serif;
-    font-weight: 900;
-}
-
 .info-container{
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    margin-bottom: 60px;
-}
-
-.info{
-    width: 200px;
-    height: 200px;
-    padding: 20px;
-}
-
-.info-img{
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border: 4px solid #dda15e;
-    border-radius: 15px;
-    
-}
-
-.subtext{
-    font-family: Bookman, URW Bookman L, serif; 
-    font-size: 18px;
-    text-align: center;
-    color:#283618; 
-    text-decoration: none;
-}
-
-.quote-container{
-    background-color: #fefae0;
-    display: flex; 
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 40px 0 70px; 
     height: 400px; 
-    padding: 1em 13em;
 }
 
-.quote-text{
-    padding: 20px 250px 20px 250px; 
-    margin: 20px 0 20px 0; 
-    font-size: 36px;
-    font-family: Bookman, URW Bookman L, serif; 
-    font-weight: 100;
+.info-side{
+    font-family: 'Vollkorn', serif;
+    width: 70%;
+    height: 100vh;
+    margin: 50px;
+    font-size: 22px;
+    line-height: 2;
 }
 
-.author{
-    padding: 0px 250px 20px 250px; 
-    margin: 0px 0 20px 0; 
-    font-family: Bookman, URW Bookman L, serif; 
-    font-size: 18px;
-    text-align: end;
+.photo-side{
+    margin: 50px; 
+    padding-right: 60px; 
 }
 
 .sign-up-container{
@@ -166,8 +118,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    height: 350px; 
+    justify-content: space-around; 
     background-color: #9A774F;
     width: 1000px;
     height: 150px; 
@@ -176,27 +127,28 @@
 
 .call-to-action-header{
     font-size: 20px; 
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
     font-weight: 700;
     color:#F5D7BD; 
 }
 
 .call-to-action-statement{
     font-size: 18px;
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
     color: #F5D7BD; 
 }
 
 .bottom-button{
     background-color: #9A774F;
-    color: #F9FAF8; 
-    font-family: Bookman, URW Bookman L, serif; 
-    font-size: 15px; 
+    color: #F5D7BD; 
+    font-family: 'Vollkorn', serif;
+    font-size: 20px; 
     border-radius: 5px;
-    border-color: #fefae0;
+    border-color: #F5D7BD;
     border-style: solid;
-    width: 100px; 
-    height: 30px; 
+    width: 300px; 
+    height: 50px; 
+    font-weight: 800;
 }
 
 .footer-container{
@@ -204,13 +156,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #9A774F; 
+    background-color: #d2a87d; 
     height: 120px; 
     padding: 1em 13em;
 }
 
 .footer-text{
-    color:white; 
+    color:#644c33; 
     font-size: 18px; 
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
+    font-weight: 600;
 }
