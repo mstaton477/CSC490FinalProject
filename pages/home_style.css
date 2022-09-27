@@ -15,7 +15,6 @@ body{
 .header{
     display: flex;
     justify-content: space-between;
-   
     padding-right: 20px; 
 }
 
@@ -34,7 +33,7 @@ body{
     margin-block-end: 1em;
 }
 
-.top-links{
+.top-links, .link-color{
     text-decoration: underline  #7f5539;
     height: 30px; 
     font-size: 22px;
@@ -102,44 +101,8 @@ body{
 }
 
 .photo-side{
-    margin: 50px;
-   
+    margin: 50px; 
     padding-right: 60px; 
-}
-
-
-.subtext{
-    font-family: Bookman, URW Bookman L, serif; 
-    font-size: 18px;
-    text-align: center;
-    color:#283618; 
-    text-decoration: none;
-}
-
-.quote-container{
-    background-color: #fefae0;
-    display: flex; 
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 40px 0 70px; 
-    height: 400px; 
-    padding: 1em 13em;
-}
-
-.quote-text{
-    padding: 20px 250px 20px 250px; 
-    margin: 20px 0 20px 0; 
-    font-size: 36px;
-    font-family: Bookman, URW Bookman L, serif; 
-    font-weight: 100;
-}
-
-.author{
-    padding: 0px 250px 20px 250px; 
-    margin: 0px 0 20px 0; 
-    font-family: Bookman, URW Bookman L, serif; 
-    font-size: 18px;
-    text-align: end;
 }
 
 .sign-up-container{
@@ -164,27 +127,28 @@ body{
 
 .call-to-action-header{
     font-size: 20px; 
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
     font-weight: 700;
     color:#F5D7BD; 
 }
 
 .call-to-action-statement{
     font-size: 18px;
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
     color: #F5D7BD; 
 }
 
 .bottom-button{
     background-color: #9A774F;
-    color: #F9FAF8; 
-    font-family: Bookman, URW Bookman L, serif; 
-    font-size: 15px; 
+    color: #F5D7BD; 
+    font-family: 'Vollkorn', serif;
+    font-size: 20px; 
     border-radius: 5px;
-    border-color: #fefae0;
+    border-color: #F5D7BD;
     border-style: solid;
-    width: 100px; 
-    height: 30px; 
+    width: 300px; 
+    height: 50px; 
+    font-weight: 800;
 }
 
 .footer-container{
@@ -192,13 +156,14 @@ body{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #9A774F; 
+    background-color: #d2a87d; 
     height: 120px; 
     padding: 1em 13em;
 }
 
 .footer-text{
-    color:white; 
+    color:#644c33; 
     font-size: 18px; 
-    font-family: Bookman, URW Bookman L, serif;
+    font-family: 'Vollkorn', serif;
+    font-weight: 600;
 }
