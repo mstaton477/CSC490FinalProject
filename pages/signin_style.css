@@ -1,0 +1,212 @@
+:root{
+    --color: #d2a87d; 
+    --txt: #3a3a3a;
+}
+
+body{
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Volkron', serif;
+    color: var(-txt); 
+}
+
+.content{
+    min-height: 100vh; 
+    display: flex;  
+}
+
+.image-section{
+    background-position: center center;
+    background-image: url("../images/signup.jpg");
+    background-size: cover; 
+    flex: 3; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #1b1b1b; 
+    text-align: center; 
+}
+
+.banner{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    font-size: 5.5rem;
+    font-family: 'Vollkorn', serif; 
+    margin-top: 20vh;
+    padding: 16px 0; 
+    background-color: rgba(99, 53, 11, 0.4);
+}
+
+.banner img{
+    height: 125px; 
+}
+
+
+.logo{
+    height: 15vh; 
+}
+
+.right{
+    background-color: var(--color);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    color: var(--txt); 
+}
+
+.left{
+    padding-left: 3vw; 
+}
+
+.dummy-text{
+    font-weight: 500;
+    width: 90%; 
+    font-size: 30px;
+    color: var(--txt); 
+    font-family: 'Volkron', serif;
+}
+
+.form{
+    background-color: #9A774F;
+    box-shadow: 0 10px 20px -2px #856440;
+    display: flex;
+    flex-flow: row wrap; 
+    gap: 20px; 
+    padding-top: 20px; 
+    padding-bottom: 20px;
+
+
+}
+
+.input{
+    display: flex; 
+    flex-flow: column wrap;
+    font-size: 16px;
+    width: 40%; 
+    text-transform: uppercase;
+    opacity: 100%; 
+    color: var(--txt);
+    font-weight: 500;
+    font-family: 'Volkron', serif; 
+}
+
+.form-title{
+    width: 100%; 
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--txt); 
+    font-family: 'Volkron', serif;
+}
+
+input{
+    background-color: #d2a87d;
+    border: 1px solid #3a3a3a;
+    border-radius: 3px;
+    color: var(--txt);
+
+}
+
+input:focus{
+    outline: none; 
+    border: 2px solid black;
+}
+
+button{
+    background-color: var(--color);
+    color: var(--txt);
+    font-weight: 700; 
+    font-size: 1.2em; 
+    border: 2px solid var(--txt);
+    border-radius: 5px; 
+    padding: 10px 40px; 
+    margin: 40px 0; 
+}
+
+button:hover{
+    background-color: var(--color);
+    color: black;
+}
+
+.log-in{
+    display: flex; 
+    gap: 5px; 
+}
+
+a{
+    text-decoration: none;
+    color: var(--txt);
+    font-weight: 700; 
+}
+
+a:hover{
+    color: white; 
+}
+
+@media only screen and (max-width: 600px)  {
+    .content{
+        flex-flow: column;
+        height: auto;
+        text-align: center;
+    }
+    .picture{
+        width: 100vw;
+        height: 15vh;
+        display: flex;
+        background-size: 100vw;
+    }
+    .logo{
+        width: 100vw;
+        position: static;
+        gap: 10px;
+    }
+    .right{
+        width: auto;
+        height: auto;
+        color: var(--txt);
+    }
+    .dummy-text{
+        width: auto;
+        margin-top: 30px;
+        
+
+    }
+    .left{
+        padding: 10px 20px;
+        color: var(--txt);
+    }
+    .remote-text{
+        padding: 20px 0;
+        margin: 0;
+        
+    }
+    .form{
+        flex-flow: column nowrap;
+        align-items: center;
+
+    }
+    .input{
+        text-align: left;
+        width: auto;
+        font-size: 0.9em;
+        justify-content: center;
+        align-items: center;
+    }
+    input{
+        font-size: 0.9rem;
+        height: 1.5rem;
+        width: 70vw;
+    }
+    .button,
+    .log-in{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0px;
+    }
+    button{
+        margin-bottom: 0px;
+        width: 60vw;
+        padding: 10px 5px;
+    }
+
+}
