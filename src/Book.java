@@ -1,5 +1,3 @@
-package data_Base.src;
-
 public class Book {
     private String isbn, author, title, genre;
 
