@@ -33,7 +33,11 @@ body{
     margin-block-end: 1em;
 }
 
-.top-links, .link-color{
+.logo img{
+    height: 7vh; 
+}
+
+.top-links{
     text-decoration: underline  #7f5539;
     height: 30px; 
     font-size: 22px;
@@ -45,6 +49,10 @@ body{
     display: flex;
     width: 35%;
     justify-content: space-around;
+}
+
+.login-link{
+    color: #fefae0; 
 }
 
 .website-container{
@@ -76,7 +84,7 @@ body{
 }
 
 .top-sign-up{
-    background-color: #606c38;
+    background-color: #9A774F;
     color: #fefae0; 
     font-family: 'Vollkorn', serif;
     font-size: 15px; 
@@ -166,4 +174,9 @@ body{
     font-size: 18px; 
     font-family: 'Vollkorn', serif;
     font-weight: 600;
+}
+
+a:visited, a:hover, a:focus {
+    text-decoration: none;
+    color: #644c33;
 }
