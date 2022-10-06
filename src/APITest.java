@@ -1,5 +1,3 @@
-package data_Base.src;
-
 import org.json.*;
 
 import java.io.IOException;
@@ -27,7 +25,7 @@ public class APITest {
 
         JSONObject json = new JSONObject(new String(new URL(s).openStream().readAllBytes(), StandardCharsets.UTF_8));
 
-        Set<String> set = parseForISBNHelper(json);
+        Set<String> set = parseForISBN(json);
         if (set != null) {
             set.forEach(System.out::println);
             System.out.println("\nNumber of ISBNs: " + set.size());
@@ -35,7 +33,7 @@ public class APITest {
     }
 
 
-    private static Set<String> parseForISBNHelper(JSONObject _json) {
+    private static Set<String> parseForISBN(JSONObject _json) {
         Set<String> isbns = new HashSet<>();
         try {
             for (var fields : _json.getJSONArray("docs")) {
