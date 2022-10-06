@@ -17,13 +17,13 @@ body{
 
 .image-section{
     background-position: center center;
-    background-image: url("../images/signupv2.jpg");
+    background-image: url("../images/signupv3.jpg");
     background-size: cover; 
     flex: 3; 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: #1b1b1b; 
+    color: #fefae0; 
     text-align: center; 
 }
 
@@ -36,11 +36,12 @@ body{
     font-weight: 500;
     margin-top: 20vh;
     padding: 16px 0; 
-    background-color: rgba(99, 53, 11, 0.4);
+    /* background-color: rgba(104, 97, 91, 0.4); */
 }
 
 .banner img{
     height: 125px; 
+    filter: invert(1.0);
 }
 
 
