@@ -27,14 +27,12 @@ public class APITest {
         System.out.println("\nNumber of ISBNs: " + set.size());
     }
 
-
     private static Set<String> parseForISBNs(JSONObject _json) {
         Set<String> isbns = new HashSet<>();
 
         for (var field : _json.getJSONArray("docs")) {
-            if (field instanceof JSONObject) {
-                parseForISBNHelper((JSONObject) field, isbns);
-            } else System.out.println("Not JSONObject; is actually " + field.getClass());
+            if (field instanceof JSONObject) parseForISBNHelper((JSONObject) field, isbns);
+            else System.out.println("Not JSONObject; is actually " + field.getClass());
         }
 
         return isbns;
