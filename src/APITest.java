@@ -12,11 +12,8 @@ public class APITest {
 
     static Pattern ISBN13 = Pattern.compile("\\s*\\d{13}\\s*");
 
-    public static void main(String[] args) {
-        try {
-            test("Lord of the Rings");
-        } catch (IOException ignored) {
-        }
+    public static void main(String[] args) throws IOException {
+        test("lord of the rings");
     }
 
     private static void test(String... _args) throws IOException {
@@ -25,30 +22,24 @@ public class APITest {
 
         JSONObject json = new JSONObject(new String(new URL(s).openStream().readAllBytes(), StandardCharsets.UTF_8));
 
-        Set<String> set = parseForISBN(json);
-        if (set != null) {
-            set.forEach(System.out::println);
-            System.out.println("\nNumber of ISBNs: " + set.size());
-        }
+        Set<String> set = parseForISBNs(json);
+        set.forEach(System.out::println);
+        System.out.println("\nNumber of ISBNs: " + set.size());
     }
 
 
-    private static Set<String> parseForISBN(JSONObject _json) {
+    private static Set<String> parseForISBNs(JSONObject _json) {
         Set<String> isbns = new HashSet<>();
-        try {
-            for (var fields : _json.getJSONArray("docs")) {
-                if (fields instanceof JSONObject) {
-                    parseForISBNHelper((JSONObject) fields, isbns);
-                } else System.out.println("Not JSONObject; is actually " + fields.getClass());
-            }
-        } catch (Exception ex) {
-            return null;
+
+        for (var field : _json.getJSONArray("docs")) {
+            if (field instanceof JSONObject) {
+                parseForISBNHelper((JSONObject) field, isbns);
+            } else System.out.println("Not JSONObject; is actually " + field.getClass());
         }
+
         return isbns;
     }
 
-    /**
-     */
     private static void parseForISBNHelper(JSONObject _e, Set<String> _isbns) {
         if (_e.keySet().contains("isbn")) {
             try {
