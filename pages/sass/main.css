@@ -291,16 +291,11 @@ html {
   font-size: 15px;
 }
 
-:root {
-  --color: #d2a87d;
-  --txt: #3a3a3a;
-}
-
-body {
+#signin-body {
   margin: 0;
   padding: 0;
   font-family: "Volkron", serif;
-  color: var(-txt);
+  color: #3a3a3a;
 }
 
 .content {
@@ -309,8 +304,8 @@ body {
 }
 
 .image-section {
-  background-position: center center;
-  background-image: url("../images/signupv3.jpg");
+  background-position: center;
+  background-image: url("../../images/signupv3.jpg");
   background-size: cover;
   flex: 3;
   display: flex;
@@ -342,11 +337,11 @@ body {
 }
 
 .right {
-  background-color: var(--color);
+  background-color: #d2a87d;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  color: var(--txt);
+  color: #3a3a3a;
 }
 
 .left {
@@ -354,10 +349,10 @@ body {
 }
 
 .dummy-text {
-  font-weight: 500;
+  font-weight: 700;
   width: 90%;
   font-size: 30px;
-  color: var(--txt);
+  color: #3a3a3a;
   font-family: "Volkron", serif;
 }
 
@@ -377,17 +372,16 @@ body {
   font-size: 16px;
   width: 40%;
   text-transform: uppercase;
-  opacity: 100%;
-  color: var(--txt);
-  font-weight: 500;
+  color: #3a3a3a;
+  font-weight: 600;
   font-family: "Volkron", serif;
 }
 
 .form-title {
   width: 100%;
-  font-size: 30px;
+  font-size: 35px;
   font-weight: 700;
-  color: var(--txt);
+  color: #3a3a3a;
   font-family: "Volkron", serif;
 }
 
@@ -395,28 +389,28 @@ input {
   background-color: #eebd8d;
   border: 1px solid #3a3a3a;
   border-radius: 3px;
-  color: var(--txt);
+  color: #3a3a3a;
 }
 
 input:focus {
   outline: none;
-  border: 2px solid black;
+  border: 2px solid #3a3a3a;
 }
 
 button {
-  background-color: var(--color);
-  color: var(--txt);
+  background-color: #d2a87d;
+  color: #3a3a3a;
   font-weight: 700;
   font-size: 1.2em;
-  border: 2px solid var(--txt);
+  border: 2px solid #3a3a3a;
   border-radius: 5px;
   padding: 10px 40px;
   margin: 40px 0;
 }
 
 button:hover {
-  background-color: var(--color);
-  color: black;
+  background-color: #d2a87d;
+  color: #000000;
 }
 
 .log-in {
@@ -426,73 +420,10 @@ button:hover {
 
 a {
   text-decoration: none;
-  color: var(--txt);
+  color: #3a3a3a;
   font-weight: 700;
 }
 
 a:hover {
   color: white;
-}
-
-@media only screen and (max-width: 600px) {
-  .content {
-    flex-flow: column;
-    height: auto;
-    text-align: center;
-  }
-  .picture {
-    width: 100vw;
-    height: 15vh;
-    display: flex;
-    background-size: 100vw;
-  }
-  .logo {
-    width: 100vw;
-    position: static;
-    gap: 10px;
-  }
-  .right {
-    width: auto;
-    height: auto;
-    color: var(--txt);
-  }
-  .dummy-text {
-    width: auto;
-    margin-top: 30px;
-  }
-  .left {
-    padding: 10px 20px;
-    color: var(--txt);
-  }
-  .remote-text {
-    padding: 20px 0;
-    margin: 0;
-  }
-  .form {
-    flex-flow: column nowrap;
-    align-items: center;
-  }
-  .input {
-    text-align: left;
-    width: auto;
-    font-size: 0.9em;
-    justify-content: center;
-    align-items: center;
-  }
-  input {
-    font-size: 0.9rem;
-    height: 1.5rem;
-    width: 70vw;
-  }
-  .button,
-.log-in {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0px;
-  }
-  button {
-    margin-bottom: 0px;
-    width: 60vw;
-    padding: 10px 5px;
-  }
 }/*# sourceMappingURL=main.css.map */
