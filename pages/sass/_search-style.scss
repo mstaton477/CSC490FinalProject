@@ -1,0 +1,128 @@
+/* Add a black background color to the top navigation bar */
+.search-nav {
+    overflow: hidden;
+    background-color: $shadowColor2;
+    width: 100%; 
+    position: fixed;
+    bottom: 0;
+    padding: 0; 
+    margin: 0;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .search-nav  a {
+    float: left;
+    display: block;
+    color: $shadowColor;
+    align-items: flex-start;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .search-nav  a:hover {
+    background-color: $lightColor1;
+    color: $shadowColor;
+  }
+  
+  /* Style the "active" element to highlight the current page */
+  .search-nav  a.active {
+    background-color: $loginColor;
+    color: $lightColor1;
+  }
+
+#search-body {
+    margin: 0; 
+    height: 100%; 
+    font-family: 'Volkron', serif;
+}
+
+.search-content{
+    min-height: 100vh; 
+    display: flex;
+}
+
+.img-section{
+    max-width: 30%;
+    background-position: center; 
+    background-image: url('../../images/search.jpg');
+    background-size: cover;
+    display: flex;
+    flex: 3; 
+    flex-direction: column;
+    justify-content: space-between;
+    color: $lightColor1; 
+    text-align: center;
+    
+}
+
+.img-banner{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    font-family: 'Vollkorn', serif; 
+    font-weight: 500;
+    margin-top: 20vh;
+    padding: 16px 0; 
+}
+
+.img-banner img {
+    height: 125px; 
+    filter: invert(1.0);
+}
+
+.logo {
+    height: 10vh; 
+}
+
+.search-right{
+    background-color: $backColor1;
+    width: 70%; 
+    color: $loginColor; 
+    padding-top: 250px;
+}
+
+#search-form{
+    background-color: $backColor2;
+    box-shadow: 0 10px 20px -2px $shadowColor2;
+    display: flex;
+    flex-flow: column;
+    // gap: 20px; 
+    padding-top: 20px; 
+    padding-bottom: 20px;
+    justify-content: space-around;
+}
+
+.input{
+    display: flex; 
+    flex-flow: column;
+    font-size: 16px;
+    text-transform: uppercase; 
+    color: $loginColor;
+    font-weight: 600;
+    font-family: 'Volkron', serif; 
+}
+
+.search-form-title {
+    width: 100%; 
+    font-size: 35px;
+    font-weight: 700;
+    color: $loginColor; 
+    font-family: 'Volkron', serif;
+}
+input{
+    background-color: $inputFormColor;
+    border: 1px solid $loginColor;
+    border-radius: 3px;
+    color: $loginColor;
+
+}
+
+input:focus{
+    outline: none; 
+    border: 2px solid $loginColor;
+}
+

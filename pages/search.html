@@ -8,6 +8,36 @@
     <link rel="stylesheet" href="./sass/main.css">
 </head>
 <body id="search-body">
+
+
+<div class="search-content">
+    <div class="img-section">
+        <div class="img-banner">
+            <img src="../images/logo.png"/>
+            Tome Rater
+        </div>
+        
+       </div>
+
     
+    <div class="search-right">
+    <form action="/form/submit" method="GET" id="search-form">
+        <p class="search-form-title">Book Search</p>
+        <input type="text" name="author" class="search" placeholder="Author">
+        <input type="text" name="title" class="search" placeholder="Title">
+        <input type="text" name="isbn" class="search" placeholder="ISBN">
+         <!-- genre drop down will be populated by API -->
+        <select id="genre" placeholder="Genre">
+            <option value="" disabled selected>Genre</option>
+        </select>
+        <input type="submit" name="submit" class="submit" value="Search">
+    </form>
+    <div class="search-nav">
+        <a class="active" href="./search.html">Search</a>
+        <a href="./login.html">Login</a>
+        <a href="./home.html">Home</a>
+      </div>
+    </div>
+</div>
 </body>
 </html>
