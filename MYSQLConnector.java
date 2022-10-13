@@ -46,16 +46,8 @@ public class MYSQLConnector {
                 //if user already exists
                 System.out.println("User already exist");
 
-            } else if (password != confirmPassword) {
-                System.out.println("password do not match");
-
-
             }
-            //to check if the fields are empty
-            else if(name.isEmpty()||email.isEmpty()||username.isEmpty()||password.isEmpty()){
-                System.out.println("some fields are empty");
-
-            }else {
+            else {
                 if (pst.executeUpdate() != 0) {
                     System.out.println("Registration Successful, please sign in");
                 }
@@ -92,10 +84,7 @@ public class MYSQLConnector {
             rs = pst.executeQuery();
             if (rs.next()) {
                 //if login successful show a homepage
-            } else if (username.isEmpty()||password.isEmpty()) {
-                System.out.println("some fields are empty");
-
-            } else {
+            }  else {
                 // if login unsuccessful show error message
                 System.out.println("Incorrect username or password");
             }
@@ -103,4 +92,22 @@ public class MYSQLConnector {
             ex.printStackTrace();
         }
     }
+    // function to check if the fields are empty and password matches with confirm password
+    public boolean checkFields(String name, String email, String uname, String password, String confirmPassword){
+        if(name.isEmpty() || email.isEmpty() || uname.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
+
+            System.out.println("One or more fields are empty!");
+            return false;
+
+        }
+        else if(!password.equals(confirmPassword)){
+            System.out.println("Password does not match!");
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
 }
+
