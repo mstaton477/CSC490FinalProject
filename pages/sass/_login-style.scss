@@ -2,6 +2,40 @@ html{
     height: 100%; 
 }
 
+/* Add a black background color to the top navigation bar */
+.login-nav {
+    overflow: hidden;
+    background-color: $shadowColor2;
+    width: 100%; 
+    align-self: flex-start;
+    padding: 0; 
+    margin: 0;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .login-nav  a {
+    float: left;
+    display: block;
+    color: $shadowColor;
+    align-items: flex-start;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .login-nav  a:hover {
+    background-color: $lightColor1;
+    color: $shadowColor;
+  }
+  
+  /* Style the "active" element to highlight the current page */
+  .login-nav  a.active {
+    background-color: $loginColor;
+    color: $lightColor1;
+  }
+
 #login-body{
     height: 100%; 
     margin: 0; 

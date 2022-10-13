@@ -6,6 +6,7 @@
     color: $loginColor; 
 }
 
+
 .content{
     min-height: 100vh; 
     display: flex;  
@@ -117,6 +118,7 @@ button{
     border-radius: 5px; 
     padding: 10px 40px; 
     margin: 40px 0; 
+    font-family: 'Volkron', serif;
 }
 
 button:hover{
@@ -139,3 +141,16 @@ a:hover{
     color: white; 
 }
 
+.signin-bottom-links{
+    text-decoration: underline  $underColor1;
+    height: 20px; 
+    font-size: 18px;
+    font-weight: 500; 
+    color: $textColor1; 
+    font-family: 'Vollkorn', serif;
+    padding: 0; 
+    list-style-type: none;
+    display: flex;
+    width: 27%;
+    justify-content: space-around;
+}

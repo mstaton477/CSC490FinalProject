@@ -185,6 +185,40 @@ html {
   height: 100%;
 }
 
+/* Add a black background color to the top navigation bar */
+.login-nav {
+  overflow: hidden;
+  background-color: #856440;
+  width: 100%;
+  align-self: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style the links inside the navigation bar */
+.login-nav a {
+  float: left;
+  display: block;
+  color: #000000;
+  align-items: flex-start;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.login-nav a:hover {
+  background-color: #fefae0;
+  color: #000000;
+}
+
+/* Style the "active" element to highlight the current page */
+.login-nav a.active {
+  background-color: #3a3a3a;
+  color: #fefae0;
+}
+
 #login-body {
   height: 100%;
   margin: 0;
@@ -406,6 +440,7 @@ button {
   border-radius: 5px;
   padding: 10px 40px;
   margin: 40px 0;
+  font-family: "Volkron", serif;
 }
 
 button:hover {
@@ -426,4 +461,19 @@ a {
 
 a:hover {
   color: white;
+}
+
+.signin-bottom-links {
+  -webkit-text-decoration: underline #7f5539;
+          text-decoration: underline #7f5539;
+  height: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #644c33;
+  font-family: "Vollkorn", serif;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  width: 27%;
+  justify-content: space-around;
 }/*# sourceMappingURL=main.css.map */
