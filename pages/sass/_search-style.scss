@@ -66,16 +66,20 @@
     font-family: 'Vollkorn', serif; 
     font-weight: 500;
     margin-top: 20vh;
-    padding: 16px 0; 
+    // padding: 16px 0; 
+    text-align: right;
+    padding-left: 5px;
 }
 
 .img-banner img {
     height: 125px; 
     filter: invert(1.0);
+    
 }
 
 .logo {
-    height: 10vh; 
+    height: 7vh;
+    align-self: center;
 }
 
 .search-right{
@@ -87,13 +91,14 @@
 
 #search-form{
     background-color: $backColor2;
-    box-shadow: 0 10px 20px -2px $shadowColor2;
+    box-shadow: 0 10px 20px -2px $shadowColor2, 10px 0px 20px 0px $shadowColor2;
     display: flex;
     flex-flow: column;
     // gap: 20px; 
     padding-top: 20px; 
     padding-bottom: 20px;
     justify-content: space-around;
+    align-items: center;
 }
 
 .input{
@@ -112,13 +117,40 @@
     font-weight: 700;
     color: $loginColor; 
     font-family: 'Volkron', serif;
+    text-align: center;
 }
-input{
-    background-color: $inputFormColor;
+input.search{
+    background-color: $lightColor1;
     border: 1px solid $loginColor;
     border-radius: 3px;
     color: $loginColor;
+    height: 30px; 
+    width: 60%;
+    align-items: center;
+    font-family: 'Volkron', serif;
+    font-size: 16px;
+    font-weight: 550;
+}
+#genre{
+    background-color: $lightColor1;
+    border: 1px solid $loginColor;
+    border-radius: 3px;
+    color: $loginColor;
+    height: 30px; 
+    width: 60.7%; 
+    align-items: center;
+    font-family: 'Volkron', serif;
+    font-size: 16px;
+    font-weight: 550;
+}
 
+input.submit{
+    width: 40%; 
+    height: 5vh; 
+    color: $textColor1; 
+    font-family: 'Volkron', serif;
+    font-size: 16px;
+    font-weight: 550; 
 }
 
 input:focus{
