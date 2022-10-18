@@ -1,44 +1,52 @@
-import org.json.*;
-
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
-import java.util.Set;
+import org.json.JSONObject;
+import java.util.LinkedHashSet;
 import java.util.regex.Pattern;
 
 public class APITest {
 
     static Pattern ISBN13 = Pattern.compile("\\s*\\d{13}\\s*");
+    private static final APIInterface API = new APIAdapter();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         test("lord of the rings");
+        try {
+            JSONObject json = new JSONObject(API.getURL(RequestType.ISBN,"9780788789830"));
+            json.keySet().forEach(e->{
+                switch (e.toLowerCase()) {
+                    case "title", "authors", "isbn_13", "genre" -> System.out.println(e + " : " + json.get(e));
+                }
+            });
+            System.out.println(new Book("9780788789830"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
-    private static void test(String... _args) throws IOException {
-        String s = "http://www.openlibrary.org/search" + getIndexSafe(_args, 1) + ".json?q="
-                + URLEncoder.encode(getIndexSafe(_args, 0), StandardCharsets.UTF_8);
+    private static void test(String... _args) {
+        try{
+            JSONObject json = new JSONObject(API.getJsonAsString(RequestType.SEARCH, _args));
 
-        JSONObject json = new JSONObject(new String(new URL(s).openStream().readAllBytes(), StandardCharsets.UTF_8));
-
-        Set<String> set = parseForISBNs(json);
-        set.forEach(System.out::println);
-        System.out.println("\nNumber of ISBNs: " + set.size());
+            LinkedHashSet<String> set = parseForISBNs(json);
+            set.forEach(System.out::println);
+            System.out.println("\nNumber of ISBNs: " + set.size());
+        }catch (Exception ignored){
+        }
     }
 
-    private static Set<String> parseForISBNs(JSONObject _json) {
-        Set<String> isbns = new HashSet<>();
+    //TODO make more robust: replace String literals with enumerations
+    private static LinkedHashSet<String> parseForISBNs(JSONObject _json) {
+        LinkedHashSet<String> isbns = new LinkedHashSet<>();
 
         for (var field : _json.getJSONArray("docs")) {
-            if (field instanceof JSONObject) parseForISBNHelper((JSONObject) field, isbns);
+            if (field instanceof JSONObject)
+                parseForISBNHelper((JSONObject) field, isbns);
             else System.out.println("Not JSONObject; is actually " + field.getClass());
         }
 
         return isbns;
     }
 
-    private static void parseForISBNHelper(JSONObject _e, Set<String> _isbns) {
+    private static void parseForISBNHelper(JSONObject _e, LinkedHashSet<String> _isbns) {
         if (_e.keySet().contains("isbn")) {
             try {
                 _e.getJSONArray("isbn").forEach(e -> {
@@ -48,9 +56,5 @@ public class APITest {
             } catch (Exception ignored) {
             }
         }
-    }
-
-    private static String getIndexSafe(String[] _args, int _index) {
-        return _args.length > _index ? _args[_index] : "";
     }
 }
