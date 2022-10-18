@@ -573,7 +573,7 @@ a:hover {
 
 #search-form {
   background-color: #9A774F;
-  box-shadow: 0 10px 20px -2px #856440;
+  box-shadow: 0 10px 20px -2px #856440, 10px 0px 20px 0px #856440;
   display: flex;
   flex-flow: column;
   padding-top: 20px;
@@ -632,6 +632,8 @@ input.submit {
   height: 5vh;
   color: #644c33;
   font-family: "Volkron", serif;
+  font-size: 16px;
+  font-weight: 550;
 }
 
 input:focus {

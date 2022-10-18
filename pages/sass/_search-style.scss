@@ -91,7 +91,7 @@
 
 #search-form{
     background-color: $backColor2;
-    box-shadow: 0 10px 20px -2px $shadowColor2;
+    box-shadow: 0 10px 20px -2px $shadowColor2, 10px 0px 20px 0px $shadowColor2;
     display: flex;
     flex-flow: column;
     // gap: 20px; 
@@ -149,6 +149,8 @@ input.submit{
     height: 5vh; 
     color: $textColor1; 
     font-family: 'Volkron', serif;
+    font-size: 16px;
+    font-weight: 550; 
 }
 
 input:focus{
