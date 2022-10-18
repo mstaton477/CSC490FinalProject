@@ -33,10 +33,14 @@
           margin-block-start: 1em;
   -webkit-margin-after: 1em;
           margin-block-end: 1em;
+  display: flex;
+  align-items: center;
 }
 
 .home-logo img {
   height: 7vh;
+  align-self: center;
+  padding-right: 5px;
 }
 
 .home-top-links {
@@ -89,8 +93,8 @@
   font-family: "Vollkorn", serif;
   font-size: 15px;
   border-radius: 5px;
-  width: 100px;
-  height: 30px;
+  width: 150px;
+  height: auto;
 }
 
 .home-info-container {
@@ -147,12 +151,12 @@
 }
 
 .bottom-button {
-  background-color: #9A774F;
-  color: #F5D7BD;
+  background-color: #d2a87d;
+  color: #fefae0;
   font-family: "Vollkorn", serif;
   font-size: 20px;
   border-radius: 5px;
-  border-color: #F5D7BD;
+  border-color: #7f5539;
   border-style: solid;
   width: 300px;
   height: 50px;
@@ -235,6 +239,7 @@ html {
   display: grid;
   justify-items: center;
   align-items: center;
+  align-self: flex-start;
   background-color: #d2a87d;
   border-radius: 7px;
   box-shadow: 0px 0px 5px 2px #000000;
@@ -299,7 +304,7 @@ html {
 .login-form-field {
   border: none;
   border-bottom: 1px solid #3a3a3a;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border-radius: 3px;
   outline: none;
   padding: 0px 0px 5px 5px;
@@ -308,7 +313,7 @@ html {
 
 #username-field, #password-field {
   width: 100%;
-  height: 75%;
+  height: 80%;
 }
 
 #login-form-submit {
@@ -545,7 +550,8 @@ a:hover {
   font-family: "Vollkorn", serif;
   font-weight: 500;
   margin-top: 20vh;
-  padding: 16px 0;
+  text-align: right;
+  padding-left: 5px;
 }
 
 .img-banner img {
@@ -554,7 +560,8 @@ a:hover {
 }
 
 .logo {
-  height: 10vh;
+  height: 7vh;
+  align-self: center;
 }
 
 .search-right {
@@ -572,6 +579,7 @@ a:hover {
   padding-top: 20px;
   padding-bottom: 20px;
   justify-content: space-around;
+  align-items: center;
 }
 
 .input {
@@ -590,13 +598,40 @@ a:hover {
   font-weight: 700;
   color: #3a3a3a;
   font-family: "Volkron", serif;
+  text-align: center;
 }
 
-input {
-  background-color: #eebd8d;
+input.search {
+  background-color: #fefae0;
   border: 1px solid #3a3a3a;
   border-radius: 3px;
   color: #3a3a3a;
+  height: 30px;
+  width: 60%;
+  align-items: center;
+  font-family: "Volkron", serif;
+  font-size: 16px;
+  font-weight: 550;
+}
+
+#genre {
+  background-color: #fefae0;
+  border: 1px solid #3a3a3a;
+  border-radius: 3px;
+  color: #3a3a3a;
+  height: 30px;
+  width: 60.7%;
+  align-items: center;
+  font-family: "Volkron", serif;
+  font-size: 16px;
+  font-weight: 550;
+}
+
+input.submit {
+  width: 40%;
+  height: 5vh;
+  color: #644c33;
+  font-family: "Volkron", serif;
 }
 
 input:focus {
