@@ -363,6 +363,9 @@
   "bugs": {
     "url": "https://github.com/mstaton477/TomeRater/issues"
   },
+  "engines": {
+    "node": "16.17.1"
+  },
   "homepage": "https://github.com/mstaton477/TomeRater#readme",
   "devDependencies": {
     "nodemon": "^2.0.20"
