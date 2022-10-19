@@ -230,7 +230,7 @@ html {
   display: grid;
   justify-items: center;
   align-items: center;
-  background: url("../../images/login.jpg");
+  background: url("../images/login.jpg");
 }
 
 #main-holder {
@@ -344,7 +344,7 @@ html {
 
 .image-section {
   background-position: center;
-  background-image: url("../../images/signupv3.jpg");
+  background-image: url("../images/signupv3.jpg");
   background-size: cover;
   flex: 3;
   display: flex;
@@ -532,7 +532,7 @@ a:hover {
 .img-section {
   max-width: 30%;
   background-position: center;
-  background-image: url("../../images/search.jpg");
+  background-image: url("../images/search.jpg");
   background-size: cover;
   display: flex;
   flex: 3;
