@@ -1,35 +1,36 @@
 import org.json.JSONObject;
+
 import java.util.LinkedHashSet;
 import java.util.regex.Pattern;
 
 public class APITest {
 
     static Pattern ISBN13 = Pattern.compile("\\s*\\d{13}\\s*");
-    private static final APIInterface API = new APIAdapter();
+    private static final APIInterface API = APIInterface.getInstance();
 
     public static void main(String[] args) {
-        test("lord of the rings");
+        //test("lord of the rings");
         try {
-            JSONObject json = new JSONObject(API.getURL(RequestType.ISBN,"9780788789830"));
-            json.keySet().forEach(e->{
+            JSONObject json = new JSONObject(API.getURL(RequestType.ISBN, "9780788789830"));
+            json.keySet().forEach(e -> {
                 switch (e.toLowerCase()) {
                     case "title", "authors", "isbn_13", "genre" -> System.out.println(e + " : " + json.get(e));
                 }
             });
-            System.out.println(new Book("9780788789830"));
+            System.out.println(Book.getBook("9780788789830"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     private static void test(String... _args) {
-        try{
+        try {
             JSONObject json = new JSONObject(API.getJsonAsString(RequestType.SEARCH, _args));
 
             LinkedHashSet<String> set = parseForISBNs(json);
             set.forEach(System.out::println);
             System.out.println("\nNumber of ISBNs: " + set.size());
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
         }
     }
 

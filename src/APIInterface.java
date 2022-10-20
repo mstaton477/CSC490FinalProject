@@ -17,7 +17,7 @@ public interface APIInterface {
     }
 
     @Contract(" -> new")
-    static @NotNull APIInterface getInstance(){
+    static @NotNull APIInterface getInstance() {
         return new APIAdapter();
     }
 }
