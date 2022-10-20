@@ -113,12 +113,13 @@
 .radlab{
     display: grid; 
     grid-template-columns: 60px auto;
-
+    padding-left: 15px; 
 }
 
 #search-label{
     color: $textColor2; 
-    padding-right: 10px; 
+    padding-right: 25px; 
+    font-size: 18px; 
 }
 
 input[type=radio]{
@@ -158,10 +159,20 @@ input[type=radio]:focus{
   outline-offset: max(2px, 0.15em);
 }
 
+input[type=text]{
+    width: 70%; 
+    height: 30px; 
+    background-color: white;
+    color: $textColor1;
+    align-self: center;
+    font-family: 'Volkron', serif;
+    font-size: 16px;
+    
+}
 
 input.submit{
-    width: 40%; 
-    height: 5vh; 
+    width: 35%; 
+    height: 3vh; 
     color: $textColor1; 
     font-family: 'Volkron', serif;
     font-size: 16px;

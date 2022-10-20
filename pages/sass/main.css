@@ -593,11 +593,13 @@ a:hover {
 .radlab {
   display: grid;
   grid-template-columns: 60px auto;
+  padding-left: 15px;
 }
 
 #search-label {
   color: #F5D7BD;
-  padding-right: 10px;
+  padding-right: 25px;
+  font-size: 18px;
 }
 
 input[type=radio] {
@@ -638,9 +640,19 @@ input[type=radio]:focus {
   outline-offset: max(2px, 0.15em);
 }
 
+input[type=text] {
+  width: 70%;
+  height: 30px;
+  background-color: white;
+  color: #644c33;
+  align-self: center;
+  font-family: "Volkron", serif;
+  font-size: 16px;
+}
+
 input.submit {
-  width: 40%;
-  height: 5vh;
+  width: 35%;
+  height: 3vh;
   color: #644c33;
   font-family: "Volkron", serif;
   font-size: 16px;
