@@ -101,15 +101,15 @@
     align-items: center;
 }
 
-.input{
-    display: flex; 
-    flex-flow: column;
-    font-size: 16px;
-    text-transform: uppercase; 
-    color: $loginColor;
-    font-weight: 600;
-    font-family: 'Volkron', serif; 
-}
+// .input, .label{
+//     // display: grid; 
+//     font-size: 16px;
+//     text-transform: uppercase; 
+//     color: $loginColor;
+//     font-weight: 600;
+//     font-family: 'Volkron', serif; 
+//     text-align: left;
+// }
 
 .search-form-title {
     width: 100%; 
@@ -119,30 +119,59 @@
     font-family: 'Volkron', serif;
     text-align: center;
 }
-input.search{
-    background-color: $lightColor1;
-    border: 1px solid $loginColor;
-    border-radius: 3px;
-    color: $loginColor;
-    height: 30px; 
-    width: 60%;
+
+input.search-select{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
     align-items: center;
+    flex-direction: row;
     font-family: 'Volkron', serif;
-    font-size: 16px;
-    font-weight: 550;
+    font-size: 20px;
 }
-#genre{
-    background-color: $lightColor1;
-    border: 1px solid $loginColor;
-    border-radius: 3px;
-    color: $loginColor;
-    height: 30px; 
-    width: 60.7%; 
-    align-items: center;
-    font-family: 'Volkron', serif;
-    font-size: 16px;
-    font-weight: 550;
+
+label{
+    justify-content: left;
 }
+
+input[type=radio]{
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: $backColor2;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%;
+    transform: translateY(-0.075em);
+
+    // display: grid;
+    place-content: center;
+}
+
+input[type=radio]::before{
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em $loginColor;
+    /* Windows High Contrast Mode */
+    background-color: CanvasText;
+}
+
+input[type=radio]:checked::before{
+    transform: scale(1);
+}
+
+input[type=radio]:focus{
+    outline: max(2px, 0.15em) solid $loginColor;
+  outline-offset: max(2px, 0.15em);
+}
+
 
 input.submit{
     width: 40%; 
