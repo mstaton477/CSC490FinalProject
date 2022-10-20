@@ -579,8 +579,6 @@ a:hover {
   padding-top: 20px;
   padding-bottom: 20px;
   justify-content: space-around;
-  align-items: center;
-  overflow: hidden;
 }
 
 .search-form-title {
@@ -594,7 +592,12 @@ a:hover {
 
 .radlab {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 60px auto;
+}
+
+#search-label {
+  color: #F5D7BD;
+  padding-right: 10px;
 }
 
 input[type=radio] {
@@ -604,14 +607,14 @@ input[type=radio] {
   background-color: #9A774F;
   margin: 0;
   font: inherit;
-  color: currentColor;
+  color: #F5D7BD;
   width: 1.15em;
   height: 1.15em;
-  border: 0.15em solid currentColor;
+  border: 0.15em solid #F5D7BD;
   border-radius: 50%;
   transform: translateY(-0.075em);
+  display: grid;
   place-content: center;
-  display: inline;
 }
 
 input[type=radio]::before {
@@ -621,7 +624,7 @@ input[type=radio]::before {
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em #3a3a3a;
+  box-shadow: inset 1em 1em #F5D7BD;
   /* Windows High Contrast Mode */
   background-color: CanvasText;
 }
@@ -631,7 +634,7 @@ input[type=radio]:checked::before {
 }
 
 input[type=radio]:focus {
-  outline: max(2px, 0.15em) solid #3a3a3a;
+  outline: max(2px, 0.15em) solid #F5D7BD;
   outline-offset: max(2px, 0.15em);
 }
 
@@ -642,6 +645,7 @@ input.submit {
   font-family: "Volkron", serif;
   font-size: 16px;
   font-weight: 550;
+  align-self: center;
 }
 
 input:focus {

@@ -95,9 +95,7 @@
     flex-flow: column; 
     padding-top: 20px; 
     padding-bottom: 20px; 
-    justify-content: space-around; 
-    align-items: center; 
-    overflow: hidden; 
+    justify-content: space-around;  
 
 }
 
@@ -114,8 +112,13 @@
 
 .radlab{
     display: grid; 
-    grid-template-columns: 1fr 1fr;
-    
+    grid-template-columns: 60px auto;
+
+}
+
+#search-label{
+    color: $textColor2; 
+    padding-right: 10px; 
 }
 
 input[type=radio]{
@@ -124,14 +127,14 @@ input[type=radio]{
     background-color: $backColor2;
     margin: 0;
     font: inherit;
-    color: currentColor;
+    color: $textColor2;
     width: 1.15em;
     height: 1.15em;
-    border: 0.15em solid currentColor;
+    border: 0.15em solid $textColor2;
     border-radius: 50%;
     transform: translateY(-0.075em);
+    display: grid;
     place-content: center;
-    display: inline;
 }
 
 input[type=radio]::before{
@@ -141,7 +144,7 @@ input[type=radio]::before{
     border-radius: 50%;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em $loginColor;
+    box-shadow: inset 1em 1em $textColor2;
     /* Windows High Contrast Mode */
     background-color: CanvasText;
 }
@@ -151,7 +154,7 @@ input[type=radio]:checked::before{
 }
 
 input[type=radio]:focus{
-    outline: max(2px, 0.15em) solid $loginColor;
+    outline: max(2px, 0.15em) solid $textColor2;
   outline-offset: max(2px, 0.15em);
 }
 
@@ -163,6 +166,7 @@ input.submit{
     font-family: 'Volkron', serif;
     font-size: 16px;
     font-weight: 550; 
+    align-self: center;
 }
 
 input:focus{
