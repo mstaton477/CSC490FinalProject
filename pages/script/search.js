@@ -1,7 +1,9 @@
-$("input[type='radio']").change(function() {
-    if($(this).checked()){
-        $("#Answer").show(); 
+
+function radioCheck() {
+    if(document.getElementById('search-select').checked){
+        document.getElementById('Answer').style.visibility = 'visible'; 
     }else{
-        $("#Answer").hide();
+        document.getElementById('Answer').style.visibility = 'hidden'; 
     }
-})
+}
+
