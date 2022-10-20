@@ -65,8 +65,7 @@
     font-size: 48px;
     font-family: 'Vollkorn', serif; 
     font-weight: 500;
-    margin-top: 20vh;
-    // padding: 16px 0; 
+    margin-top: 20vh; 
     text-align: right;
     padding-left: 5px;
 }
@@ -93,23 +92,13 @@
     background-color: $backColor2;
     box-shadow: 0 10px 20px -2px $shadowColor2, 10px 0px 20px 0px $shadowColor2;
     display: flex;
-    flex-flow: column;
-    // gap: 20px; 
+    flex-flow: column; 
     padding-top: 20px; 
-    padding-bottom: 20px;
-    justify-content: space-around;
-    align-items: center;
+    padding-bottom: 20px; 
+    justify-content: space-around;  
+
 }
 
-// .input, .label{
-//     // display: grid; 
-//     font-size: 16px;
-//     text-transform: uppercase; 
-//     color: $loginColor;
-//     font-weight: 600;
-//     font-family: 'Volkron', serif; 
-//     text-align: left;
-// }
 
 .search-form-title {
     width: 100%; 
@@ -120,18 +109,17 @@
     text-align: center;
 }
 
-input.search-select{
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    font-family: 'Volkron', serif;
-    font-size: 20px;
+
+.radlab{
+    display: grid; 
+    grid-template-columns: 60px auto;
+    padding-left: 15px; 
 }
 
-label{
-    justify-content: left;
+#search-label{
+    color: $textColor2; 
+    padding-right: 25px; 
+    font-size: 18px; 
 }
 
 input[type=radio]{
@@ -140,14 +128,13 @@ input[type=radio]{
     background-color: $backColor2;
     margin: 0;
     font: inherit;
-    color: currentColor;
+    color: $textColor2;
     width: 1.15em;
     height: 1.15em;
-    border: 0.15em solid currentColor;
+    border: 0.15em solid $textColor2;
     border-radius: 50%;
     transform: translateY(-0.075em);
-
-    // display: grid;
+    display: grid;
     place-content: center;
 }
 
@@ -158,7 +145,7 @@ input[type=radio]::before{
     border-radius: 50%;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em $loginColor;
+    box-shadow: inset 1em 1em $textColor2;
     /* Windows High Contrast Mode */
     background-color: CanvasText;
 }
@@ -168,18 +155,29 @@ input[type=radio]:checked::before{
 }
 
 input[type=radio]:focus{
-    outline: max(2px, 0.15em) solid $loginColor;
+    outline: max(2px, 0.15em) solid $textColor2;
   outline-offset: max(2px, 0.15em);
+}
+
+input[type=text]{
+    width: 70%; 
+    height: 30px; 
+    background-color: white;
+    color: $textColor1;
+    align-self: center;
+    font-family: 'Volkron', serif;
+    font-size: 16px; 
 }
 
 
 input.submit{
-    width: 40%; 
-    height: 5vh; 
+    width: 35%; 
+    height: 3vh; 
     color: $textColor1; 
     font-family: 'Volkron', serif;
     font-size: 16px;
     font-weight: 550; 
+    align-self: center;
 }
 
 input:focus{

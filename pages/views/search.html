@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
     <link rel="stylesheet" href="../sass/main.css">
+    <script defer src="../script/search.js"></script>
 </head>
 <body id="search-body">
 
@@ -21,20 +22,27 @@
 
     
     <div class="search-right">
+
     <form action="/form/submit" method="GET" id="search-form">
         <p class="search-form-title">Book Search</p>
-        <div id="radioandlabels">
+
+        <div class="radlab">
             <label for="author" id="search-label">Author</label>
-            <input type="radio" name="author" class="search-select">
-            <label for="Title" id="search-label">Title</label>
-            <input type="radio" name="title" class="search-select">
+            <input type="radio" name="search-crit" class="search-select" onclick="radioCheck()">
+            
+            <label for="title" id="search-label">Title</label>
+            <input type="radio" name="search-crit" class="search-select" onclick="radioCheck()">
+            
             <label for="isbn" id="search-label">ISBN</label>
-            <input type="radio" name="isbn" class="search-select">
+            <input type="radio" name="search-crit" class="search-select" onclick="radioCheck()">
+            
             <label for="subject" id="search-label">Subject</label>
-            <input type = 'radio' name='subject' class="search-select">
+            <input type = 'radio' name='search-crit' class="search-select" onclick="radioCheck()">
         </div>
+        <input type="text" id="Answer" placeholder="Search"/>
         <input type="submit" name="submit" class="submit" value="Search">
     </form>
+
     <div class="search-nav">
         <a class="active" href="./search.html">Search</a>
         <a id = 'link' href="../views/login.html">Login</a>
