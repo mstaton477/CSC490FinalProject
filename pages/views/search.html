@@ -21,20 +21,26 @@
 
     
     <div class="search-right">
+
     <form action="/form/submit" method="GET" id="search-form">
         <p class="search-form-title">Book Search</p>
-        <div id="radioandlabels">
+
+        <div class="radlab">
             <label for="author" id="search-label">Author</label>
             <input type="radio" name="author" class="search-select">
-            <label for="Title" id="search-label">Title</label>
+            
+            <label for="title" id="search-label">Title</label>
             <input type="radio" name="title" class="search-select">
+            
             <label for="isbn" id="search-label">ISBN</label>
             <input type="radio" name="isbn" class="search-select">
+            
             <label for="subject" id="search-label">Subject</label>
             <input type = 'radio' name='subject' class="search-select">
         </div>
         <input type="submit" name="submit" class="submit" value="Search">
     </form>
+
     <div class="search-nav">
         <a class="active" href="./search.html">Search</a>
         <a id = 'link' href="../views/login.html">Login</a>

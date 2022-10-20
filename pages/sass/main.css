@@ -580,6 +580,7 @@ a:hover {
   padding-bottom: 20px;
   justify-content: space-around;
   align-items: center;
+  overflow: hidden;
 }
 
 .search-form-title {
@@ -591,18 +592,9 @@ a:hover {
   text-align: center;
 }
 
-input.search-select {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  font-family: "Volkron", serif;
-  font-size: 20px;
-}
-
-label {
-  justify-content: left;
+.radlab {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 input[type=radio] {
@@ -619,6 +611,7 @@ input[type=radio] {
   border-radius: 50%;
   transform: translateY(-0.075em);
   place-content: center;
+  display: inline;
 }
 
 input[type=radio]::before {
