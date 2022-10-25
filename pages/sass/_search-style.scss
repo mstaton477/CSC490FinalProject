@@ -1,0 +1,187 @@
+/* Add a black background color to the top navigation bar */
+.search-nav {
+    overflow: hidden;
+    background-color: $shadowColor2;
+    width: 100%; 
+    position: fixed;
+    bottom: 0;
+    padding: 0; 
+    margin: 0;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .search-nav  a {
+    float: left;
+    display: block;
+    color: $shadowColor;
+    align-items: flex-start;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .search-nav  a:hover {
+    background-color: $lightColor1;
+    color: $shadowColor;
+  }
+  
+  /* Style the "active" element to highlight the current page */
+  .search-nav  a.active {
+    background-color: $loginColor;
+    color: $lightColor1;
+  }
+
+#search-body {
+    margin: 0; 
+    height: 100%; 
+    font-family: 'Volkron', serif;
+}
+
+.search-content{
+    min-height: 100vh; 
+    display: flex;
+}
+
+.img-section{
+    max-width: 30%;
+    background-position: center; 
+    background-image: url('../images/search.jpg');
+    background-size: cover;
+    display: flex;
+    flex: 3; 
+    flex-direction: column;
+    justify-content: space-between;
+    color: $lightColor1; 
+    text-align: center;
+    
+}
+
+.img-banner{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    font-family: 'Vollkorn', serif; 
+    font-weight: 500;
+    margin-top: 20vh; 
+    text-align: right;
+    padding-left: 5px;
+}
+
+.img-banner img {
+    height: 125px; 
+    filter: invert(1.0);
+    
+}
+
+.logo {
+    height: 7vh;
+    align-self: center;
+}
+
+.search-right{
+    background-color: $backColor1;
+    width: 70%; 
+    color: $loginColor; 
+    padding-top: 250px;
+}
+
+#search-form{
+    background-color: $backColor2;
+    box-shadow: 0 10px 20px -2px $shadowColor2, 10px 0px 20px 0px $shadowColor2;
+    display: flex;
+    flex-flow: column; 
+    padding-top: 20px; 
+    padding-bottom: 20px; 
+    justify-content: space-around;  
+
+}
+
+
+.search-form-title {
+    width: 100%; 
+    font-size: 35px;
+    font-weight: 700;
+    color: $loginColor; 
+    font-family: 'Volkron', serif;
+    text-align: center;
+}
+
+
+.radlab{
+    display: grid; 
+    grid-template-columns: 60px auto;
+    padding-left: 15px; 
+}
+
+#search-label{
+    color: $textColor2; 
+    padding-right: 25px; 
+    font-size: 18px; 
+}
+
+input[type=radio]{
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: $backColor2;
+    margin: 0;
+    font: inherit;
+    color: $textColor2;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid $textColor2;
+    border-radius: 50%;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+}
+
+input[type=radio]::before{
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em $textColor2;
+    /* Windows High Contrast Mode */
+    background-color: CanvasText;
+}
+
+input[type=radio]:checked::before{
+    transform: scale(1);
+}
+
+input[type=radio]:focus{
+    outline: max(2px, 0.15em) solid $textColor2;
+  outline-offset: max(2px, 0.15em);
+}
+
+#Answer{
+    width: 70%; 
+    height: 30px; 
+    background-color: white;
+    color: $textColor1;
+    align-self: center;
+    font-family: 'Volkron', serif;
+    font-size: 16px; 
+}
+
+
+input.submit{
+    width: 35%; 
+    height: 3vh; 
+    color: $textColor1; 
+    font-family: 'Volkron', serif;
+    font-size: 16px;
+    font-weight: 550; 
+    align-self: center;
+}
+
+input:focus{
+    outline: none; 
+    border: 2px solid $loginColor;
+}
+

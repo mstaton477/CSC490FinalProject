@@ -1,44 +1,55 @@
-/*Top Section*/
+/*home page*/
 
-body{
-    margin: 0; 
+@import './variables';
+
+.home-body {
+    margin: 0;
+    height: 100%;
 }
 
-.top-container{
-    background-color: #d2a87d;
-    color: #644c33;
+.home-top-container{
+    background-color: $backColor1;
+    color: $textColor1;
     padding: 10px 5px 10px 5px; 
     height: 525px;
     padding: 1em 13em;
 }
 
-.header{
+.home-header{
     display: flex;
     justify-content: space-between;
     padding-right: 20px; 
 }
 
 .main-header{
-    color: #644c33; 
+    color: $textColor1; 
     font-size: 48px;
     font-weight: 900;
     font-family: 'Vollkorn', serif;
 }
 
-.logo{
+.home-logo{
     font-size: 35px;
     font-weight: 700;
     font-family: 'Vollkorn', serif; 
     margin-block-start: 1em;
     margin-block-end: 1em;
+    display: flex;
+    align-items: center;
 }
 
-.top-links, .link-color{
-    text-decoration: underline  #7f5539;
+.home-logo img{
+    height: 7vh; 
+    align-self: center;
+    padding-right: 5px;
+}
+
+.home-top-links{
+    text-decoration: underline  $underColor1;
     height: 30px; 
     font-size: 22px;
     font-weight: 700; 
-    color: #644c33; 
+    color: $textColor1; 
     font-family: 'Vollkorn', serif;
     margin-left: auto;
     list-style-type: none;
@@ -47,7 +58,11 @@ body{
     justify-content: space-around;
 }
 
-.website-container{
+.login-link{
+    color: $lightColor1; 
+}
+
+.home-website-container{
     display: flex;
     justify-content: space-evenly;
     padding-top: 40px; 
@@ -55,17 +70,17 @@ body{
 
 }
 
-.left-about, .right-img{
+.left-about, .home-right-img{
     width: 400px; 
     height: 300px; 
     padding: 15px; 
 
 }
 
-.top-image{
+.home-top-image{
     width: auto; 
     height: 350px;
-    border:5px solid #fefae0; 
+    border:5px solid $lightColor1; 
 }
 
 
@@ -75,17 +90,17 @@ body{
     font-weight: 530; 
 }
 
-.top-sign-up{
-    background-color: #606c38;
-    color: #fefae0; 
+.home-top-sign-up{
+    background-color: $backColor2;
+    color: $lightColor1; 
     font-family: 'Vollkorn', serif;
     font-size: 15px; 
     border-radius: 5px;
-    width: 100px; 
-    height: 30px; 
+    width: 150px; 
+    height: auto; 
 }
 
-.info-container{
+.home-info-container{
     display: flex;
     flex-direction: row;
     height: 400px; 
@@ -100,12 +115,12 @@ body{
     line-height: 2;
 }
 
-.photo-side{
+.home-photo-side{
     margin: 50px; 
     padding-right: 60px; 
 }
 
-.sign-up-container{
+.home-sign-up-container{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -119,7 +134,7 @@ body{
     flex-direction: row;
     align-items: center;
     justify-content: space-around; 
-    background-color: #9A774F;
+    background-color: $backColor2;
     width: 1000px;
     height: 150px; 
     border-radius: 15px;
@@ -129,41 +144,47 @@ body{
     font-size: 20px; 
     font-family: 'Vollkorn', serif;
     font-weight: 700;
-    color:#F5D7BD; 
+    color: $textColor2; 
 }
 
 .call-to-action-statement{
     font-size: 18px;
     font-family: 'Vollkorn', serif;
-    color: #F5D7BD; 
+    color: $textColor2; 
 }
 
+
 .bottom-button{
-    background-color: #9A774F;
-    color: #F5D7BD; 
+    background-color: $backColor1;
+    color: $lightColor1; 
     font-family: 'Vollkorn', serif;
     font-size: 20px; 
     border-radius: 5px;
-    border-color: #F5D7BD;
+    border-color: $underColor1;
     border-style: solid;
     width: 300px; 
     height: 50px; 
     font-weight: 800;
 }
 
-.footer-container{
+.home-footer-container{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #d2a87d; 
+    background-color: $backColor1; 
     height: 120px; 
     padding: 1em 13em;
 }
 
 .footer-text{
-    color:#644c33; 
+    color:$textColor1; 
     font-size: 18px; 
     font-family: 'Vollkorn', serif;
     font-weight: 600;
+}
+
+a:visited, a:hover, a:focus {
+    text-decoration: none;
+    color: $textColor1;
 }

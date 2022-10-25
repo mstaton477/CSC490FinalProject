@@ -5,11 +5,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="stylesheet" href="login_style.css">
-  <script defer src="login.js"></script>
+  <link rel="stylesheet" href="../sass/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet">
+  <script defer src="../script/login.js"></script>
 </head>
 
-<body>
+
+
+
+<body id="login-body">
+
+  
+  <div class="login-nav">
+    <a class="active" href="./login.html">Login</a>
+    <a id='link' href="../views/signin.html">Sign Up</a>
+    <a id ='link' href="../views/home.html">Home</a>
+  </div>
+
+
   <main id="main-holder">
     <h1 id="login-header">Login</h1>
     
@@ -17,12 +30,13 @@
       <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
     </div>
     
-    <form id="login-form">
+    <form id="login-form" method="post">
       <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
       <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
-      <input type="submit" value="Login" id="login-form-submit">
+      <input type="submit" value="Login" id="login-form-submit" onclick="">
     </form>
   
+
   </main>
 </body>
 

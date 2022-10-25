@@ -1,0 +1,666 @@
+/*home page*/
+.home-body {
+  margin: 0;
+  height: 100%;
+}
+
+.home-top-container {
+  background-color: #d2a87d;
+  color: #644c33;
+  padding: 10px 5px 10px 5px;
+  height: 525px;
+  padding: 1em 13em;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+}
+
+.main-header {
+  color: #644c33;
+  font-size: 48px;
+  font-weight: 900;
+  font-family: "Vollkorn", serif;
+}
+
+.home-logo {
+  font-size: 35px;
+  font-weight: 700;
+  font-family: "Vollkorn", serif;
+  -webkit-margin-before: 1em;
+          margin-block-start: 1em;
+  -webkit-margin-after: 1em;
+          margin-block-end: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.home-logo img {
+  height: 7vh;
+  align-self: center;
+  padding-right: 5px;
+}
+
+.home-top-links {
+  -webkit-text-decoration: underline #7f5539;
+          text-decoration: underline #7f5539;
+  height: 30px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #644c33;
+  font-family: "Vollkorn", serif;
+  margin-left: auto;
+  list-style-type: none;
+  display: flex;
+  width: 35%;
+  justify-content: space-around;
+}
+
+.login-link {
+  color: #fefae0;
+}
+
+.home-website-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 40px;
+  padding: 1em 13em;
+}
+
+.left-about, .home-right-img {
+  width: 400px;
+  height: 300px;
+  padding: 15px;
+}
+
+.home-top-image {
+  width: auto;
+  height: 350px;
+  border: 5px solid #fefae0;
+}
+
+.about-text {
+  font-size: 18px;
+  font-family: "Vollkorn", serif;
+  font-weight: 530;
+}
+
+.home-top-sign-up {
+  background-color: #9A774F;
+  color: #fefae0;
+  font-family: "Vollkorn", serif;
+  font-size: 15px;
+  border-radius: 5px;
+  width: 150px;
+  height: auto;
+}
+
+.home-info-container {
+  display: flex;
+  flex-direction: row;
+  height: 400px;
+}
+
+.info-side {
+  font-family: "Vollkorn", serif;
+  width: 70%;
+  height: 100vh;
+  margin: 50px;
+  font-size: 22px;
+  line-height: 2;
+}
+
+.home-photo-side {
+  margin: 50px;
+  padding-right: 60px;
+}
+
+.home-sign-up-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+  padding: 1em 13em;
+}
+
+.sign-up-box-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #9A774F;
+  width: 1000px;
+  height: 150px;
+  border-radius: 15px;
+}
+
+.call-to-action-header {
+  font-size: 20px;
+  font-family: "Vollkorn", serif;
+  font-weight: 700;
+  color: #F5D7BD;
+}
+
+.call-to-action-statement {
+  font-size: 18px;
+  font-family: "Vollkorn", serif;
+  color: #F5D7BD;
+}
+
+.bottom-button {
+  background-color: #d2a87d;
+  color: #fefae0;
+  font-family: "Vollkorn", serif;
+  font-size: 20px;
+  border-radius: 5px;
+  border-color: #7f5539;
+  border-style: solid;
+  width: 300px;
+  height: 50px;
+  font-weight: 800;
+}
+
+.home-footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #d2a87d;
+  height: 120px;
+  padding: 1em 13em;
+}
+
+.footer-text {
+  color: #644c33;
+  font-size: 18px;
+  font-family: "Vollkorn", serif;
+  font-weight: 600;
+}
+
+a:visited, a:hover, a:focus {
+  text-decoration: none;
+  color: #644c33;
+}
+
+html {
+  height: 100%;
+}
+
+/* Add a black background color to the top navigation bar */
+.login-nav {
+  overflow: hidden;
+  background-color: #856440;
+  width: 100%;
+  align-self: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style the links inside the navigation bar */
+.login-nav a {
+  float: left;
+  display: block;
+  color: #000000;
+  align-items: flex-start;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.login-nav a:hover {
+  background-color: #fefae0;
+  color: #000000;
+}
+
+/* Style the "active" element to highlight the current page */
+.login-nav a.active {
+  background-color: #3a3a3a;
+  color: #fefae0;
+}
+
+#login-body {
+  height: 100%;
+  margin: 0;
+  font-family: "Vollkorn", serif;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  background: url("../images/login.jpg");
+}
+
+#main-holder {
+  width: 50%;
+  height: 60%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  align-self: flex-start;
+  background-color: #d2a87d;
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px 2px #000000;
+}
+
+#login-header {
+  color: #4b3723;
+}
+
+#login-error-msg-holder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+#login-error-msg {
+  width: 23%;
+  text-align: center;
+  margin: 0;
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #8a0000;
+  border: 1px solid #8a0000;
+  background-color: #e58f8f;
+  opacity: 0;
+}
+
+#error-msg-second-line {
+  display: block;
+}
+
+#login-form {
+  align-self: flex-start;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 75%;
+  width: 80%;
+}
+
+.login-form-field::-moz-placeholder {
+  color: #3a3a3a;
+  font-size: 20px;
+  font-family: "Vollkorn", serif;
+}
+
+.login-form-field:-ms-input-placeholder {
+  color: #3a3a3a;
+  font-size: 20px;
+  font-family: "Vollkorn", serif;
+}
+
+.login-form-field::placeholder {
+  color: #3a3a3a;
+  font-size: 20px;
+  font-family: "Vollkorn", serif;
+}
+
+.login-form-field {
+  border: none;
+  border-bottom: 1px solid #3a3a3a;
+  margin-bottom: 15px;
+  border-radius: 3px;
+  outline: none;
+  padding: 0px 0px 5px 5px;
+  height: 50%;
+}
+
+#username-field, #password-field {
+  width: 100%;
+  height: 80%;
+}
+
+#login-form-submit {
+  width: 50%;
+  padding: 7px;
+  border: none;
+  border-radius: 5px;
+  color: #fefae0;
+  font-weight: bold;
+  background-color: #644c33;
+  cursor: pointer;
+  outline: none;
+  font-family: "Vollkorn", serif;
+  font-size: 15px;
+}
+
+#signin-body {
+  margin: 0;
+  padding: 0;
+  font-family: "Volkron", serif;
+  color: #3a3a3a;
+}
+
+.content {
+  min-height: 100vh;
+  display: flex;
+}
+
+.image-section {
+  background-position: center;
+  background-image: url("../images/signupv3.jpg");
+  background-size: cover;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fefae0;
+  text-align: center;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  font-family: "Vollkorn", serif;
+  font-weight: 500;
+  margin-top: 20vh;
+  padding: 16px 0;
+  /* background-color: rgba(104, 97, 91, 0.4); */
+}
+
+.banner img {
+  height: 125px;
+  filter: invert(1);
+}
+
+.logo {
+  height: 10vh;
+}
+
+.right {
+  background-color: #d2a87d;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  color: #3a3a3a;
+}
+
+.left {
+  padding-left: 3vw;
+}
+
+.dummy-text {
+  font-weight: 700;
+  width: 90%;
+  font-size: 30px;
+  color: #3a3a3a;
+  font-family: "Volkron", serif;
+}
+
+.form {
+  background-color: #9A774F;
+  box-shadow: 0 10px 20px -2px #856440;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.input {
+  display: flex;
+  flex-flow: column;
+  font-size: 16px;
+  width: 40%;
+  text-transform: uppercase;
+  color: #3a3a3a;
+  font-weight: 600;
+  font-family: "Volkron", serif;
+}
+
+.form-title {
+  width: 100%;
+  font-size: 35px;
+  font-weight: 700;
+  color: #3a3a3a;
+  font-family: "Volkron", serif;
+}
+
+input {
+  background-color: #eebd8d;
+  border: 1px solid #3a3a3a;
+  border-radius: 3px;
+  color: #3a3a3a;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #3a3a3a;
+}
+
+button {
+  background-color: #d2a87d;
+  color: #3a3a3a;
+  font-weight: 700;
+  font-size: 1.2em;
+  border: 2px solid #3a3a3a;
+  border-radius: 5px;
+  padding: 10px 40px;
+  margin: 40px 0;
+  font-family: "Volkron", serif;
+}
+
+button:hover {
+  background-color: #d2a87d;
+  color: #000000;
+}
+
+.log-in {
+  display: flex;
+  gap: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: #3a3a3a;
+  font-weight: 700;
+}
+
+a:hover {
+  color: white;
+}
+
+.signin-bottom-links {
+  -webkit-text-decoration: underline #7f5539;
+          text-decoration: underline #7f5539;
+  height: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #644c33;
+  font-family: "Vollkorn", serif;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  width: 27%;
+  justify-content: space-around;
+}
+
+/* Add a black background color to the top navigation bar */
+.search-nav {
+  overflow: hidden;
+  background-color: #856440;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style the links inside the navigation bar */
+.search-nav a {
+  float: left;
+  display: block;
+  color: #000000;
+  align-items: flex-start;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.search-nav a:hover {
+  background-color: #fefae0;
+  color: #000000;
+}
+
+/* Style the "active" element to highlight the current page */
+.search-nav a.active {
+  background-color: #3a3a3a;
+  color: #fefae0;
+}
+
+#search-body {
+  margin: 0;
+  height: 100%;
+  font-family: "Volkron", serif;
+}
+
+.search-content {
+  min-height: 100vh;
+  display: flex;
+}
+
+.img-section {
+  max-width: 30%;
+  background-position: center;
+  background-image: url("../images/search.jpg");
+  background-size: cover;
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fefae0;
+  text-align: center;
+}
+
+.img-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  font-family: "Vollkorn", serif;
+  font-weight: 500;
+  margin-top: 20vh;
+  text-align: right;
+  padding-left: 5px;
+}
+
+.img-banner img {
+  height: 125px;
+  filter: invert(1);
+}
+
+.logo {
+  height: 7vh;
+  align-self: center;
+}
+
+.search-right {
+  background-color: #d2a87d;
+  width: 70%;
+  color: #3a3a3a;
+  padding-top: 250px;
+}
+
+#search-form {
+  background-color: #9A774F;
+  box-shadow: 0 10px 20px -2px #856440, 10px 0px 20px 0px #856440;
+  display: flex;
+  flex-flow: column;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  justify-content: space-around;
+}
+
+.search-form-title {
+  width: 100%;
+  font-size: 35px;
+  font-weight: 700;
+  color: #3a3a3a;
+  font-family: "Volkron", serif;
+  text-align: center;
+}
+
+.radlab {
+  display: grid;
+  grid-template-columns: 60px auto;
+  padding-left: 15px;
+}
+
+#search-label {
+  color: #F5D7BD;
+  padding-right: 25px;
+  font-size: 18px;
+}
+
+input[type=radio] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  background-color: #9A774F;
+  margin: 0;
+  font: inherit;
+  color: #F5D7BD;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid #F5D7BD;
+  border-radius: 50%;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type=radio]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em #F5D7BD;
+  /* Windows High Contrast Mode */
+  background-color: CanvasText;
+}
+
+input[type=radio]:checked::before {
+  transform: scale(1);
+}
+
+input[type=radio]:focus {
+  outline: max(2px, 0.15em) solid #F5D7BD;
+  outline-offset: max(2px, 0.15em);
+}
+
+#Answer {
+  width: 70%;
+  height: 30px;
+  background-color: white;
+  color: #644c33;
+  align-self: center;
+  font-family: "Volkron", serif;
+  font-size: 16px;
+}
+
+input.submit {
+  width: 35%;
+  height: 3vh;
+  color: #644c33;
+  font-family: "Volkron", serif;
+  font-size: 16px;
+  font-weight: 550;
+  align-self: center;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #3a3a3a;
+}/*# sourceMappingURL=main.css.map */

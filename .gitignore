@@ -1,0 +1,5 @@
+node_modules
+out/
+csc490.iml
+*.xml
+

@@ -29,6 +29,7 @@ public class MYSQLConnector {
     }
 
     //function to create user
+
     public void create_User(String name, String email, String username, String password) throws IOException {
 
         String query2 = "INSERT into user (id,name, email, uname, password) values (?,?,?,?,?)";
@@ -41,10 +42,12 @@ public class MYSQLConnector {
             pst.setString(4, username);
             pst.setString(5, password);
 
+
             if (isExist(email)) {
                 //if user already exists
                 System.out.println("User already exist");
             } else {
+
                 if (pst.executeUpdate() != 0) {
                     System.out.println("Registration Successful, please sign in");
                 }
@@ -61,6 +64,7 @@ public class MYSQLConnector {
             pst = getConnection().prepareStatement(query);
             pst.setString(1, email);
 
+
             rs = pst.executeQuery();
             if (rs.next()) {
                 user_exist = true;
@@ -71,3 +75,42 @@ public class MYSQLConnector {
         return user_exist;
     }
 }
+
+    //check user method for Login
+    public void checkUser(String username, String password) throws IOException {
+        String query = "SELECT * FROM `user` WHERE username = ? AND password = ?";
+        try {
+            pst = getConnection().prepareStatement(query);
+            pst.setString(1, username);
+            pst.setString(2, password);
+
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                //if login successful show a homepage
+            }  else {
+                // if login unsuccessful show error message
+                System.out.println("Incorrect username or password");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    // function to check if the fields are empty and password matches with confirm password
+    public boolean checkFields(String name, String email, String uname, String password, String confirmPassword){
+        if(name.isEmpty() || email.isEmpty() || uname.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
+
+            System.out.println("One or more fields are empty!");
+            return false;
+
+        }
+        else if(!password.equals(confirmPassword)){
+            System.out.println("Password does not match!");
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+}
+

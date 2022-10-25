@@ -1,0 +1,155 @@
+#signin-body{
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Volkron', serif;
+    color: $loginColor; 
+}
+
+
+.content{
+    min-height: 100vh; 
+    display: flex;  
+}
+
+.image-section{
+    background-position: center;
+    background-image: url("../images/signupv3.jpg");
+    background-size: cover; 
+    flex: 3; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: $lightColor1; 
+    text-align: center; 
+}
+
+.banner{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    font-family: 'Vollkorn', serif; 
+    font-weight: 500;
+    margin-top: 20vh;
+    padding: 16px 0; 
+    /* background-color: rgba(104, 97, 91, 0.4); */
+}
+
+.banner img{
+    height: 125px; 
+    filter: invert(1.0);
+}
+
+
+.logo{
+    height: 10vh; 
+}
+
+.right{
+    background-color: $backColor1;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    color: $loginColor; 
+}
+
+.left{
+    padding-left: 3vw; 
+}
+
+.dummy-text{
+    font-weight: 700;
+    width: 90%; 
+    font-size: 30px;
+    color: $loginColor; 
+    font-family: 'Volkron', serif;
+}
+
+.form{
+    background-color: $backColor2;
+    box-shadow: 0 10px 20px -2px $shadowColor2;
+    display: flex;
+    flex-flow: row wrap; 
+    gap: 20px; 
+    padding-top: 20px; 
+    padding-bottom: 20px;
+}
+
+.input{
+    display: flex; 
+    flex-flow: column;
+    font-size: 16px;
+    width: 40%;  
+    text-transform: uppercase; 
+    color: $loginColor;
+    font-weight: 600;
+    font-family: 'Volkron', serif; 
+}
+
+.form-title{
+    width: 100%; 
+    font-size: 35px;
+    font-weight: 700;
+    color: $loginColor; 
+    font-family: 'Volkron', serif;
+}
+
+input{
+    background-color: $inputFormColor;
+    border: 1px solid $loginColor;
+    border-radius: 3px;
+    color: $loginColor;
+
+}
+
+input:focus{
+    outline: none; 
+    border: 2px solid $loginColor;
+}
+
+
+button{
+    background-color: $backColor1;
+    color: $loginColor;
+    font-weight: 700; 
+    font-size: 1.2em; 
+    border: 2px solid $loginColor;
+    border-radius: 5px; 
+    padding: 10px 40px; 
+    margin: 40px 0; 
+    font-family: 'Volkron', serif;
+}
+
+button:hover{
+    background-color: $backColor1;
+    color: $shadowColor;
+}
+
+.log-in{
+    display: flex; 
+    gap: 5px; 
+}
+
+a{
+    text-decoration: none;
+    color: $loginColor;
+    font-weight: 700; 
+}
+
+a:hover{
+    color: white; 
+}
+
+.signin-bottom-links{
+    text-decoration: underline  $underColor1;
+    height: 20px; 
+    font-size: 18px;
+    font-weight: 500; 
+    color: $textColor1; 
+    font-family: 'Vollkorn', serif;
+    padding: 0; 
+    list-style-type: none;
+    display: flex;
+    width: 27%;
+    justify-content: space-around;
+}
