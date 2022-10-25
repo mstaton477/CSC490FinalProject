@@ -1,3 +1,4 @@
+//TODO robustify
 public enum RequestType {
-    ISBN, AUTHORS, SEARCH
+    ISBN, AUTHORS
 }

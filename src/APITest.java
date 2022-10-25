@@ -1,6 +1,8 @@
 import org.json.JSONObject;
 
+import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 public class APITest {
@@ -9,9 +11,9 @@ public class APITest {
     private static final APIInterface API = APIInterface.getInstance();
 
     public static void main(String[] args) {
-        //test("lord of the rings");
+        test("lord of the rings");
         try {
-            JSONObject json = new JSONObject(API.getURL(RequestType.ISBN, "9780788789830"));
+            JSONObject json = new JSONObject(API.getUrl(RequestType.ISBN, "9780788789830"));
             json.keySet().forEach(e -> {
                 switch (e.toLowerCase()) {
                     case "title", "authors", "isbn_13", "genre" -> System.out.println(e + " : " + json.get(e));
@@ -23,14 +25,14 @@ public class APITest {
         }
     }
 
-    private static void test(String... _args) {
+    private static void test(String _arg) {
         try {
-            JSONObject json = new JSONObject(API.getJsonAsString(RequestType.SEARCH, _args));
+            JSONObject json = new JSONObject(API.getJsonSearchAsString(null, _arg));
 
             LinkedHashSet<String> set = parseForISBNs(json);
-            set.forEach(System.out::println);
-            System.out.println("\nNumber of ISBNs: " + set.size());
-        } catch (Exception ignored) {
+            System.out.println("Number of ISBNs: " + set.size());
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -54,7 +56,8 @@ public class APITest {
                     if (e instanceof String && ISBN13.matcher((String) e).matches())
                         _isbns.add(((String) e).trim());
                 });
-            } catch (Exception ignored) {
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

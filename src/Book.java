@@ -8,7 +8,6 @@ import java.util.LinkedList;
 
 public class Book {
     private String isbn, title;
-
     private LinkedList<Author> authors;
     private static final APIInterface API = APIInterface.getInstance();
     private static final int AUTHOR_SUBSTRING_STARTING_INDEX = 9;
@@ -33,23 +32,17 @@ public class Book {
         try {
             JSONObject json = new JSONObject(API.getJsonAsString(RequestType.ISBN, _isbn));
 
-            try {
-                this.title = json.getString("title");
-            } catch (Exception ignored) {
-                this.title = null;
-            }
+            this.title = json.getString("title");
 
-            try {
-                this.authors = new LinkedList<>();
-                JSONArray authorsArray = json.getJSONArray("authors");
-                Iterator<Object> authorsIterator = authorsArray.iterator();
-                JSONObject temp;
-                while (authorsIterator.hasNext()) {
-                    temp = (JSONObject) authorsIterator.next();
-                    this.authors.add(Author.getAuthor(temp.getString("key").substring(AUTHOR_SUBSTRING_STARTING_INDEX)));
-                }
-            } catch (Exception ignored) {
-                this.authors = new LinkedList<>();
+            this.authors = new LinkedList<>();
+            JSONArray authorsArray = json.getJSONArray("authors");
+            Iterator<Object> authorsIterator = authorsArray.iterator();
+            JSONObject temp;
+            while (authorsIterator.hasNext()) {
+                temp = (JSONObject) authorsIterator.next();
+                this.authors.add(
+                        Author.getAuthor(temp.getString("key").substring(AUTHOR_SUBSTRING_STARTING_INDEX))
+                );
             }
         } catch (Exception ignored) {
             this.authors = new LinkedList<>();

@@ -7,13 +7,25 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public interface APIInterface {
-    URL getURL(RequestType _requestType, String... _args) throws IOException;
+    URL getUrl(@NotNull RequestType _requestType, String _arg) throws IOException;
+
+    URL getUrlSearch(RequestType _requestType, String _arg) throws IOException;
 
     HttpURLConnection getConnection(URL _url) throws IOException;
 
-    default String getJsonAsString(RequestType _requestType, String... _args) throws IOException {
-        return new String(getConnection(getURL(_requestType, _args))
+    //TODO fix
+    default String getJsonAsString(RequestType _requestType, String _arg) throws IOException {
+        return new String(getConnection(getUrl(_requestType, _arg))
                 .getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+    }
+
+    default String getJsonSearchAsString(RequestType _requestType, String _arg) throws IOException {
+        return new String(getConnection(getUrlSearch(_requestType, _arg))
+                .getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+    }
+
+    default boolean supportsHttps(){
+        return false;
     }
 
     @Contract(" -> new")
