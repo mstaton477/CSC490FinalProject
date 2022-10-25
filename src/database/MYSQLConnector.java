@@ -1,3 +1,5 @@
+package database;
+
 import java.sql.*;
 import java.io.IOException;
 import java.util.UUID;
