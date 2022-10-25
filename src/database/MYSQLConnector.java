@@ -1,5 +1,3 @@
-
-package data_Base;
 import java.sql.*;
 import java.io.IOException;
 import java.util.UUID;
