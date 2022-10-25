@@ -1,3 +1,5 @@
+package api;
+
 public class Review {
     private String username, review;
     private Book book;
