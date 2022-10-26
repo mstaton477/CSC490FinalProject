@@ -3,11 +3,12 @@ package api;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public class Book {
+
+    static Pattern ISBN13 = Pattern.compile("\\s*\\d{13}\\s*");
     private String isbn, title;
     private LinkedList<Author> authors;
     private static final APIInterface API = APIInterface.getInstance();
@@ -42,11 +43,10 @@ public class Book {
             while (authorsIterator.hasNext()) {
                 temp = (JSONObject) authorsIterator.next();
                 this.authors.add(
-                        Author.getAuthor(temp.getString("key").substring(AUTHOR_SUBSTRING_STARTING_INDEX))
+                        Author.getAuthorById(temp.getString("key").substring(AUTHOR_SUBSTRING_STARTING_INDEX))
                 );
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
             this.authors = new LinkedList<>();
             this.title = null;
         }
@@ -111,6 +111,18 @@ public class Book {
 
     void setTitle(String _title) {
         this.title = _title;
+    }
+
+    public Map<String, Object> getMap() {
+        return getMap(new HashMap<>());
+    }
+
+    public Map<String, Object> getMap(Map<String, Object> _map) {
+        _map.put("isbn", this.isbn);
+        _map.put("title", this.getTitle());
+        _map.put("authorIds", new JSONArray(this.getAuthorIds()));
+        _map.put("authorNames", new JSONArray(this.getAuthorNames()));
+        return _map;
     }
 
     @Override
