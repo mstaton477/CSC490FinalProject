@@ -22,7 +22,7 @@ db.connect((err) => {
     console.log("DB connection OK")
 });
 
-db.query("SELECT * from `user`", (err, results) => {
+db.query("SELECT * from `heroku_209a0a2d6441663.user`", (err, results) => {
     if (err) { throw err;}
     console.log(results); 
 })
