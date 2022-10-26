@@ -14,12 +14,12 @@ public interface APIInterface {
 
     //TODO fix
     default String getJsonAsString(RequestType _requestType, String _arg) throws IOException {
-        return new String(getConnection(getUrl(_requestType, _arg))
+        return new String(this.getConnection(this.getUrl(_requestType, _arg))
                 .getInputStream().readAllBytes(), StandardCharsets.UTF_8);
     }
 
-    default String getJsonSearchAsString(RequestType _requestType, String _arg) throws IOException {
-        return new String(getConnection(getUrlSearch(_requestType, _arg))
+    default String getJsonSearchAsString(RequestType _nullableRequestType, String _arg) throws IOException {
+        return new String(this.getConnection(this.getUrlSearch(_nullableRequestType, _arg))
                 .getInputStream().readAllBytes(), StandardCharsets.UTF_8);
     }
 

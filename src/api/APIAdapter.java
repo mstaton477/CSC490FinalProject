@@ -14,8 +14,8 @@ class APIAdapter implements APIInterface {
     }
 
     @Override
-    public URL getUrlSearch(RequestType _requestType, String _arg)throws IOException {
-        return this.api.getUrlSearch(_requestType, _arg);
+    public URL getUrlSearch(RequestType _nullableRequestType, String _arg)throws IOException {
+        return this.api.getUrlSearch(_nullableRequestType, _arg);
     }
 
     @Override
