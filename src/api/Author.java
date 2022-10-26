@@ -1,6 +1,4 @@
 package api;
-
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.util.LinkedHashSet;
@@ -25,7 +23,7 @@ public class Author {
         }
     }
 
-    public static @NotNull Author getAuthor(String _id) {
+    public static Author getAuthor(String _id) {
         for (Author a : authors) {
             if (a.id.equals(_id)) {
                 return a;

@@ -1,6 +1,5 @@
 package api;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -19,7 +18,7 @@ public class Book {
         books.add(this);
     }
 
-    private Book(@NotNull String _isbn, LinkedList<Author> _authors, String _title) throws NullPointerException {
+    private Book(String _isbn, LinkedList<Author> _authors, String _title) throws NullPointerException {
         this();
         Utilities.notNull(_isbn);
 
@@ -46,13 +45,14 @@ public class Book {
                         Author.getAuthor(temp.getString("key").substring(AUTHOR_SUBSTRING_STARTING_INDEX))
                 );
             }
-        } catch (Exception ignored) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
             this.authors = new LinkedList<>();
             this.title = null;
         }
     }
 
-    public static @NotNull Book getBook(String _isbn) {
+    public static Book getBook(String _isbn) {
         for (Book b : books) {
             if (b.isbn.equals(_isbn)) {
                 return b;

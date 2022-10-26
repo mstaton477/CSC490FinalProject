@@ -1,15 +1,12 @@
 package api;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public interface APIInterface {
-    URL getUrl(@NotNull RequestType _requestType, String _arg) throws IOException;
+    URL getUrl(RequestType _requestType, String _arg) throws IOException;
 
     URL getUrlSearch(RequestType _requestType, String _arg) throws IOException;
 
@@ -30,8 +27,8 @@ public interface APIInterface {
         return false;
     }
 
-    @Contract(" -> new")
-    static @NotNull APIInterface getInstance() {
+
+    static APIInterface getInstance() {
         return new APIAdapter();
     }
 }

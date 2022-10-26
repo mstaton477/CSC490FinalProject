@@ -1,7 +1,5 @@
 package api;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -11,7 +9,7 @@ class APIAdapter implements APIInterface {
     final protected API api = new API();
 
     @Override
-    public URL getUrl(@NotNull RequestType _requestType, String _arg) throws IOException {
+    public URL getUrl(RequestType _requestType, String _arg) throws IOException {
         return this.api.getUrl(_requestType, _arg);
     }
 
