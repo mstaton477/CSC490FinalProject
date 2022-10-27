@@ -10,7 +10,7 @@ public class Book {
 
     static Pattern ISBN13 = Pattern.compile("\\s*\\d{13}\\s*");
     private String isbn, title;
-    private LinkedList<Author> authors;
+    private LinkedList<Author> authors = new LinkedList<>();
     private static final APIInterface API = APIInterface.getInstance();
     private static final int AUTHOR_SUBSTRING_STARTING_INDEX = 9;
     private static final LinkedHashSet<Book> books = new LinkedHashSet<>();
@@ -42,13 +42,10 @@ public class Book {
             JSONObject temp;
             while (authorsIterator.hasNext()) {
                 temp = (JSONObject) authorsIterator.next();
-                this.authors.add(
-                        Author.getAuthorById(temp.getString("key").substring(AUTHOR_SUBSTRING_STARTING_INDEX))
-                );
+                this.authors.add(Author.getAuthorById(temp.getString("key").substring(AUTHOR_SUBSTRING_STARTING_INDEX)));
             }
-        } catch (Exception ex) {
-            this.authors = new LinkedList<>();
-            this.title = null;
+
+        } catch (Exception ignored) {
         }
     }
 
@@ -59,6 +56,24 @@ public class Book {
             }
         }
         return new Book(_isbn);
+    }
+
+    public HashMap<String, Object> toMap() {
+        return toMap(new HashMap<>());
+    }
+
+    public <T extends Map<String, Object>> T toMap(T _map) {
+        _map.put("isbn", this.isbn);
+        if (this.title != null)
+            _map.put("title", this.title);
+        if (this.authors.size() > 0)
+            _map.put("authors", new JSONArray(this.authors));
+
+        return _map;
+    }
+
+    public JSONObject toJsonObject() {
+        return new JSONObject(this.toMap());
     }
 
     public String getIsbn() {
@@ -111,18 +126,6 @@ public class Book {
 
     void setTitle(String _title) {
         this.title = _title;
-    }
-
-    public Map<String, Object> getMap() {
-        return getMap(new HashMap<>());
-    }
-
-    public Map<String, Object> getMap(Map<String, Object> _map) {
-        _map.put("isbn", this.isbn);
-        _map.put("title", this.getTitle());
-        _map.put("authorIds", new JSONArray(this.getAuthorIds()));
-        _map.put("authorNames", new JSONArray(this.getAuthorNames()));
-        return _map;
     }
 
     @Override
