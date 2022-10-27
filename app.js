@@ -70,11 +70,7 @@ app.post('/views/signin', (req, res) => {
     })
 })
 
-var port = process.env.PORT || 3000;
-
-// Listen on Port 3000
-app.listen(port, function () {
+app.listen(3000, function () {
     console.log('Node app is running on port 3000');
 });
-
 
