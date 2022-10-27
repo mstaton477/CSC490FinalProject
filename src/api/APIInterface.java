@@ -12,7 +12,6 @@ public interface APIInterface {
 
     HttpURLConnection getConnection(URL _url) throws IOException;
 
-    //TODO fix
     default String getJsonAsString(RequestType _requestType, String _arg) throws IOException {
         return new String(this.getConnection(this.getUrl(_requestType, _arg))
                 .getInputStream().readAllBytes(), StandardCharsets.UTF_8);
@@ -26,7 +25,6 @@ public interface APIInterface {
     default boolean supportsHttps(){
         return false;
     }
-
 
     static APIInterface getInstance() {
         return new APIAdapter();
