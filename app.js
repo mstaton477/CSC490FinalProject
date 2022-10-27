@@ -5,6 +5,7 @@ const sessions = require('express-session');
 const http = require('http');
 const mysql = require('mysql');
 var bodyParser = require('body-parser');
+const { eachDayOfInterval } = require('date-fns');
 const app = express();
 
 // let encodeURL = parseUrl.urlencoded({extended: false});
@@ -62,7 +63,8 @@ app.post('/views/signin', (req, res) => {
     const Email = req.body.Email; 
     const Password = req.body.Password;
 
-    const sql = 'INSERT INTO `user` (Username, Name, Email, Password) VALUES ("${Username}", "${Name}", "${Email}", "${Password}")';
+
+    const sql = `INSERT INTO user (Username, Name, Email, Password) VALUES ("${Username}", "${Name}", "${Email}", "${Password}")`;
     db.query(sql, function(err, result) {
         if(err) throw err; 
         console.log('record inserted');
