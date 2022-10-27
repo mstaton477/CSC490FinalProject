@@ -64,7 +64,7 @@ app.post('/views/signin', (req, res) => {
     const Password = req.body.Password;
 
 
-    const sql = `INSERT INTO user (Username, Name, Email, Password) VALUES ("${Username}", "${Name}", "${Email}", "${Password}")`;
+    const sql = `INSERT INTO user (Username, Name, Email, Password) VALUES ('${Username}', '${Name}', '${Email}', '${Password}')`;
     db.query(sql, function(err, result) {
         if(err) throw err; 
         console.log('record inserted');
