@@ -70,4 +70,50 @@ public class MYSQLConnector {
         }
         return user_exist;
     }
+    //function to add BOOK
+    public boolean add_Book(String ISBN, String Title, String Author, String Password, String Subject) throws IOException {
+
+        String query3 = "INSERT into Book (ISBN, Title, Author, Subject) values (?,?,?,?)";
+
+        try {
+            pst = getConnection().prepareStatement(query3);
+
+            pst.setString(1, ISBN);
+            pst.setString(2, Title);
+            pst.setString(3, Author);
+            pst.setString(4, Subject);
+
+                if (pst.executeUpdate() != 0) {
+                    System.out.println("Book Added Successfully");
+                }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    //function to create BOOK list
+    public boolean create_bookList(String Username, String ListID, String ListName, String Books) throws IOException {
+
+        String query3 = "INSERT into Book List (Username, ListID, ListName, Books) values (?,?,?,?)";
+
+        try {
+            pst = getConnection().prepareStatement(query3);
+
+            pst.setString(1, Username);
+            pst.setString(2, ListID);
+            pst.setString(3, ListName);
+            pst.setString(4, Books);
+
+            if (pst.executeUpdate() != 0) {
+                System.out.println("List Created");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
 }
