@@ -24,7 +24,7 @@ public class Connection {
     public String getBook(@RequestParam(value = "isbn", defaultValue = "9780788789830") String _isbn,
                           @RequestParam(value = "title", defaultValue = "") String _title) {
 
-        if (_isbn != null) {
+        if (_title.isEmpty()) {
             return Book.getBook(_isbn).toJsonObject().toString();
         } else return getBookByTitle(_title);
     }
