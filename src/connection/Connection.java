@@ -30,8 +30,10 @@ public class Connection {
     }
 
     //TODO
-    private String getBookByTitle(String title) {
-        return null;
+    private String getBookByTitle(String _title) {
+
+        Book book = Book.getBookByTitle(_title);
+        return book != null ? book.toJsonObject().toString() : null;
     }
 
     @GetMapping("/getAuthor")
