@@ -1,6 +1,5 @@
 package api;
 
-//TODO robustify
 public enum RequestType {
     BOOKS, WORKS, ISBN, AUTHORS;
 

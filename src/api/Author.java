@@ -21,13 +21,16 @@ public class Author {
         this();
         this.id = _id;
         try {
-            this.name = new JSONObject(API.getJsonAsString(_id, "")).getString("name");
+            this.name = API.getJsonAsString(_id, "").getString("name");
         } catch (Exception ignored) {
             this.name = "";
         }
     }
 
     public static Author getAuthorById(String _id) {
+        if(!_id.startsWith("/authors/")){
+            _id = "/authors/" + _id;
+        }
         for (Author a : authors) {
             if (a.id.equals(_id)) {
                 return a;
@@ -36,7 +39,6 @@ public class Author {
         return new Author(_id);
     }
 
-    //NOT STABLE
     public static LinkedList<Author> getAuthorsByName(String _name) {
         if (_name == null) return null;
 
@@ -48,7 +50,7 @@ public class Author {
         }
 
         if (tempAuthorList.size() == 0) try {
-            new JSONObject(API.getJsonSearchAsString(RequestType.AUTHORS, _name)).getJSONArray("docs")
+            API.getJsonSearchAsString(RequestType.AUTHORS, _name).getJSONArray("docs")
                     .forEach(e -> {
                         if (e instanceof JSONObject) {
                             tempAuthorList.add(Author.getAuthorById(((JSONObject) e).getString("key")));

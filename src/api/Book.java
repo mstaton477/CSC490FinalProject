@@ -34,7 +34,7 @@ public class Book {
         JSONObject json;
         String key = null;
         try {
-            json = new JSONObject(API.getJsonAsString(RequestType.ISBN, _isbn));
+            json = API.getJsonAsString(RequestType.ISBN, _isbn);
 
             key = getKey(json);
 
@@ -47,7 +47,7 @@ public class Book {
             try {
                 if (this.authors == null || this.authors.isEmpty()) {
                     for (int i = NUM_OF_ITERATIONS; key != null && i > 0; i--) {
-                        json = new JSONObject(API.getJsonAsString(key, ""));
+                        json = API.getJsonAsString(key, "");
                         if (json.keySet().contains("authors")) {
                             this.authors = setAndGetAuthors(json);
                             break;
@@ -92,6 +92,15 @@ public class Book {
             }
         }
         return new Book(_isbn);
+    }
+
+    public static Book getBookByTitle(String _title){
+        String tempTitle = _title.replaceAll("\\s","").toLowerCase();
+        for(Book b: books){
+            if(b.title.replaceAll("\\s","").toLowerCase().equals(tempTitle))
+                return b;
+        }
+        return null;
     }
 
     public HashMap<String, Object> toMap() {
@@ -148,7 +157,7 @@ public class Book {
 
     public static String getAuthorName(String _authorID) {
         try {
-            return new JSONObject(API.getJsonAsString(RequestType.AUTHORS, _authorID)).getString("name");
+            return API.getJsonAsString(RequestType.AUTHORS, _authorID).getString("name");
         } catch (Exception ignored) {
             return "";
         }

@@ -21,8 +21,16 @@ public class Connection {
     }
 
     @GetMapping("/getBook")
-    public String test(@RequestParam(value = "isbn", defaultValue = "9780788789830") String _isbn) {
-        return Book.getBook(_isbn).toJsonObject().toString();
+    public String getBook(@RequestParam(value = "isbn", defaultValue = "9780788789830") String _isbn,
+                       @RequestParam(value = "title", defaultValue = "") String _title) {
+        if(_isbn != null){
+            return Book.getBook(_isbn).toJsonObject().toString();
+        } else return getBookByTitle(_title);
+    }
+
+    //TODO
+    private String getBookByTitle(String title) {
+        return null;
     }
 
     @GetMapping("/getAuthor")
