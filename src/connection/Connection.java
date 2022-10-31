@@ -20,12 +20,12 @@ public class Connection {
         SpringApplication.run(Connection.class, args);
     }
 
-    @GetMapping("/test")
+    @GetMapping("/getBook")
     public String test(@RequestParam(value = "isbn", defaultValue = "9780788789830") String _isbn) {
         return Book.getBook(_isbn).toJsonObject().toString();
     }
 
-    @GetMapping("/author")
+    @GetMapping("/getAuthor")
     public String author(@RequestParam(value = "author", defaultValue = "J.R.R. Tolkien") String _author) {
         HashMap<String, JSONArray> map = new HashMap<>();
         LinkedList<JSONObject> jsons = new LinkedList<>();

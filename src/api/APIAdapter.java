@@ -19,14 +19,11 @@ class APIAdapter implements APIInterface {
     }
 
     @Override
-    public String getJsonAsString(RequestType _requestType, String _arg) throws IOException {
-        return this.api.getJsonAsString(_requestType, _arg);
-    }
-
-    @Override
     public HttpURLConnection getConnection(URL _url) throws IOException {
         return this.api.getConnection(_url);
     }
 
-
+    public URL getURL(String _firstArg, String _secondArg) throws IOException{
+        return this.api.getURL(_firstArg, _secondArg);
+    }
 }

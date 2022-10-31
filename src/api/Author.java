@@ -21,7 +21,7 @@ public class Author {
         this();
         this.id = _id;
         try {
-            this.name = new JSONObject(API.getJsonAsString(RequestType.AUTHORS, _id)).getString("name");
+            this.name = new JSONObject(API.getJsonAsString(_id, "")).getString("name");
         } catch (Exception ignored) {
             this.name = "";
         }
@@ -48,12 +48,12 @@ public class Author {
         }
 
         if (tempAuthorList.size() == 0) try {
-            String s = API.getJsonSearchAsString(RequestType.AUTHORS, _name);
-            new JSONObject(s).getJSONArray("docs").forEach(e -> {
-                if (e instanceof JSONObject) {
-                    tempAuthorList.add(Author.getAuthorById(((JSONObject) e).getString("key")));
-                }
-            });
+            new JSONObject(API.getJsonSearchAsString(RequestType.AUTHORS, _name)).getJSONArray("docs")
+                    .forEach(e -> {
+                        if (e instanceof JSONObject) {
+                            tempAuthorList.add(Author.getAuthorById(((JSONObject) e).getString("key")));
+                        }
+                    });
 
         } catch (Exception ex) {
             ex.printStackTrace();

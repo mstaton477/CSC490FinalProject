@@ -10,42 +10,78 @@ public class Book {
 
     static Pattern ISBN13 = Pattern.compile("\\s*\\d{13}\\s*");
     private String isbn, title;
-    private LinkedList<Author> authors = new LinkedList<>();
+    private LinkedHashSet<Author> authors = new LinkedHashSet<>();
     private static final APIInterface API = APIInterface.getInstance();
-    private static final int AUTHOR_SUBSTRING_STARTING_INDEX = 9;
+    private static final int NUM_OF_ITERATIONS = 10;
     private static final LinkedHashSet<Book> books = new LinkedHashSet<>();
 
     private Book() {
         books.add(this);
     }
 
-    private Book(String _isbn, LinkedList<Author> _authors, String _title) throws NullPointerException {
+    private Book(String _isbn, Set<Author> _authors, String _title) throws NullPointerException {
         this();
         Utilities.notNull(_isbn);
 
         this.isbn = _isbn;
-        this.authors = _authors;
+        this.authors = new LinkedHashSet<>(_authors);
         this.title = _title;
     }
 
     private Book(String _isbn) {
         this();
         this.isbn = _isbn;
+        JSONObject json;
+        String key = null;
         try {
-            JSONObject json = new JSONObject(API.getJsonAsString(RequestType.ISBN, _isbn));
+            json = new JSONObject(API.getJsonAsString(RequestType.ISBN, _isbn));
+
+            key = getKey(json);
 
             this.title = json.getString("title");
 
-            this.authors = new LinkedList<>();
-            JSONArray authorsArray = json.getJSONArray("authors");
-            Iterator<Object> authorsIterator = authorsArray.iterator();
-            JSONObject temp;
-            while (authorsIterator.hasNext()) {
-                temp = (JSONObject) authorsIterator.next();
-                this.authors.add(Author.getAuthorById(temp.getString("key").substring(AUTHOR_SUBSTRING_STARTING_INDEX)));
-            }
+            this.authors = setAndGetAuthors(json);
 
         } catch (Exception ignored) {
+        } finally {
+            try {
+                if (this.authors == null || this.authors.isEmpty()) {
+                    for (int i = NUM_OF_ITERATIONS; key != null && i > 0; i--) {
+                        json = new JSONObject(API.getJsonAsString(key, ""));
+                        if (json.keySet().contains("authors")) {
+                            this.authors = setAndGetAuthors(json);
+                            break;
+                        } else {
+                            key = getKey(json);
+                        }
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    private String getKey(JSONObject json) {
+        Set<String> keySet = json.keySet();
+        if (keySet.contains("works"))
+            return json.getJSONArray("works").getJSONObject(0).getString("key");
+        else return null;
+    }
+
+    private static LinkedHashSet<Author> setAndGetAuthors(JSONObject json) {
+        LinkedHashSet<Author> set = new LinkedHashSet<>();
+        setAuthors(set, json);
+        return set;
+    }
+
+    private static void setAuthors(Collection<Author> c, JSONObject json) {
+        JSONArray authorsArray = json.getJSONArray("authors");
+        Iterator<Object> authorsIterator = authorsArray.iterator();
+        JSONObject temp;
+        while (authorsIterator.hasNext()) {
+            temp = (JSONObject) authorsIterator.next();
+            if (temp.keySet().contains("author")) temp = temp.getJSONObject("author");
+            c.add(Author.getAuthorById(temp.getString("key")));
         }
     }
 
@@ -66,8 +102,14 @@ public class Book {
         _map.put("isbn", this.isbn);
         if (this.title != null)
             _map.put("title", this.title);
-        if (this.authors.size() > 0)
-            _map.put("authors", new JSONArray(this.authors));
+        if (this.authors.size() > 0) {
+            JSONArray tempArr = new JSONArray();
+            this.authors.forEach(e -> {
+                tempArr.put(e.toJsonObject());
+            });
+            _map.put("authors", tempArr);
+        }
+
 
         return _map;
     }
@@ -80,7 +122,7 @@ public class Book {
         return this.isbn;
     }
 
-    public LinkedList<Author> getAuthors() {
+    public LinkedHashSet<Author> getAuthors() {
         return this.authors;
     }
 
@@ -120,7 +162,7 @@ public class Book {
         this.isbn = _isbn;
     }
 
-    void setAuthors(LinkedList<Author> _authors) {
+    void setAuthors(LinkedHashSet<Author> _authors) {
         this.authors = _authors;
     }
 

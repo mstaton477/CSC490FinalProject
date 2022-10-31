@@ -16,6 +16,10 @@ public class API implements APIInterface {
         return new URL(String.format(FORMAT_STRING, supportsHttps() ? "s" : "", _requestType + "/" + _arg, ""));
     }
 
+    public URL getURL(String _firstArg, String _secondArg) throws IOException {
+        return new URL(String.format(FORMAT_STRING, supportsHttps() ? "s" : "", _firstArg, _secondArg));
+    }
+
     public URL getUrlSearch(RequestType _nullableRequestType, String _arg) throws IOException {
         return new URL(String.format(FORMAT_STRING, supportsHttps() ? "s" : "", "search" +
                 (_nullableRequestType != null ? "/" + _nullableRequestType : ""),
