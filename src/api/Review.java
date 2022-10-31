@@ -4,14 +4,16 @@ public class Review {
     private String username, review;
     private Book book;
 
-    public Review(String _isbn, String _username, String _review){
+    public Review(String _isbn, String _username, String _review) {
+
         Utilities.notNull(_isbn, _username);
+
         this.book = Book.getBook(_isbn);
         this.username = _username;
         this.review = _review;
     }
 
-    public Review(String _isbn, String _username){
+    public Review(String _isbn, String _username) {
         this(_isbn, _username, null);
     }
 
@@ -31,7 +33,7 @@ public class Review {
         this.book = Book.getBook(_isbn);
     }
 
-    public void setBook(Book _book){
+    public void setBook(Book _book) {
         this.book = _book;
     }
 

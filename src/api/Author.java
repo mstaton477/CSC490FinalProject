@@ -18,8 +18,10 @@ public class Author {
     }
 
     private Author(String _id) {
+
         this();
         this.id = _id;
+
         try {
             this.name = API.getJsonAsString(_id, "").getString("name");
         } catch (Exception ignored) {
@@ -28,18 +30,22 @@ public class Author {
     }
 
     public static Author getAuthorById(String _id) {
+
         if(!_id.startsWith("/authors/")){
             _id = "/authors/" + _id;
         }
+
         for (Author a : authors) {
             if (a.id.equals(_id)) {
                 return a;
             }
         }
+
         return new Author(_id);
     }
 
     public static LinkedList<Author> getAuthorsByName(String _name) {
+
         if (_name == null) return null;
 
         LinkedList<Author> tempAuthorList = new LinkedList<>();
@@ -73,9 +79,11 @@ public class Author {
     }
 
     public JSONObject toJsonObject() {
+
         HashMap<String, String> map = new HashMap<>();
         map.put("name", this.name);
         map.put("id", this.id);
+
         return new JSONObject(map);
     }
 

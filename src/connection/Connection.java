@@ -22,8 +22,9 @@ public class Connection {
 
     @GetMapping("/getBook")
     public String getBook(@RequestParam(value = "isbn", defaultValue = "9780788789830") String _isbn,
-                       @RequestParam(value = "title", defaultValue = "") String _title) {
-        if(_isbn != null){
+                          @RequestParam(value = "title", defaultValue = "") String _title) {
+
+        if (_isbn != null) {
             return Book.getBook(_isbn).toJsonObject().toString();
         } else return getBookByTitle(_title);
     }
@@ -35,12 +36,13 @@ public class Connection {
 
     @GetMapping("/getAuthor")
     public String author(@RequestParam(value = "author", defaultValue = "J.R.R. Tolkien") String _author) {
+
         HashMap<String, JSONArray> map = new HashMap<>();
         LinkedList<JSONObject> jsons = new LinkedList<>();
 
         Author.getAuthorsByName(_author).forEach(e -> jsons.add(e.toJsonObject()));
-
         map.put("authors", new JSONArray(jsons));
+
         return new JSONObject(map).toString();
     }
 }

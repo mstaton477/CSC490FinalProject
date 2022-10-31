@@ -20,6 +20,7 @@ public class Book {
     }
 
     private Book(String _isbn, Set<Author> _authors, String _title) throws NullPointerException {
+
         this();
         Utilities.notNull(_isbn);
 
@@ -29,24 +30,27 @@ public class Book {
     }
 
     private Book(String _isbn) {
+
         this();
         this.isbn = _isbn;
         JSONObject json;
         String key = null;
-        try {
-            json = API.getJsonAsString(RequestType.ISBN, _isbn);
 
+        try {
+
+            json = API.getJsonAsString(RequestType.ISBN, _isbn);
             key = getKey(json);
 
             this.title = json.getString("title");
-
             this.authors = setAndGetAuthors(json);
 
         } catch (Exception ignored) {
         } finally {
             try {
+
                 if (this.authors == null || this.authors.isEmpty()) {
                     for (int i = NUM_OF_ITERATIONS; key != null && i > 0; i--) {
+
                         json = API.getJsonAsString(key, "");
                         if (json.keySet().contains("authors")) {
                             this.authors = setAndGetAuthors(json);
@@ -62,22 +66,27 @@ public class Book {
     }
 
     private String getKey(JSONObject json) {
+
         Set<String> keySet = json.keySet();
         if (keySet.contains("works"))
             return json.getJSONArray("works").getJSONObject(0).getString("key");
+
         else return null;
     }
 
     private static LinkedHashSet<Author> setAndGetAuthors(JSONObject json) {
+
         LinkedHashSet<Author> set = new LinkedHashSet<>();
         setAuthors(set, json);
         return set;
     }
 
     private static void setAuthors(Collection<Author> c, JSONObject json) {
+
         JSONArray authorsArray = json.getJSONArray("authors");
         Iterator<Object> authorsIterator = authorsArray.iterator();
         JSONObject temp;
+
         while (authorsIterator.hasNext()) {
             temp = (JSONObject) authorsIterator.next();
             if (temp.keySet().contains("author")) temp = temp.getJSONObject("author");
@@ -86,20 +95,24 @@ public class Book {
     }
 
     public static Book getBook(String _isbn) {
+
         for (Book b : books) {
             if (b.isbn.equals(_isbn)) {
                 return b;
             }
         }
+
         return new Book(_isbn);
     }
 
-    public static Book getBookByTitle(String _title){
-        String tempTitle = _title.replaceAll("\\s","").toLowerCase();
-        for(Book b: books){
-            if(b.title.replaceAll("\\s","").toLowerCase().equals(tempTitle))
+    public static Book getBookByTitle(String _title) {
+        String tempTitle = _title.replaceAll("\\s", "").toLowerCase();
+
+        for (Book b : books) {
+            if (b.title.replaceAll("\\s", "").toLowerCase().equals(tempTitle))
                 return b;
         }
+
         return null;
     }
 
@@ -109,13 +122,13 @@ public class Book {
 
     public <T extends Map<String, Object>> T toMap(T _map) {
         _map.put("isbn", this.isbn);
+
         if (this.title != null)
             _map.put("title", this.title);
+
         if (this.authors.size() > 0) {
             JSONArray tempArr = new JSONArray();
-            this.authors.forEach(e -> {
-                tempArr.put(e.toJsonObject());
-            });
+            this.authors.forEach(e -> tempArr.put(e.toJsonObject()));
             _map.put("authors", tempArr);
         }
 
