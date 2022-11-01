@@ -61,7 +61,7 @@ app.get('/signin', (req, res) => {
 //     })
 // })
 
-app.post('/views/singin', function(req, res, next) {
+app.post('/views/signin', function(req, res, next) {
     inputData = {
         Username: req.body.Username,
         Name: req.body.Name, 
