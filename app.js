@@ -7,15 +7,15 @@ const http = require('http');
 const mysql = require('mysql');
 var bodyParser = require('body-parser');
 const { eachDayOfInterval } = require('date-fns');
-const { response } = require('express');
+const { response, query } = require('express');
+const { co } = require('co');
 const app = express();
 
 
 app.use(sessions({
     secret: 'secret',
     saveUninitialized:true,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 24 hours
-    resave: false
+    resave: true 
 }));
 
 app.use(express.json());
@@ -35,15 +35,11 @@ db.connect((err) => {
     console.log("DB connection OK")
 });
 
-
+//getting homepage
 app.use(express.static(__dirname + '/pages'));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/pages' +'/views/home.html')
-})
-
-app.get('/signin', (req, res) => {
-    res.sendFile(__dirname + '/pages' +'/views/signin.html')
 })
 
 
@@ -55,53 +51,43 @@ app.post('/views/signin', function(req, res, next) {
         Password: req.body.Password
     }
 
-    var sql = 'SELECT * FROM user WHERE Email =?';
-    db.query(sql, [inputData.Email], function(err, data, fields){
-        if(err) throw err
+    var sql = 'SELECT * FROM user WHERE Username =?';
+    db.query(sql, [inputData.Username], function(err, data, fields){
+        if(err) throw err;
         if(data.length > 1){
-            var msg = inputData.Email + " already exists"; 
+            console.log(inputData.Username + " already exists"); 
         }else {
             var sql = 'INSERT INTO user SET ?';
             db.query(sql, inputData, function(err, data) {
                 if(err) throw err; 
             });
-            var msg = "You have sucessfully Registered your account"; 
+            console.log("You have sucessfully Registered your account"); 
         }
-    
     })
 });
 
-app.get('/login', function(req, res){
-    res.sendFile(__dirname + '/pages' +'/views/login.html')
+app.post('/login', function(req,res){
+    var Username = req.body.usernameField; 
+    var Password = req.body.passwordField; 
+
+    var sql = 'SELECT * FROM user WHERE Username =? AND Password =?';
+    db.query(sql, [Username, Password], function(err, data, fields){
+        if(err) throw err; 
+        if(data.length > 0){
+            req.session.logginedUser = true; 
+            req.session.Username = Username; 
+            res.redirect('/dashboard');
+        }else{
+            res.render('login-form', {alertMsg:"Your Username or password is wrong"});
+        }
+    })
 })
 
-app.post('/login', function(req, res){
-    let Username = req.body.Username; 
-    let Password = req.body.Password; 
-
-    if(Username && Password){
-        db.query('SELECT * FROM user WHERE Username =? AND Password =?', [Username, Password], function(err, results, fields){
-            if(err){throw err} 
-            if(results.length > 0){
-                req.session.loggedin = true; 
-                req.session.Username = Username; 
-                res.redirect('views/dashboard.html');
-            }else{
-                res.send("Incorrect Username or Password");
-            }
-            res.end(); 
-        });
+app.get('/dashboard', function(req, res, next) {
+    if(req.session.logginedUser){
+        res.render('dashboard', {Username:req.session.Username})
     }else{
-        res.send('Please Enter Username and Password');
-        res.end(); 
-    }
-});
-
-app.get('/dashboard', function(req, res, next){
-    if(req.session.loggedinUser){
-        res.render('dashboard',{Username: req.session.Username})
-    }else{
-        res.sendFile(__dirname + '/pages' +'/views/login.html')
+        res.redirect('/login');
     }
 });
 
@@ -109,8 +95,6 @@ app.get('/logout', function(req, res){
     req.session.destroy(); 
     res.redirect('/login');
 });
-
-
 
 app.listen(3000, function () {
     console.log('Node app is running on port 3000');
