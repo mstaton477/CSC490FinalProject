@@ -2,6 +2,8 @@ package connection;
 
 import api.Author;
 import api.Book;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
@@ -10,8 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 @SpringBootApplication
 @RestController
@@ -26,18 +27,24 @@ public class Connection {
 
         if (_title.isEmpty()) {
             return Book.getBook(_isbn).toJsonObject().toString();
-        } else return getBookByTitle(_title);
+        } else return getBooksByTitle(_title);
     }
 
     //TODO
-    private String getBookByTitle(String _title) {
-
-        Book book = Book.getBookByTitle(_title);
-        return book != null ? book.toJsonObject().toString() : null;
+    private String getBooksByTitle(String _title) {
+        
+        Map<String,JSONArray> map = new HashMap<>();
+        map.put("books", new JSONArray(Book.getBooksByTitle(_title)));
+        return new JSONObject(map).toString();
     }
 
     @GetMapping("/getAuthor")
-    public String author(@RequestParam(value = "author", defaultValue = "J.R.R. Tolkien") String _author) {
+    public String getAuthor(@RequestParam(value = "name", defaultValue = "J.R.R. Tolkien") String _name,
+                            @RequestParam(value = "author", defaultValue = "") String _author) {
+
+        if(_author.isEmpty()){
+            _author = _name;
+        }
 
         HashMap<String, JSONArray> map = new HashMap<>();
         LinkedList<JSONObject> jsons = new LinkedList<>();

@@ -17,7 +17,7 @@ public class API implements APIInterface {
     }
 
     public URL getURL(String _firstArg, String _secondArg) throws IOException {
-        return new URL(String.format(FORMAT_STRING, supportsHttps() ? "s" : "", _firstArg, _secondArg));
+        return new URL(String.format(FORMAT_STRING, supportsHttps() ? "s" : "", (_firstArg.startsWith("/") ? _firstArg.substring(1) : _firstArg), _secondArg));
     }
 
     public URL getUrlSearch(RequestType _nullableRequestType, String _arg) throws IOException {

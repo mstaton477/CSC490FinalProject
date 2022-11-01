@@ -27,7 +27,7 @@ public class APITest {
 
     private static void test(String _arg) {
         try {
-            JSONObject json = API.getJsonSearchAsString(null, _arg);
+            JSONObject json = API.getJsonSearch(null, _arg);
 
             LinkedHashSet<String> set = parseForISBNs(json);
             System.out.println("Number of ISBNs: " + set.size());
