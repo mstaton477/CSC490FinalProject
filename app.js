@@ -46,31 +46,44 @@ app.get('/signin', (req, res) => {
 })
 
 
-// app.post('/signin/create', function(req, res) => {
+// app.post('/views/signin', (req, res) => {
+//     const Username = req.body.Username; 
+//     const Name = req.body.Name; 
+//     const Email = req.body.Email; 
+//     const Password = req.body.Password;
 
 
-//     const sql = `INSERT INTO users (Username, Name, Email, Password) VALUES ("${Username}", "${Name}", "${Email}", "${Password}"`;
+//     const sql = `INSERT INTO user (Username, Name, Email, Password) VALUES ('${Username}', '${Name}', '${Email}', '${Password}')`;
 //     db.query(sql, function(err, result) {
-//       if (err) throw err;
-//       console.log('record inserted');
-//       res.redirect('success.html');
-//     });
-// });
+//         if(err) throw err; 
+//         console.log('record inserted');
+//         res.redirect('success.html'); 
+//     })
+// })
 
-app.post('/views/signin', (req, res) => {
-    const Username = req.body.Username; 
-    const Name = req.body.Name; 
-    const Email = req.body.Email; 
-    const Password = req.body.Password;
+app.post('/views/singin', function(req, res, next) {
+    inputData = {
+        Username: req.body.Username,
+        Name: req.body.Name, 
+        Email: req.body.Email,
+        Password: req.body.Password
+    }
 
-
-    const sql = `INSERT INTO user (Username, Name, Email, Password) VALUES ('${Username}', '${Name}', '${Email}', '${Password}')`;
-    db.query(sql, function(err, result) {
-        if(err) throw err; 
-        console.log('record inserted');
-        res.redirect('success.html'); 
+    var sql = 'SELECT * FROM user WHERE Email =?';
+    db.query(sql, [inputData.Email], function(err, data, fields){
+        if(err) throw err
+        if(data.length > 1){
+            var msg = inputData.Email + " already exists"; 
+        }else {
+            var sql = 'INSERT INTO user SET ?';
+            db.query(sql, inputData, function(err, data) {
+                if(err) throw err; 
+            });
+            var msg = "You have sucessfully Registered your account"; 
+        }
+    
     })
-})
+});
 
 app.listen(3000, function () {
     console.log('Node app is running on port 3000');
