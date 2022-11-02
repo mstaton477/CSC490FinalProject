@@ -9,9 +9,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
 public interface APIInterface {
-    Pattern ISBN13 = Pattern.compile("\\s*\\d{13}\\s*"), WHITESPACE_AND_PERIODS = Pattern.compile("\\s|\\."),
-            WORKS_KEY = Pattern.compile("W$"), BOOKS_KEY = Pattern.compile("M$"),
-            AUTHOR_KEY = Pattern.compile("A$");
+    Pattern WHITESPACE_AND_PERIODS = Pattern.compile("\\s|\\."), AUTHOR_KEY = Pattern.compile("A$"),
+            WORKS_KEY = Pattern.compile("W$"), BOOKS_KEY = Pattern.compile("M$");
 
     URL getUrl(RequestType _requestType, String _arg) throws IOException;
 
@@ -19,7 +18,7 @@ public interface APIInterface {
 
     HttpURLConnection getConnection(URL _url) throws IOException;
 
-    public URL getURL(String _firstArg, String _secondArg) throws IOException;
+    URL getURL(String _firstArg, String _secondArg) throws IOException;
 
     default JSONObject getJson(String _firstArg, String _secondArg) throws IOException {
         return new JSONObject(new String(this.getConnection(this.getURL(_firstArg, _secondArg))

@@ -2,6 +2,8 @@ package api;
 
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -45,7 +47,11 @@ public class Author {
         return new Author(_id);
     }
 
-    public static LinkedList<Author> getAuthorsByName(String _name) {
+    public static LinkedList<Author> getAuthorsByName(String _name){
+        return Author.getAuthorsByName(_name, "");
+    }
+
+    public static LinkedList<Author> getAuthorsByName(String _name, String _limit) {
 
         if (_name == null) return null;
 
@@ -57,7 +63,8 @@ public class Author {
         }
 
         if (tempAuthorList.size() == 0) try {
-            API.getJsonSearch(RequestType.AUTHORS, _name).getJSONArray("docs")
+            API.getJson("search/authors", "?q=" + URLEncoder.encode(_name, StandardCharsets.UTF_8) +
+                            (_limit.isEmpty() ? "" : "&limit=" + _limit)).getJSONArray("docs")
                     .forEach(e -> {
                         if (e instanceof JSONObject) {
                             tempAuthorList.add(Author.getAuthorById(((JSONObject) e).getString("key")));
