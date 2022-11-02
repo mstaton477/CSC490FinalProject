@@ -19,7 +19,7 @@ public class APITest {
                     case "title", "authors", "isbn_13", "genre" -> System.out.println(e + " : " + json.get(e));
                 }
             });
-            System.out.println(Book.getBook("9780788789830"));
+            System.out.println(Book.getBookByIsbn("9780788789830"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

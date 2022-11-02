@@ -22,12 +22,8 @@ public interface APIInterface {
     public URL getURL(String _firstArg, String _secondArg) throws IOException;
 
     default JSONObject getJson(String _firstArg, String _secondArg) throws IOException {
-        URL url = this.getURL(_firstArg, _secondArg);
-        System.out.println("url path: " + url.getPath());
-        String s = new String(this.getConnection(url)
-                .getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-        System.out.println("json: " + s);
-        return new JSONObject(s);
+        return new JSONObject(new String(this.getConnection(this.getURL(_firstArg, _secondArg))
+                .getInputStream().readAllBytes(), StandardCharsets.UTF_8));
     }
 
     default JSONObject getJson(String _firstArg) throws IOException {
