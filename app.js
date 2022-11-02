@@ -1,25 +1,25 @@
 // Imports
 const express = require('express');
-const cookieParser = require("cookie-parser");
-const sessions = require('express-session');
-const http = require('http');
+const session = require('express-session');
+const passport = require('passport'); 
+const LocalStrategy = require('passport-local').Strategy; 
 const mysql = require('mysql');
+const bcrypt = require('bcrypt');
+
 var bodyParser = require('body-parser');
+const { writerState } = require('xmlbuilder');
 const app = express();
 
-// let encodeURL = parseUrl.urlencoded({extended: false});
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(sessions({
-    secret: "thisismysecrctekey",
+app.use(session({
+    secret: 'secret',
     saveUninitialized:true,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 24 hours
-    resave: false
+    resave: true 
 }));
 
-app.use(cookieParser());
+app.use(express.json());
+
+
 
 const db = mysql.createConnection({
     host: "us-cdbr-east-06.cleardb.net", 
@@ -33,48 +33,110 @@ db.connect((err) => {
     console.log("DB connection OK")
 });
 
-
+//getting homepage
 app.use(express.static(__dirname + '/pages'));
+
+app.use(session({
+    key: "cats",
+    secret: "cats", 
+    resave: false, 
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session()); 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/pages' +'/views/home.html')
 })
 
-app.get('/signin', (req, res) => {
-    res.sendFile(__dirname + '/pages' +'/views/signin.html')
-})
+
+app.post('/views/signin', async(req, res) => {
+    inputData = {
+        Username: req.body.Username,
+        Name: req.body.Name, 
+        Email: req.body.Email,
+        Password: await bcrypt.hash(req.body.Password, 10)
+    }
+
+    var sql = 'SELECT * FROM user WHERE Username =?';
+    await db.query(sql, [inputData.Username], function(err, data, fields){
+        if(err) throw err;
+        if(data.length > 1){
+            console.log(inputData.Username + " already exists"); 
+        }else {
+            var sql = 'INSERT INTO user SET ?';
+             db.query(sql, inputData, function(err, data) {
+                if(err) throw err;
+            });
+            console.log("You have sucessfully Registered your account"); 
+            res.redirect('./login.html');
+        }
+    })
+});
 
 
-// app.post('/signin/create', function(req, res) => {
+// app.post('/login', async(req,res) => {
+//     var Username = req.body.username; 
+//     var Password = req.body.password; 
+
+//     var sql = `SELECT * FROM user WHERE Username =? AND Password =?`;
+//     await db.query(sql, [Username, Password], function(err, data, _fields){
+//         if(err) throw err; 
+//         if(data.length > 0){
+//             req.session.logginedUser = true; 
+//             req.session.Username = Username; 
+//             res.redirect('/dashboard.html');
+//         }else{
+//          console.log("Your Username or password is wrong");
+//         }
+//     })
+// })
+
+app.post('/login', async(req, res) => {
+    const Username = req.body.username; 
+    const Password = req.body.password;  
+
+    const sqlSearch = "SELECT * FROM user where Username = ?;"; 
+    const search_query = mysql.format(sqlSearch, [Username]);
 
 
-//     const sql = `INSERT INTO users (Username, Name, Email, Password) VALUES ("${Username}", "${Name}", "${Email}", "${Password}"`;
-//     db.query(sql, function(err, result) {
-//       if (err) throw err;
-//       console.log('record inserted');
-//       res.redirect('success.html');
-//     });
-// });
-
-app.post('/views/signin', (req, res) => {
-    const Username = req.body.Username; 
-    const Name = req.body.Name; 
-    const Email = req.body.Email; 
-    const Password = req.body.Password;
-
-    const sql = 'INSERT INTO `user` (Username, Name, Email, Password) VALUES ("${Username}", "${Name}", "${Email}", "${Password}")';
-    db.query(sql, function(err, result) {
-        if(err) throw err; 
-        console.log('record inserted');
-        res.redirect('success.html'); 
+    await db.query(search_query, async(err, result) => {
+        if (err) throw err; 
+        if(result.length == 0){
+            console.log("User doesn't exit");
+            res.sendStatus(404); 
+        }else{
+            const hashedPassword = result[0].Password; 
+            
+            if(bcrypt.compare(Password, hashedPassword)){
+                console.log('Login Successful');
+                res.send(`${Username} is logged in`);
+                res.redirect('./dashboard.html');
+            }else{
+                console.log("Password Incorrect");
+                res.send("Password incorrect"); 
+            }
+        }
     })
 })
 
-var port = process.env.PORT || 3000;
-
-// Listen on Port 3000
-app.listen(port, function () {
-    console.log('Node app is running on port 3000');
+app.get('/dashboard', function(req, res, next) {
+    if(req.session.logginedUser){
+        res.render('dashboard', {Username:req.session.Username})
+    }else{
+        res.redirect('/login');
+    }
 });
 
+app.get('/logout', function(req, res){
+    req.session.destroy(); 
+    res.redirect('/login');
+});
+
+app.listen(3000, function () {
+    console.log('Node app is running on port 3000');
+});
 
