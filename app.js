@@ -95,27 +95,27 @@ app.post('/login', async(req, res) => {
             console.log("User doesn't exit");
             res.sendStatus(404); 
         }else{
-            const hashedPassword = result[0].Password; 
+            const hashedPassword = result[0].Password;
+            req.session.loggedinUser= true;
+            req.session.Username= Username; 
             if(await bcrypt.compare(Password, hashedPassword)){
                 console.log('Login Successful');
-                // res.send(`${Username} is logged in `);
-                req.session.loggedinUser= true;
-                req.session.Username= Username;
-                res.redirect('pages/views/dashboard.html');
+                // res.send(`${Username} is logged in `);   
             }else{
                 console.log("Password Incorrect");
                 res.send("Password incorrect"); 
             }
+            res.redirect('./dashboard');
     
         }
     })
 })
 
 app.get('/dashboard', function(req, res, next) {
-    if(req.session.logginedUser){
-        res.render('dashboard', {Username:req.session.Username})
+    if(req.session.loggedinUser){
+        res.send('dashboard', {Username:req.session.Username})
     }else{
-        res.redirect('/login');
+        res.redirect('./login');
     }
 });
 
