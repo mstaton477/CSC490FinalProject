@@ -1,27 +1,25 @@
 // Imports
 const express = require('express');
-const cookieParser = require("cookie-parser");
-const morgan = require('morgan'); 
-const sessions = require('express-session');
-const http = require('http');
+const session = require('express-session');
+const passport = require('passport'); 
+const LocalStrategy = require('passport-local').Strategy; 
 const mysql = require('mysql');
+const bcrypt = require('bcrypt');
+
 var bodyParser = require('body-parser');
-const { eachDayOfInterval } = require('date-fns');
-const { response, query } = require('express');
-const { co } = require('co');
+const { writerState } = require('xmlbuilder');
 const app = express();
 
 
-app.use(sessions({
+app.use(session({
     secret: 'secret',
     saveUninitialized:true,
     resave: true 
 }));
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
 
-app.use(cookieParser());
+
 
 const db = mysql.createConnection({
     host: "us-cdbr-east-06.cleardb.net", 
@@ -38,47 +36,89 @@ db.connect((err) => {
 //getting homepage
 app.use(express.static(__dirname + '/pages'));
 
+app.use(session({
+    key: "cats",
+    secret: "cats", 
+    resave: false, 
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session()); 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/pages' +'/views/home.html')
 })
 
 
-app.post('/views/signin', function(req, res, next) {
+app.post('/views/signin', async(req, res) => {
     inputData = {
         Username: req.body.Username,
         Name: req.body.Name, 
         Email: req.body.Email,
-        Password: req.body.Password
+        Password: await bcrypt.hash(req.body.Password, 10)
     }
 
     var sql = 'SELECT * FROM user WHERE Username =?';
-    db.query(sql, [inputData.Username], function(err, data, fields){
+    await db.query(sql, [inputData.Username], function(err, data, fields){
         if(err) throw err;
         if(data.length > 1){
             console.log(inputData.Username + " already exists"); 
         }else {
             var sql = 'INSERT INTO user SET ?';
-            db.query(sql, inputData, function(err, data) {
-                if(err) throw err; 
+             db.query(sql, inputData, function(err, data) {
+                if(err) throw err;
             });
             console.log("You have sucessfully Registered your account"); 
+            res.redirect('./login.html');
         }
     })
 });
 
-app.post('/login', function(req,res){
-    var Username = req.body.usernameField; 
-    var Password = req.body.passwordField; 
 
-    var sql = 'SELECT * FROM user WHERE Username =? AND Password =?';
-    db.query(sql, [Username, Password], function(err, data, fields){
-        if(err) throw err; 
-        if(data.length > 0){
-            req.session.logginedUser = true; 
-            req.session.Username = Username; 
-            res.redirect('/dashboard');
+// app.post('/login', async(req,res) => {
+//     var Username = req.body.username; 
+//     var Password = req.body.password; 
+
+//     var sql = `SELECT * FROM user WHERE Username =? AND Password =?`;
+//     await db.query(sql, [Username, Password], function(err, data, _fields){
+//         if(err) throw err; 
+//         if(data.length > 0){
+//             req.session.logginedUser = true; 
+//             req.session.Username = Username; 
+//             res.redirect('/dashboard.html');
+//         }else{
+//          console.log("Your Username or password is wrong");
+//         }
+//     })
+// })
+
+app.post('/login', async(req, res) => {
+    const Username = req.body.username; 
+    const Password = req.body.password;  
+
+    const sqlSearch = "SELECT * FROM user where Username = ?;"; 
+    const search_query = mysql.format(sqlSearch, [Username]);
+
+
+    await db.query(search_query, async(err, result) => {
+        if (err) throw err; 
+        if(result.length == 0){
+            console.log("User doesn't exit");
+            res.sendStatus(404); 
         }else{
-            res.render('login-form', {alertMsg:"Your Username or password is wrong"});
+            const hashedPassword = result[0].Password; 
+            
+            if(bcrypt.compare(Password, hashedPassword)){
+                console.log('Login Successful');
+                res.send(`${Username} is logged in`);
+                res.redirect('./dashboard.html');
+            }else{
+                console.log("Password Incorrect");
+                res.send("Password incorrect"); 
+            }
         }
     })
 })
