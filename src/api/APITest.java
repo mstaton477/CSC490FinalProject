@@ -19,7 +19,7 @@ public class APITest {
                     case "title", "authors", "isbn_13", "genre" -> System.out.println(e + " : " + json.get(e));
                 }
             });
-            System.out.println(Book.getBook("9780788789830"));
+            System.out.println(Book.getBookByIsbn("9780788789830"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -27,7 +27,7 @@ public class APITest {
 
     private static void test(String _arg) {
         try {
-            JSONObject json = new JSONObject(API.getJsonSearchAsString(null, _arg));
+            JSONObject json = API.getJsonSearch(null, _arg);
 
             LinkedHashSet<String> set = parseForISBNs(json);
             System.out.println("Number of ISBNs: " + set.size());
