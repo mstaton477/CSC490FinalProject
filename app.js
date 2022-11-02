@@ -62,38 +62,24 @@ app.post('/views/signin', async(req, res) => {
     }
 
     var sql = 'SELECT * FROM user WHERE Username =?';
-    await db.query(sql, [inputData.Username], function(err, data, fields){
+    await db.query(sql, [inputData.Username], async(err, data) =>{ 
         if(err) throw err;
-        if(data.length > 1){
+        if(data.length != 0){
             console.log(inputData.Username + " already exists"); 
+            res.send(`${Username} already exists`);
         }else {
             var sql = 'INSERT INTO user SET ?';
-             db.query(sql, inputData, function(err, data) {
-                if(err) throw err;
-            });
-            console.log("You have sucessfully Registered your account"); 
-            res.redirect('./login.html');
+            await db.query(sql, inputData, (err, data) => {
+                if (err) throw (err)
+                console.log("You have sucessfully Registered your account"); 
+                console.log(data.insertId); 
+                res.redirect('./login.html');
+            })
+
         }
     })
 });
 
-
-// app.post('/login', async(req,res) => {
-//     var Username = req.body.username; 
-//     var Password = req.body.password; 
-
-//     var sql = `SELECT * FROM user WHERE Username =? AND Password =?`;
-//     await db.query(sql, [Username, Password], function(err, data, _fields){
-//         if(err) throw err; 
-//         if(data.length > 0){
-//             req.session.logginedUser = true; 
-//             req.session.Username = Username; 
-//             res.redirect('/dashboard.html');
-//         }else{
-//          console.log("Your Username or password is wrong");
-//         }
-//     })
-// })
 
 app.post('/login', async(req, res) => {
     const Username = req.body.username; 
@@ -110,15 +96,17 @@ app.post('/login', async(req, res) => {
             res.sendStatus(404); 
         }else{
             const hashedPassword = result[0].Password; 
-            
-            if(bcrypt.compare(Password, hashedPassword)){
+            if(await bcrypt.compare(Password, hashedPassword)){
                 console.log('Login Successful');
-                res.send(`${Username} is logged in`);
-                res.redirect('./dashboard.html');
+                // res.send(`${Username} is logged in `);
+                req.session.loggedinUser= true;
+                req.session.Username= Username;
+                res.redirect('pages/views/dashboard.html');
             }else{
                 console.log("Password Incorrect");
                 res.send("Password incorrect"); 
             }
+    
         }
     })
 })
