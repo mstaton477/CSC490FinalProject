@@ -32,7 +32,6 @@ public class Connection {
         return "{}";
     }
 
-    //TODO
     private static String getBooksByTitle(String _title, String _limit) {
 
         Map<String, JSONArray> map = new HashMap<>();
@@ -41,14 +40,15 @@ public class Connection {
     }
 
     @GetMapping("/getAuthor")
-    public String getAuthor(@RequestParam(value = "name", defaultValue = "") String _name) {
+    public String getAuthor(@RequestParam(value = "name", defaultValue = "") String _name,
+                            @RequestParam(value = "limit", defaultValue = "") String _limit) {
 
         if (_name.isEmpty()) return "{}";
 
         HashMap<String, JSONArray> map = new HashMap<>();
         LinkedList<JSONObject> jsons = new LinkedList<>();
 
-        Author.getAuthorsByName(_name).forEach(e -> jsons.add(e.toJsonObject()));
+        Author.getAuthorsByName(_name, _limit).forEach(e -> jsons.add(e.toJsonObject()));
         map.put("authors", new JSONArray(jsons));
 
         return new JSONObject(map).toString();

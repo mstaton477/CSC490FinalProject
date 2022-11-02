@@ -14,8 +14,7 @@ public class Book {
     private String key, title, isbn;
     private LinkedHashSet<Author> authors = new LinkedHashSet<>();
     private static final APIInterface API = APIInterface.getInstance();
-    private static final String LIMIT = "15";
-    private static final int NUM_OF_ITERATIONS = 10;
+    private static final String LIMIT = "5";
     private static final LinkedHashSet<Book> books = new LinkedHashSet<>();
     private static final Book NULL_BOOK = new Book() {
         @Override
@@ -154,6 +153,10 @@ public class Book {
         Set<JSONObject> jsonSet = new HashSet<>();
         bookSet.forEach(e -> jsonSet.add(e.toJsonObject()));
         return new JSONArray(jsonSet);
+    }
+
+    public static LinkedHashSet<Book> getBooksByTitle(String _title){
+        return Book.getBooksByTitle(_title, "");
     }
 
     public static LinkedHashSet<Book> getBooksByTitle(String _title, String _limit) {
