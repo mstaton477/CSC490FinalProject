@@ -43,7 +43,7 @@ public class Book {
 
     private Book(String _key, Set<Author> _authors, String _title, String _isbn) throws NullPointerException {
 
-        Utilities.notNull(_key);
+        Utilities.throwExceptionIfNull(_key);
         books.add(this);
 
         this.key = _key;

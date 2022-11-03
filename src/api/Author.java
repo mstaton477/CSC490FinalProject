@@ -53,7 +53,7 @@ public class Author {
 
     public static LinkedList<Author> getAuthorsByName(String _name, String _limit) {
 
-        if (_name == null) return null;
+        Utilities.throwExceptionIfNull(_name);
 
         LinkedList<Author> tempAuthorList = new LinkedList<>();
         for (Author a : authors) {

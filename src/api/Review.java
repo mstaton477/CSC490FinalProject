@@ -8,7 +8,7 @@ public class Review {
 
     public Review(Book _book, String _username, String _review) {
 
-        Utilities.notNull(_book, _username);
+        Utilities.throwExceptionIfNull(_book, _username);
 
         this.book = _book;
         this.username = _username;

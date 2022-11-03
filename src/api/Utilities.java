@@ -2,16 +2,16 @@ package api;
 
 public class Utilities {
 
-    public static void notNull(Object... _o) throws NullPointerException {
+    public static void throwExceptionIfNull(Object... _o) throws NullPointerException {
 
-        throwExceptionIfNull(_o);
+        Utilities.ifNullHelper(_o);
 
         for (var e : _o) {
-            throwExceptionIfNull(e);
+            Utilities.ifNullHelper(e);
         }
     }
 
-    public static void throwExceptionIfNull(Object _o) throws NullPointerException {
+    private static void ifNullHelper(Object _o) throws NullPointerException {
         if (_o == null) throw new NullPointerException();
     }
 }

@@ -26,7 +26,7 @@ public interface APIInterface {
     }
 
     default JSONObject getJson(String _firstArg) throws IOException {
-        return getJson(_firstArg, "");
+        return this.getJson(_firstArg, "");
     }
 
     default JSONObject getJson(RequestType _requestType, String _arg) throws IOException {
