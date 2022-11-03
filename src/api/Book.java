@@ -60,54 +60,12 @@ public class Book {
         return getKey(API.getJson("isbn/" + _isbn));
     }
 
-    /*
-
-
-    private Book(String _isbn) {
-
-        this.isbn = _isbn;
-        books.add(this);
-        JSONObject json;
-
-        try {
-
-            json = API.getJson("isbn/" + _isbn);
-            this.key = getKey(json);
-
-            this.title = json.getString("title");
-            this.authors = setAndGetAuthors(json);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-
-                if (this.authors == null || this.authors.isEmpty()) {
-                    for (int i = NUM_OF_ITERATIONS; key != null && i > 0; i--) {
-
-                        json = API.getJson(key, "");
-                        if (json.keySet().contains("authors")) {
-                            this.authors = setAndGetAuthors(json);
-                            break;
-                        } else {
-                            key = getKey(json);
-                        }
-                    }
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-     */
-
     private static @Nullable String getKey(@NotNull JSONObject json) {
 
         Set<String> keySet = json.keySet();
-        if (keySet.contains("works"))
-            return json.getJSONArray("works").getJSONObject(0).getString("key");
-        else if (keySet.contains("key"))
-            return json.getString("key");
+        if (keySet.contains("works")) return json.getJSONArray("works").getJSONObject(0).getString("key");
+
+        else if (keySet.contains("key")) return json.getString("key");
 
         else return null;
     }
@@ -125,20 +83,17 @@ public class Book {
         Iterator<Object> authorsIterator = authorsArray.iterator();
         JSONObject temp;
 
-        while (authorsIterator.hasNext()) {
-            temp = (JSONObject) authorsIterator.next();
-            if (temp.keySet().contains("author")) temp = temp.getJSONObject("author");
-            c.add(Author.getAuthorById(temp.getString("key")));
-        }
+        while (authorsIterator.hasNext())
+            if ((temp = (JSONObject) authorsIterator.next()).keySet().contains("author")) {
+                temp = temp.getJSONObject("author");
+                c.add(Author.getAuthorById(temp.getString("key")));
+            }
+
     }
 
     public static Book getBookByIsbn(String _isbn) throws IOException {
 
-        for (Book b : books) {
-            if (b.getIsbn().equals(_isbn)) {
-                return b;
-            }
-        }
+        for (Book b : books) if (b.getIsbn().equals(_isbn)) return b;
 
         return Book.getBookByKey(Book.getKeyFromIsbn(_isbn), _isbn);
     }
@@ -154,9 +109,11 @@ public class Book {
      */
     @Contract("_, _ -> new")
     public static @NotNull JSONArray getBooksByTitleAsJSONArray(String _title, String _limit) {
+
         Set<Book> bookSet = Book.getBooksByTitle(_title, _limit);
         Set<JSONObject> jsonSet = new HashSet<>();
         bookSet.forEach(e -> jsonSet.add(e.toJsonObject()));
+
         return new JSONArray(jsonSet);
     }
 
@@ -165,15 +122,11 @@ public class Book {
     }
 
     public static @NotNull LinkedHashSet<Book> getBooksByTitle(String _title, String _limit) {
+
         LinkedHashSet<Book> linkedHashSet = new LinkedHashSet<>();
         String tempTitle = Book.processString(_title);
 
-
-        for (Book b : books)
-            if (Book.processString(b.getTitle()).equals(tempTitle)) {
-                linkedHashSet.add(b);
-            }
-
+        for (Book b : books) if (Book.processString(b.getTitle()).equals(tempTitle)) linkedHashSet.add(b);
 
         if (linkedHashSet.isEmpty()) try {
 
@@ -206,28 +159,24 @@ public class Book {
 
         try {
             JSONObject json;
-            if (Book.isValidKey(API.BOOKS_KEY, _key)) {
+            if (Book.isValidKey(API.BOOKS_KEY, _key))
                 json = API.getJson(_key.startsWith("/books/") ? _key : "books/" + _key);
-            } else if (Book.isValidKey(API.WORKS_KEY, _key)) {
+            else if (Book.isValidKey(API.WORKS_KEY, _key))
                 json = API.getJson(_key.startsWith("/works/") ? _key : "works/" + _key);
-            } else throw new IOException("invalid key: " + _key);
+            else throw new IOException("invalid key: " + _key);
 
             Set<String> keySet = json.keySet();
             if (keySet.contains("type")) {
                 String temp = json.getJSONObject("type").getString("key");
-                if (temp.equals("/type/redirect")) {
-                    return Book.getBookByKey(json.getString("location"));
-                }
+                if (temp.equals("/type/redirect")) return Book.getBookByKey(json.getString("location"));
             }
 
             String title = "";
-            if (keySet.contains("title")) {
-                title = json.getString("title");
-            }
+            if (keySet.contains("title")) title = json.getString("title");
 
-            if (keySet.contains("isbn")) {
-                _isbn = json.getString("isbn");
-            }
+
+            if (keySet.contains("isbn")) _isbn = json.getString("isbn");
+
 
             LinkedHashSet<String> authorIds = new LinkedHashSet<>();
             LinkedHashSet<Author> authors = new LinkedHashSet<>();

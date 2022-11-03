@@ -1,7 +1,6 @@
 package connection;
 
 import api.*;
-import org.jetbrains.annotations.NotNull;
 import org.json.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,14 +16,16 @@ public class Connection {
     }
 
     @GetMapping("/getBook")
-    public String getBook(@RequestParam(value = "isbn", defaultValue = "") String _isbn,
+    public String getBook(@RequestParam(value = "key", defaultValue = "") String _key,
+                          @RequestParam(value = "isbn", defaultValue = "") String _isbn,
                           @RequestParam(value = "title", defaultValue = "") String _title,
                           @RequestParam(value = "limit", defaultValue = "") String _limit) {
 
-        if (!_title.isEmpty()) {
-            return Connection.getBooksByTitle(_title, _limit);
+        if (!_key.isEmpty()) return Book.getBookByKey(_key, _limit).toJsonObject().toString();
 
-        } else if (!_isbn.isEmpty()) try {
+        else if (!_title.isEmpty()) return Connection.getBooksByTitle(_title, _limit);
+
+        else if (!_isbn.isEmpty()) try {
             return Book.getBookByIsbn(_isbn).toJsonObject().toString();
 
         } catch (Exception ex) {
