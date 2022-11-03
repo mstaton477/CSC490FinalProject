@@ -105,7 +105,7 @@ public class Book {
     /**
      * @param _title The title (or other keywords) to be searched
      * @param _limit The number of books desired to be returned; if {@code _limit.isEmpty()}, uses {@code Book.LIMIT} instead
-     * @return A JSONArray of {@code _limit} many JSONObjects corresponding to the books returned by the search
+     * @return A JSONArray of at most {@code _limit} many JSONObjects corresponding to the books returned by the search
      */
     @Contract("_, _ -> new")
     public static @NotNull JSONArray getBooksByTitleAsJSONArray(String _title, String _limit) {
@@ -146,8 +146,8 @@ public class Book {
             ex.printStackTrace();
         }
 
-        if (linkedHashSet.size() < 1) linkedHashSet.add(Book.NULL_BOOK);
         // include the NULL_BOOK only if it is the unique book in the linkedHashSet
+        if (linkedHashSet.size() < 1) linkedHashSet.add(Book.NULL_BOOK);
         return linkedHashSet;
     }
 

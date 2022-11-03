@@ -21,12 +21,12 @@ public class Connection {
                           @RequestParam(value = "title", defaultValue = "") String _title,
                           @RequestParam(value = "limit", defaultValue = "") String _limit) {
 
-        if (!_key.isEmpty()) return Book.getBookByKey(_key, _limit).toJsonObject().toString();
+        if (!_key.isEmpty()) return Connection.format("books", Book.getBookByKey(_key, _limit).toJsonObject());
 
-        else if (!_title.isEmpty()) return Connection.getBooksByTitle(_title, _limit);
+        else if (!_title.isEmpty()) return Connection.format("books", Book.getBooksByTitleAsJSONArray(_title, _limit));
 
         else if (!_isbn.isEmpty()) try {
-            return Book.getBookByIsbn(_isbn).toJsonObject().toString();
+            return Connection.format("books", Book.getBookByIsbn(_isbn).toJsonObject());
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -34,11 +34,15 @@ public class Connection {
         return "{}";
     }
 
-    private static String getBooksByTitle(String _title, String _limit) {
+    private static String format(String _type, JSONArray _arr){
 
         Map<String, JSONArray> map = new HashMap<>();
-        map.put("books", new JSONArray(Book.getBooksByTitleAsJSONArray(_title, _limit)));
+        map.put(_type, _arr);
         return new JSONObject(map).toString();
+    }
+
+    private static String format(String _type, JSONObject... _jsons){
+        return format(_type, new JSONArray(_jsons));
     }
 
     @GetMapping("/getAuthor")
@@ -47,12 +51,10 @@ public class Connection {
 
         if (_name.isEmpty()) return "{}";
 
-        HashMap<String, JSONArray> map = new HashMap<>();
         LinkedList<JSONObject> jsons = new LinkedList<>();
 
         Author.getAuthorsByName(_name, _limit).forEach(e -> jsons.add(e.toJsonObject()));
-        map.put("authors", new JSONArray(jsons));
 
-        return new JSONObject(map).toString();
+        return Connection.format("authors", new JSONArray(jsons));
     }
 }
