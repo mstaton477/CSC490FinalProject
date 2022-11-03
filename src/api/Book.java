@@ -1,7 +1,7 @@
 package api;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.jetbrains.annotations.*;
+import org.json.*;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -17,23 +17,27 @@ public class Book {
     private static final String LIMIT = "5";
     private static final LinkedHashSet<Book> books = new LinkedHashSet<>();
     private static final Book NULL_BOOK = new Book() {
+        @Contract(pure = true)
         @Override
-        public String getTitle() {
+        public @Nullable String getTitle() {
             return null;
         }
 
+        @Contract(pure = true)
         @Override
-        public String getIsbn() {
+        public @Nullable String getIsbn() {
             return null;
         }
 
+        @Contract(value = " -> new", pure = true)
         @Override
-        public JSONObject toJsonObject() {
+        public @NotNull JSONObject toJsonObject() {
             return new JSONObject();
         }
 
+        @Contract(pure = true)
         @Override
-        public String toString() {
+        public @Nullable String toString() {
             return null;
         }
     };
@@ -97,7 +101,7 @@ public class Book {
     }
      */
 
-    private static String getKey(JSONObject json) {
+    private static @Nullable String getKey(@NotNull JSONObject json) {
 
         Set<String> keySet = json.keySet();
         if (keySet.contains("works"))
@@ -108,14 +112,14 @@ public class Book {
         else return null;
     }
 
-    private static LinkedHashSet<Author> setAndGetAuthors(JSONObject json) {
+    private static @NotNull LinkedHashSet<Author> setAndGetAuthors(JSONObject json) {
 
         LinkedHashSet<Author> set = new LinkedHashSet<>();
         setAuthors(set, json);
         return set;
     }
 
-    private static void setAuthors(Collection<Author> c, JSONObject json) {
+    private static void setAuthors(Collection<Author> c, @NotNull JSONObject json) {
 
         JSONArray authorsArray = json.getJSONArray("authors");
         Iterator<Object> authorsIterator = authorsArray.iterator();
@@ -139,7 +143,7 @@ public class Book {
         return Book.getBookByKey(Book.getKeyFromIsbn(_isbn), _isbn);
     }
 
-    private static String processString(String _string) {
+    private static @NotNull String processString(@NotNull String _string) {
         return _string.replace(API.WHITESPACE_AND_PERIODS.pattern(), "").toLowerCase();
     }
 
@@ -148,58 +152,50 @@ public class Book {
      * @param _limit The number of books desired to be returned; if {@code _limit.isEmpty()}, uses {@code Book.LIMIT} instead
      * @return A JSONArray of {@code _limit} many JSONObjects corresponding to the books returned by the search
      */
-    public static JSONArray getBooksByTitleAsJSONArray(String _title, String _limit) {
+    @Contract("_, _ -> new")
+    public static @NotNull JSONArray getBooksByTitleAsJSONArray(String _title, String _limit) {
         Set<Book> bookSet = Book.getBooksByTitle(_title, _limit);
         Set<JSONObject> jsonSet = new HashSet<>();
         bookSet.forEach(e -> jsonSet.add(e.toJsonObject()));
         return new JSONArray(jsonSet);
     }
 
-    public static LinkedHashSet<Book> getBooksByTitle(String _title){
+    public static @NotNull LinkedHashSet<Book> getBooksByTitle(String _title) {
         return Book.getBooksByTitle(_title, "");
     }
 
-    public static LinkedHashSet<Book> getBooksByTitle(String _title, String _limit) {
-        LinkedHashSet<Book> list = new LinkedHashSet<>();
+    public static @NotNull LinkedHashSet<Book> getBooksByTitle(String _title, String _limit) {
+        LinkedHashSet<Book> linkedHashSet = new LinkedHashSet<>();
         String tempTitle = Book.processString(_title);
 
-        do {
-            for (Book b : books) {
-                if (Book.processString(b.getTitle()).equals(tempTitle)) {
-                    list.add(b);
-                    break;
-                }
+
+        for (Book b : books)
+            if (Book.processString(b.getTitle()).equals(tempTitle)) {
+                linkedHashSet.add(b);
             }
 
-            try {
-                JSONObject json = API.getJson("search",
-                        "?q=" + URLEncoder.encode(_title, StandardCharsets.UTF_8)
-                                + "&limit=" + (_limit.isEmpty() ? Book.LIMIT : _limit));
 
-                if (json.getInt("num_found") > 0) {
-                    Iterator<Object> it = json.getJSONArray("docs").iterator();
+        if (linkedHashSet.isEmpty()) try {
 
-                    Object temp;
-                    Set<String> set;
-                    while (it.hasNext()) {
-                        if ((temp = it.next()) instanceof JSONObject) {
-                            set = (json = (JSONObject) temp).keySet();
-                            if (set.contains("key")) {
-                                list.add(Book.getBookByKey(json.getString("key")));
-                            }
-                        }
-                    }
-                }
-                break;
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            JSONObject json = API.getJson("search",
+                    "?q=" + URLEncoder.encode(_title, StandardCharsets.UTF_8)
+                            + "&limit=" + (_limit.isEmpty() ? Book.LIMIT : _limit));
+
+            if (json.getInt("num_found") > 0) {
+                Iterator<Object> it = json.getJSONArray("docs").iterator();
+                Object temp;
+                while (it.hasNext()) if ((temp = it.next()) instanceof JSONObject)
+                    if ((json = (JSONObject) temp).keySet().contains("key"))
+                        linkedHashSet.add(Book.getBookByKey(json.getString("key")));
             }
 
-            list.add(Book.NULL_BOOK);
-        } while (false);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
-        if (list.size() > 1) list.remove(Book.NULL_BOOK);
-        return list;
+        if (linkedHashSet.size() < 1) linkedHashSet.add(Book.NULL_BOOK);
+        // include the NULL_BOOK only if it is the unique book in the linkedHashSet
+        return linkedHashSet;
     }
 
     public static Book getBookByKey(String _key) {
@@ -208,7 +204,6 @@ public class Book {
 
     public static Book getBookByKey(String _key, String _isbn) {
 
-        //TODO check books for matching _key
         try {
             JSONObject json;
             if (Book.isValidKey(API.BOOKS_KEY, _key)) {
@@ -254,7 +249,7 @@ public class Book {
         return Book.NULL_BOOK;
     }
 
-    private static boolean isValidKey(Pattern _pattern, String _key) {
+    private static boolean isValidKey(@NotNull Pattern _pattern, String _key) {
         return _pattern.matcher(_key).find();
     }
 
@@ -262,7 +257,7 @@ public class Book {
         return this.toMap(new HashMap<>());
     }
 
-    public <T extends Map<String, Object>> T toMap(T _map) {
+    public <T extends Map<String, Object>> T toMap(@NotNull T _map) {
         _map.put("key", this.getKey());
         _map.put("isbn", this.getIsbn());
 
@@ -308,15 +303,6 @@ public class Book {
             authorIds.add(a.getId());
         }
         return authorIds;
-    }
-
-    public static String getAuthorName(String _authorID) {
-        try {
-            return API.getJson(RequestType.AUTHORS, _authorID).getString("name");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return "";
-        }
     }
 
     public String getTitle() {

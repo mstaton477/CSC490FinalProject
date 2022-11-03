@@ -1,12 +1,11 @@
 package api;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Author {
 
@@ -32,7 +31,7 @@ public class Author {
         }
     }
 
-    public static Author getAuthorById(String _id) {
+    public static @NotNull Author getAuthorById(@NotNull String _id) {
 
         if(!_id.startsWith("/authors/")){
             _id = "/authors/" + _id;
@@ -47,11 +46,11 @@ public class Author {
         return new Author(_id);
     }
 
-    public static LinkedList<Author> getAuthorsByName(String _name){
+    public static @NotNull LinkedList<Author> getAuthorsByName(String _name){
         return Author.getAuthorsByName(_name, "");
     }
 
-    public static LinkedList<Author> getAuthorsByName(String _name, String _limit) {
+    public static @NotNull LinkedList<Author> getAuthorsByName(String _name, String _limit) {
 
         Utilities.throwExceptionIfNull(_name);
 

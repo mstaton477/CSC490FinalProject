@@ -1,9 +1,9 @@
 package api;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 
@@ -15,7 +15,7 @@ public class API implements APIInterface {
         return new URL(String.format(FORMAT_STRING, supportsHttps() ? "s" : "", _requestType + "/" + _arg, ""));
     }
 
-    public URL getURL(String _firstArg, String _secondArg) throws IOException {
+    public URL getURL(@NotNull String _firstArg, String _secondArg) throws IOException {
         return new URL(String.format(FORMAT_STRING, supportsHttps() ? "s" : "", (_firstArg.startsWith("/") ? _firstArg.substring(1) : _firstArg), _secondArg));
     }
 
@@ -25,7 +25,7 @@ public class API implements APIInterface {
                 "?q=" + URLEncoder.encode(_arg, StandardCharsets.UTF_8)));
     }
 
-    public HttpURLConnection getConnection(URL _url) throws IOException {
+    public HttpURLConnection getConnection(@NotNull URL _url) throws IOException {
         return (HttpURLConnection) _url.openConnection();
     }
 }
