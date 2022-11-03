@@ -140,16 +140,34 @@ a:hover{
     color: white; 
 }
 
-.signin-bottom-links{
-    text-decoration: underline  $underColor1;
-    height: 20px; 
-    font-size: 18px;
-    font-weight: 500; 
-    color: $textColor1; 
-    font-family: 'Vollkorn', serif;
+.signup-nav{
+    overflow: hidden;
+    background-color: $shadowColor2;
+    width: 100%; 
+    align-self: flex-start;
     padding: 0; 
-    list-style-type: none;
-    display: flex;
-    width: 27%;
-    justify-content: space-around;
+    margin: 0;
 }
+ /* Style the links inside the navigation bar */
+ .signup-nav  a {
+    float: left;
+    display: block;
+    color: $shadowColor; 
+    align-items: flex-start;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .signup-nav  a:hover {
+    background-color: $lightColor1;
+    color: $shadowColor;
+  }
+  
+  /* Style the "active" element to highlight the current page */
+  .signup-nav  a.active {
+    background-color: $loginColor;
+    color: $lightColor1;
+  }

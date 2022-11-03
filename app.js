@@ -113,7 +113,7 @@ app.post('/login', async(req, res) => {
 
 app.get('/dashboard', function(req, res, next) {
     if(req.session.loggedinUser){
-        res.send('dashboard', {Username:req.session.Username})
+        res.send({Username:req.session.Username}); 
     }else{
         res.redirect('./login');
     }
