@@ -18,15 +18,20 @@ public class Book {
     private static final LinkedHashSet<Book> books = new LinkedHashSet<>();
     private static final Book NULL_BOOK = new Book() {
         @Contract(pure = true)
-        @Override
-        public @Nullable String getTitle() {
-            return null;
+        public @NotNull String getKey() {
+            return "";
         }
 
         @Contract(pure = true)
         @Override
-        public @Nullable String getIsbn() {
-            return null;
+        public @NotNull String getTitle() {
+            return "";
+        }
+
+        @Contract(pure = true)
+        @Override
+        public @NotNull String getIsbn() {
+            return "";
         }
 
         @Contract(value = " -> new", pure = true)
@@ -37,8 +42,8 @@ public class Book {
 
         @Contract(pure = true)
         @Override
-        public @Nullable String toString() {
-            return null;
+        public @NotNull String toString() {
+            return "";
         }
     };
 
@@ -56,8 +61,8 @@ public class Book {
         this.isbn = _isbn;
     }
 
-    private static String getKeyFromIsbn(String _isbn) throws IOException {
-        return getKey(API.getJson("isbn/" + _isbn));
+    private static String getKeyFromIsbn(@NotNull String _isbn) throws IOException {
+        return Book.getKey(API.getJson("isbn/" + _isbn));
     }
 
     private static @Nullable String getKey(@NotNull JSONObject json) {
@@ -77,7 +82,7 @@ public class Book {
         return set;
     }
 
-    private static void setAuthors(Collection<Author> c, @NotNull JSONObject json) {
+    private static void setAuthors(@NotNull Collection<Author> c, @NotNull JSONObject json) {
 
         JSONArray authorsArray = json.getJSONArray("authors");
         Iterator<Object> authorsIterator = authorsArray.iterator();
@@ -91,7 +96,7 @@ public class Book {
 
     }
 
-    public static Book getBookByIsbn(String _isbn) throws IOException {
+    public static @NotNull Book getBookByIsbn(@NotNull String _isbn) throws IOException {
 
         for (Book b : books) if (b.getIsbn().equals(_isbn)) return b;
 
@@ -108,7 +113,7 @@ public class Book {
      * @return A JSONArray of at most {@code _limit} many JSONObjects corresponding to the books returned by the search
      */
     @Contract("_, _ -> new")
-    public static @NotNull JSONArray getBooksByTitleAsJSONArray(String _title, String _limit) {
+    public static @NotNull JSONArray getBooksByTitleAsJSONArray(@NotNull String _title, @NotNull String _limit) {
 
         Set<Book> bookSet = Book.getBooksByTitle(_title, _limit);
         Set<JSONObject> jsonSet = new HashSet<>();
@@ -151,11 +156,11 @@ public class Book {
         return linkedHashSet;
     }
 
-    public static Book getBookByKey(String _key) {
+    public static @NotNull Book getBookByKey(String _key) {
         return Book.getBookByKey(_key, "");
     }
 
-    public static Book getBookByKey(String _key, String _isbn) {
+    public static @NotNull Book getBookByKey(String _key, String _isbn) {
 
         try {
             JSONObject json;
@@ -206,12 +211,11 @@ public class Book {
         return this.toMap(new HashMap<>());
     }
 
-    public <T extends Map<String, Object>> T toMap(@NotNull T _map) {
-        _map.put("key", this.getKey());
-        _map.put("isbn", this.getIsbn());
+    public @NotNull <T extends Map<String, Object>> T toMap(@NotNull T _map) {
 
-        if (this.getTitle() != null)
-            _map.put("title", this.getTitle());
+        if (!this.getKey().isEmpty()) _map.put("key", this.getKey());
+        if (!this.getIsbn().isEmpty()) _map.put("isbn", this.getIsbn());
+        if (!this.getTitle().isEmpty()) _map.put("title", this.getTitle());
 
         if (this.getAuthors().size() > 0) {
             JSONArray tempArr = new JSONArray();
@@ -222,23 +226,23 @@ public class Book {
         return _map;
     }
 
-    public String getKey() {
+    public @NotNull String getKey() {
         return this.key;
     }
 
-    public JSONObject toJsonObject() {
+    public @NotNull JSONObject toJsonObject() {
         return new JSONObject(this.toMap());
     }
 
-    public String getIsbn() {
+    public @NotNull String getIsbn() {
         return this.isbn;
     }
 
-    public LinkedHashSet<Author> getAuthors() {
+    public @NotNull LinkedHashSet<Author> getAuthors() {
         return this.authors;
     }
 
-    public LinkedList<String> getAuthorNames() {
+    public @NotNull LinkedList<String> getAuthorNames() {
         LinkedList<String> authorNames = new LinkedList<>();
         for (Author a : this.getAuthors()) {
             authorNames.add(a.getName());
@@ -246,7 +250,7 @@ public class Book {
         return authorNames;
     }
 
-    public LinkedList<String> getAuthorIds() {
+    public @NotNull LinkedList<String> getAuthorIds() {
         LinkedList<String> authorIds = new LinkedList<>();
         for (Author a : this.getAuthors()) {
             authorIds.add(a.getId());
@@ -254,24 +258,24 @@ public class Book {
         return authorIds;
     }
 
-    public String getTitle() {
+    public @NotNull String getTitle() {
         return this.title;
     }
 
-    void setIsbn(String _isbn) {
+    void setIsbn(@NotNull String _isbn) {
         this.key = _isbn;
     }
 
-    void setAuthors(LinkedHashSet<Author> _authors) {
+    void setAuthors(@NotNull LinkedHashSet<Author> _authors) {
         this.authors = _authors;
     }
 
-    void setTitle(String _title) {
+    void setTitle(@NotNull String _title) {
         this.title = _title;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "; " + this.toJsonObject().toString();
+        return super.toString() + "; " + this.toJsonObject();
     }
 }
