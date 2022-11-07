@@ -13,14 +13,24 @@ public class Author {
     private String id, name;
 
     private static final LinkedHashSet<Author> authors = new LinkedHashSet<>();
+    public static final Author NULL_AUTHOR = new Author() {
+        @Override
+        public String getId() {
+            return "";
+        }
+
+        @Override
+        public String getName() {
+            return "";
+        }
+    };
 
     private Author() {
-        authors.add(this);
     }
 
     private Author(String _id) {
 
-        this();
+        authors.add(this);
         this.id = _id;
 
         try {
@@ -31,22 +41,22 @@ public class Author {
         }
     }
 
-    public static @NotNull Author getAuthorById(@NotNull String _id) {
+    public static @NotNull Author getAuthorById(@NotNull String _key) {
 
-        if(!_id.startsWith("/authors/")){
-            _id = "/authors/" + _id;
+        if (!_key.startsWith("/authors/")) {
+            _key = "/authors/" + _key;
         }
 
         for (Author a : authors) {
-            if (a.id.equals(_id)) {
+            if (a.getId().equals(_key)) {
                 return a;
             }
         }
 
-        return new Author(_id);
+        return new Author(_key);
     }
 
-    public static @NotNull LinkedList<Author> getAuthorsByName(String _name){
+    public static @NotNull LinkedList<Author> getAuthorsByName(String _name) {
         return Author.getAuthorsByName(_name, "");
     }
 
@@ -56,7 +66,7 @@ public class Author {
 
         LinkedList<Author> tempAuthorList = new LinkedList<>();
         for (Author a : authors) {
-            if (a.name.equals(_name)) {
+            if (a.getName().equals(_name)) {
                 tempAuthorList.add(a);
             }
         }
@@ -88,14 +98,14 @@ public class Author {
     public JSONObject toJsonObject() {
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("name", this.name);
-        map.put("id", this.id);
+        map.put("name", this.getName());
+        map.put("id", this.getId());
 
         return new JSONObject(map);
     }
 
     @Override
     public String toString() {
-        return String.format("%s\tname: %s\tid: %s", super.toString(), this.name, this.id);
+        return String.format("%s\tname: %s\tid: %s", super.toString(), this.getName(), this.getId());
     }
 }
