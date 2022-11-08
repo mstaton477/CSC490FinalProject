@@ -5,6 +5,12 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy; 
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const https = require('https'); 
+const concat = require('concat-stream'); 
+
+/**
+* @jest-environment jsdom
+*/
 
 var bodyParser = require('body-parser');
 const { writerState } = require('xmlbuilder');
@@ -123,6 +129,76 @@ app.get('/logout', function(req, res){
     req.session.destroy(); 
     res.redirect('/login');
 });
+
+apiBaseUrl = 'http://openlibrary.org/search.json?'; 
+
+app.post('/search', function(req, res){
+    searchtxt = req.body.Answer; 
+    console.log(req.body.Answer); 
+    if(req.body.authorsearch){
+        url = apiBaseUrl + "author=" + searchtxt;
+        console.log(url);  
+        https.get(url, (resp) => {
+            let data = ''; 
+            resp.on("data", (chunk) => {
+                data += chunk; 
+            }); 
+            resp.on("end", () => {
+                data = Buffer.concat(data).toString(); 
+                console.log(data);
+            }); 
+        })
+
+        
+    }else if (req.body.titlesearch){
+        url = apiBaseUrl + "title=" + searchtxt;
+        console.log(url); 
+        https.get(url, (resp) => {
+            let data =''; 
+            resp.on("data", (chunk) => {
+                data =+ chunk; 
+            }); 
+            resp.on("end", () => {
+                data = Buffer.concat(data).toString(); 
+                console.log(data); 
+            });
+        })
+        
+    }else if(req.body.isbnsearch){
+        isbnUrl = 'https://openlibrary.org/isbn/';
+        url = isbnUrl + searchtxt + '.json';
+        console.log(url);  
+        https.get(url, (resp) => {
+            let data = ''; 
+            resp.on("data", (chunk) => {
+                data =+ chunk; 
+            }); 
+            resp.on("end", () => {
+                data = Buffer.concat(data).toString(); 
+                console.log(data);
+            });
+        })
+        
+    }else if (req.body.subjectsearch){
+        subjectUrl = "http://openlibrary.org/subjects/"; 
+        url = subjectUrl+ searchtxt + '.json'; 
+        console.log(url); 
+        https.get(url, (resp) => {
+            let data = ''; 
+            resp.on("data", (chunk) => {
+                data =+ chunk; 
+            }); 
+            resp.on("end", () => {
+                data = Buffer.concat(data).toString(); 
+                console.log(data);
+            });
+        })
+        
+    }
+})
+
+
+
 
 app.listen(3000, function () {
     console.log('Node app is running on port 3000');
