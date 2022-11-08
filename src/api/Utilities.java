@@ -1,33 +1,45 @@
 package api;
 
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.*;
 
 public class Utilities {
 
-    public static String getIndexSafe(String[] _args, int _index) {
-        return _args.length > _index ? _args[_index] : "";
-    }
+    public static void throwExceptionIfNull(Object... _o) throws NullPointerException {
 
-    public static void notNull(Object... _o) throws NullPointerException {
-
-        npe(_o);
+        Utilities.ifNullHelper(_o);
 
         for (var e : _o) {
-            npe(e);
+            Utilities.ifNullHelper(e);
         }
     }
 
-    public static void npe(Object _o) throws NullPointerException {
+    private static void ifNullHelper(Object _o) throws NullPointerException {
         if (_o == null) throw new NullPointerException();
     }
 
-    public static <T extends CharSequence> String flatten(List<T> _list) {
+    public static String format(String _type, JSONArray _arr){
 
-        StringBuilder temp = new StringBuilder();
+        Map<String, JSONArray> map = new HashMap<>();
+        map.put(_type, _arr);
+        return new JSONObject(map).toString();
+    }
 
-        for (T str : _list) {
-            temp.append(str);
-        }
-        return temp.toString();
+    public static String format(String _type, JSONObject... _jsons){
+        return Utilities.format(_type, new JSONArray(_jsons));
+    }
+
+    public static String format(String _type, Collection<JSONObject> _jsons){
+        return Utilities.format(_type, new JSONArray(_jsons));
+    }
+
+    public static  LinkedList<JSONObject> toJsonList(List<Author> _list){
+
+        LinkedList<JSONObject> jsons = new LinkedList<>();
+
+        _list.forEach(e -> jsons.add(e.toJsonObject()));
+        return jsons;
     }
 }

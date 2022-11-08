@@ -6,8 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-
 @SpringBootApplication
 @RestController
 public class Connection {
@@ -16,41 +14,35 @@ public class Connection {
     }
 
     @GetMapping("/getBook")
-    public String getBook(@RequestParam(value = "isbn", defaultValue = "") String _isbn,
+    public String getBook(@RequestParam(value = "key", defaultValue = "") String _key,
+                          @RequestParam(value = "isbn", defaultValue = "") String _isbn,
                           @RequestParam(value = "title", defaultValue = "") String _title,
                           @RequestParam(value = "limit", defaultValue = "") String _limit) {
 
-        if (!_title.isEmpty()) {
-            return Connection.getBooksByTitle(_title, _limit);
+        if (!_key.isEmpty()) return Utilities.format("books", Book.getBookByKey(_key, _limit).toJsonObject());
 
-        } else if (!_isbn.isEmpty()) try {
-            return Book.getBookByIsbn(_isbn).toJsonObject().toString();
+        if (!_title.isEmpty()) return Utilities.format("books", Book.getBooksByTitleAsJSONArray(_title, _limit));
 
+        if (!_isbn.isEmpty()) try {
+            return Utilities.format("books", Book.getBookByIsbn(_isbn).toJsonObject());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return "{}";
-    }
 
-    private static String getBooksByTitle(String _title, String _limit) {
-
-        Map<String, JSONArray> map = new HashMap<>();
-        map.put("books", new JSONArray(Book.getBooksByTitleAsJSONArray(_title, _limit)));
-        return new JSONObject(map).toString();
+        return Utilities.format("books", new JSONArray());
     }
 
     @GetMapping("/getAuthor")
-    public String getAuthor(@RequestParam(value = "name", defaultValue = "") String _name,
+    public String getAuthor(@RequestParam(value = "key", defaultValue = "") String _key,
+                            @RequestParam(value = "name", defaultValue = "") String _name,
                             @RequestParam(value = "limit", defaultValue = "") String _limit) {
 
-        if (_name.isEmpty()) return "{}";
+        if (!_key.isEmpty())
+            return Utilities.format("authors", Author.getAuthorById(_key).toJsonObject());
 
-        HashMap<String, JSONArray> map = new HashMap<>();
-        LinkedList<JSONObject> jsons = new LinkedList<>();
+        if (!_name.isEmpty())
+            return Utilities.format("authors", Utilities.toJsonList(Author.getAuthorsByName(_name, _limit)));
 
-        Author.getAuthorsByName(_name, _limit).forEach(e -> jsons.add(e.toJsonObject()));
-        map.put("authors", new JSONArray(jsons));
-
-        return new JSONObject(map).toString();
+        else return Utilities.format("authors", new JSONArray());
     }
 }

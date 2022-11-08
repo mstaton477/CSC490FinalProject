@@ -1,5 +1,5 @@
 node_modules
-out/
+out/production
 csc490.iml
 *.xml
 !pom.xml

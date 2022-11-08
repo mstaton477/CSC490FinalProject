@@ -3,14 +3,14 @@ package api;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
 public interface APIInterface {
     Pattern WHITESPACE_AND_PERIODS = Pattern.compile("\\s|\\."), AUTHOR_KEY = Pattern.compile("A$"),
             WORKS_KEY = Pattern.compile("W$"), BOOKS_KEY = Pattern.compile("M$");
+    APIAdapter ADAPTER = new APIAdapter();
 
     URL getUrl(RequestType _requestType, String _arg) throws IOException;
 
@@ -26,7 +26,7 @@ public interface APIInterface {
     }
 
     default JSONObject getJson(String _firstArg) throws IOException {
-        return getJson(_firstArg, "");
+        return this.getJson(_firstArg, "");
     }
 
     default JSONObject getJson(RequestType _requestType, String _arg) throws IOException {
@@ -39,11 +39,11 @@ public interface APIInterface {
                 .getInputStream().readAllBytes(), StandardCharsets.UTF_8));
     }
 
-    default boolean supportsHttps(){
+    default boolean supportsHttps() {
         return false;
     }
 
     static APIInterface getInstance() {
-        return new APIAdapter();
+        return APIInterface.ADAPTER;
     }
 }

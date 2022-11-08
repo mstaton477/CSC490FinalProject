@@ -6,17 +6,17 @@ public class Review {
     private String username, review;
     private Book book;
 
-    public Review(String _isbn, String _username, String _review) throws IOException {
+    public Review(Book _book, String _username, String _review) {
 
-        Utilities.notNull(_isbn, _username);
+        Utilities.throwExceptionIfNull(_book, _username);
 
-        this.book = Book.getBookByIsbn(_isbn);
+        this.book = _book;
         this.username = _username;
         this.review = _review;
     }
 
-    public Review(String _isbn, String _username) throws IOException {
-        this(_isbn, _username, null);
+    public Review(Book _book, String _username) throws IOException {
+        this(_book, _username, null);
     }
 
     public Book getBook() {
@@ -29,10 +29,6 @@ public class Review {
 
     public String getReview() {
         return this.review;
-    }
-
-    public void setBook(String _isbn) throws IOException {
-        this.book = Book.getBookByIsbn(_isbn);
     }
 
     public void setBook(Book _book) {
