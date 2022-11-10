@@ -164,11 +164,15 @@ public class Book {
 
         try {
             JSONObject json;
-            if (Book.isValidKey(API.BOOKS_KEY, _key))
-                json = API.getJson(_key.startsWith("/books/") ? _key : "books/" + _key);
-            else if (Book.isValidKey(API.WORKS_KEY, _key))
-                json = API.getJson(_key.startsWith("/works/") ? _key : "works/" + _key);
-            else throw new IOException("invalid key: " + _key);
+            try{
+                if (Book.isValidKey(API.BOOKS_KEY, _key))
+                    json = API.getJson(_key.startsWith("/books/") ? _key : "books/" + _key);
+                else if (Book.isValidKey(API.WORKS_KEY, _key))
+                    json = API.getJson(_key.startsWith("/works/") ? _key : "works/" + _key);
+                else throw new IOException("invalid key: " + _key);
+            }catch (Exception ex){
+                return Book.NULL_BOOK;
+            }
 
             Set<String> keySet = json.keySet();
             if (keySet.contains("type")) {
