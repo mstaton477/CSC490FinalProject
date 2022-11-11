@@ -5,6 +5,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy; 
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const https = require('https');
+const http = require('http');  
+
+
 
 var bodyParser = require('body-parser');
 const { writerState } = require('xmlbuilder');
@@ -19,7 +23,7 @@ app.use(session({
 
 app.use(express.json());
 
-
+//creating javascript database connecting to remote 
 
 const db = mysql.createConnection({
     host: "us-cdbr-east-06.cleardb.net", 
@@ -52,7 +56,8 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/pages' +'/views/home.html')
 })
 
-
+//getting signup page and inserting new users into the database, then redirect to login 
+//bycrypt is what we are using the hash the password to make it more secure
 app.post('/views/signin', async(req, res) => {
     inputData = {
         Username: req.body.Username,
@@ -80,7 +85,8 @@ app.post('/views/signin', async(req, res) => {
     })
 });
 
-
+//grabbing user details from the database to log people in 
+// then will redirect to the user specific dashboard 
 app.post('/login', async(req, res) => {
     const Username = req.body.username; 
     const Password = req.body.password;  
@@ -110,7 +116,8 @@ app.post('/login', async(req, res) => {
         }
     })
 })
-
+//user specific dashboard 
+//will hold the users book lists, clubs, link to book search
 app.get('/dashboard', function(req, res, next) {
     if(req.session.loggedinUser){
         res.send({Username:req.session.Username}); 
@@ -119,12 +126,26 @@ app.get('/dashboard', function(req, res, next) {
     }
 });
 
+// log out function 
 app.get('/logout', function(req, res){
     req.session.destroy(); 
     res.redirect('/login');
 });
 
-app.listen(3000, function () {
-    console.log('Node app is running on port 3000');
+ 
+//search page 
+app.post('/search', function(req, res){
+    searchtxt = req.body.Answer; 
+    console.log(req.body.Answer); 
+    
+
+
+})
+
+
+
+
+app.listen(process.env.PORT || 8080, function () {
+    console.log('Node app is running on port 8080');
 });
 
