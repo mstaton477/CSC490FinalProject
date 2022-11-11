@@ -5,13 +5,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy; 
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
-const http = require('http'); 
-const concat = require('concat-stream'); 
-const axios = require ('axios'); 
+const https = require('https');
+const http = require('http');  
 
-/**
-* @jest-environment jsdom
-*/
+
 
 var bodyParser = require('body-parser');
 const { writerState } = require('xmlbuilder');
@@ -26,7 +23,7 @@ app.use(session({
 
 app.use(express.json());
 
-
+//creating javascript database connecting to remote 
 
 const db = mysql.createConnection({
     host: "us-cdbr-east-06.cleardb.net", 
@@ -59,7 +56,8 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/pages' +'/views/home.html')
 })
 
-
+//getting signup page and inserting new users into the database, then redirect to login 
+//bycrypt is what we are using the hash the password to make it more secure
 app.post('/views/signin', async(req, res) => {
     inputData = {
         Username: req.body.Username,
@@ -87,7 +85,8 @@ app.post('/views/signin', async(req, res) => {
     })
 });
 
-
+//grabbing user details from the database to log people in 
+// then will redirect to the user specific dashboard 
 app.post('/login', async(req, res) => {
     const Username = req.body.username; 
     const Password = req.body.password;  
@@ -117,7 +116,8 @@ app.post('/login', async(req, res) => {
         }
     })
 })
-
+//user specific dashboard 
+//will hold the users book lists, clubs, link to book search
 app.get('/dashboard', function(req, res, next) {
     if(req.session.loggedinUser){
         res.send({Username:req.session.Username}); 
@@ -126,64 +126,21 @@ app.get('/dashboard', function(req, res, next) {
     }
 });
 
+// log out function 
 app.get('/logout', function(req, res){
     req.session.destroy(); 
     res.redirect('/login');
 });
 
  
-
+//search page 
 app.post('/search', function(req, res){
     searchtxt = req.body.Answer; 
     console.log(req.body.Answer); 
     
 
-      
-     if(req.body.titlesearch){
-        url =  'http://localhost:8080/getBook?title=' + encodeURI(searchtxt).replaceAll("%20", "+");
-        console.log(url); 
-        JSON.stringify(url); 
-        http.get(url, (res) => {
-            console.log(res.statusCode); 
-            console.log(res.headers); 
 
-            res.on('data', (d) => {
-                process.stdout.write(d); 
-            }); 
-        
-        })
-    // }else if(req.body.isbnsearch){
-    //     isbnUrl = 'https://openlibrary.org/isbn/';
-    //     url = isbnUrl + searchtxt + '.json';
-    //     console.log(url);  
-    //     https.get(url, (resp) => {
-    //         let data = ''; 
-    //         resp.on("data", (chunk) => {
-    //             data =+ chunk; 
-    //         }); 
-    //         resp.on("end", () => {
-    //             data = Buffer.concat(data).toString(); 
-    //             console.log(data);
-    //         });
-    //     })
-        
-    // }else if (req.body.subjectsearch){
-    //     subjectUrl = "http://openlibrary.org/subjects/"; 
-    //     url = subjectUrl+ searchtxt + '.json'; 
-    //     console.log(url); 
-    //     https.get(url, (resp) => {
-    //         let data = ''; 
-    //         resp.on("data", (chunk) => {
-    //             data =+ chunk; 
-    //         }); 
-    //         resp.on("end", () => {
-    //             data = Buffer.concat(data).toString(); 
-    //             console.log(data);
-    //         });
-    //     })
-        
-    // }
-}})
+})
 
 
 
