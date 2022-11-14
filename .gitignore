@@ -3,5 +3,6 @@ out/production
 csc490.iml
 *.xml
 !pom.xml
+.vs/*
 
 *.class
