@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
     <link rel="stylesheet" href="../sass/main.css">
-    <script defer src="../script/search.js"></script>
+    <script src="../../app.js"></script>
 </head>
 <body id="search-body">
 
@@ -23,23 +23,23 @@
     
     <div class="search-right">
 
-    <form action="/form/submit" method="GET" id="search-form">
+    <form action="/search" method="POST" id="search-form">
         <p class="search-form-title">Book Search</p>
 
         <div class="radlab">
             <label for="author" id="search-label">Author</label>
-            <input type="radio" name="search-crit" class="search-select" onclick="radioCheck()">
+            <input type="radio"  class="search-select" name="authorsearch" onclick="radioCheck()">
             
             <label for="title" id="search-label">Title</label>
-            <input type="radio" name="search-crit" class="search-select" onclick="radioCheck()">
+            <input type="radio"  class="search-select" name="titlesearch" onclick="radioCheck()">
             
             <label for="isbn" id="search-label">ISBN</label>
-            <input type="radio" name="search-crit" class="search-select" onclick="radioCheck()">
+            <input type="radio" class="search-select" name = "isbnsearch" onclick="radioCheck()">
             
             <label for="subject" id="search-label">Subject</label>
-            <input type = 'radio' name='search-crit' class="search-select" onclick="radioCheck()">
+            <input type = 'radio'  class="search-select" name = "subjectsearch" onclick="radioCheck()">
         </div>
-        <input type="text" id="Answer" placeholder="Search"/>
+        <input type="text" name="Answer" id="Answer" placeholder="Search"/>
         <input type="submit" name="submit" class="submit" value="Search">
     </form>
 
