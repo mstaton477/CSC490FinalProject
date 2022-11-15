@@ -90,6 +90,4 @@ async function getBook(_type, _value, _limit){
     return { "books": getBookHelper(_type, _value, _limit) }
 }
 
-export {
-     getBook 
-}; 
+modules.export = getBook; 
