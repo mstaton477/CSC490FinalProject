@@ -10,7 +10,7 @@ const http = require('http');
 
 //javascript files import 
 
-import {getBook} from './pages/script/getBook'; 
+import {getBook} from './pages/script/getBook.js'; 
 
 
 var bodyParser = require('body-parser');

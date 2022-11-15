@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "## Description",
   "main": "app.js",
+  "type": "module", 
   "dependencies": {
     "abbrev": "^1.1.1",
     "acorn": "^8.8.0",
@@ -384,4 +385,5 @@
   "devDependencies": {
     "nodemon": "^2.0.20"
   }
+  
 }
