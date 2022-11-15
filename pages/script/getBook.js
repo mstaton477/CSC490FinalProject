@@ -70,7 +70,6 @@ async function getBookHelper(_type, _value, _limit) {
             })
         }
     }
-    console.log(temp_list)
     return temp_list;
 
     default:
@@ -87,5 +86,5 @@ _limit is optional
 An example call: getBook('title', 'the lord of the rings', 10)
 */
 async function getBook(_type, _value, _limit){
-    return { "books": getBookHelper(_type, _value, _limit) }
+    return await { "books": getBookHelper(_type, _value, _limit) };
 }
