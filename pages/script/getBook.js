@@ -3,12 +3,12 @@
 async function getBookHelper(_type, _value, _limit) {
     const api_url_base = 'http://www.openlibrary.org'
     var request_url
-    let escaped_value = encodeURIComponent(_value).replaceAll('%20','+').replaceAll('%2F','/');
+    let escaped_value = encodeURIComponent(_value).replaceAll('%20','+');
     limit_exists = _limit !== null && _limit > 1;
     if(limit_exists) escaped_limit = encodeURIComponent(_limit).replaceAll('%20','+')
 
     switch(_type){
-        case 'key': request_url = api_url_base + escaped_value + '.json'; break;
+        case 'key': request_url = api_url_base + escaped_value.replaceAll('%2F','/') + '.json'; break;
         case 'title': request_url = api_url_base + '/search.json?title=' + escaped_value + (limit_exists ? '&limit=' + escaped_limit : ''); break;
         case 'isbn': request_url = api_url_base + '/isbn/' + escaped_value + '.json'; break;
         default: return []
@@ -70,7 +70,6 @@ async function getBookHelper(_type, _value, _limit) {
             })
         }
     }
-    console.log(temp_list)
     return temp_list;
 
     default:
@@ -87,5 +86,5 @@ _limit is optional
 An example call: getBook('title', 'the lord of the rings', 10)
 */
 async function getBook(_type, _value, _limit){
-    return { "books": getBookHelper(_type, _value, _limit) }
+    return await { "books": getBookHelper(_type, _value, _limit) };
 }
