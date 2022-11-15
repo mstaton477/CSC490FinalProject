@@ -10,16 +10,17 @@ const path = require('path');
 //javascript files import 
 
 const getBook = require('./pages/script/getBook.js');  
-
+const books = require('./pages/script/getBook.js');
 
 var bodyParser = require('body-parser');
 const { writerState } = require('xmlbuilder');
 const { response } = require('express');
+const { request } = require('http');
+const bl = require('byline');
 const app = express();
 
-app.set("views", path.join(__dirname, "./views")); 
 app.set("view engine", "ejs"); 
-
+app.set('views', path.join(__dirname, "/views")); 
 
 app.use(session({
     secret: 'secret',
@@ -140,16 +141,22 @@ app.get('/logout', function(req, res){
 
  
 //search page 
-app.post('/search', function(req, res){
+app.post('/search',  async function(req, res){
     searchtxt = req.body.Answer; 
     console.log(req.body.Answer); 
     
     if(req.body.titlesearch){
-        var booklist = getBook('title', searchtxt, ); 
-        res.render('search-results.ejs', {data: booklist}); 
-        }
-    }
 
+        // let results = await getBook('title', searchtxt, 10); 
+
+       
+            
+        results = await Promise.all(object.entries(getBook('title', searchtxt, 10))); 
+
+        console.log("Got here"); 
+        console.log(results); 
+    }
+}
 )
 
 
