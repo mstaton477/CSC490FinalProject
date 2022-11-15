@@ -44,6 +44,7 @@
     display: flex;
 }
 
+//image on the left 
 .img-section{
     max-width: 30%;
     background-position: center; 
@@ -70,6 +71,7 @@
     padding-left: 5px;
 }
 
+//inverting logo to white to make it visible 
 .img-banner img {
     height: 125px; 
     filter: invert(1.0);
@@ -88,6 +90,7 @@
     padding-top: 250px;
 }
 
+//search form 
 #search-form{
     background-color: $backColor2;
     box-shadow: 0 10px 20px -2px $shadowColor2, 10px 0px 20px 0px $shadowColor2;
@@ -99,7 +102,6 @@
 
 }
 
-
 .search-form-title {
     width: 100%; 
     font-size: 35px;
@@ -109,7 +111,7 @@
     text-align: center;
 }
 
-
+//radio buttons and labels 
 .radlab{
     display: grid; 
     grid-template-columns: 60px auto;
@@ -159,6 +161,7 @@ input[type=radio]:focus{
   outline-offset: max(2px, 0.15em);
 }
 
+//text box for search query 
 #Answer{
     width: 70%; 
     height: 30px; 
@@ -169,7 +172,7 @@ input[type=radio]:focus{
     font-size: 16px; 
 }
 
-
+//submit button 
 input.submit{
     width: 35%; 
     height: 3vh; 
