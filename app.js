@@ -5,17 +5,20 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy; 
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
-const https = require('https');
-const http = require('http');  
+const path = require('path'); 
 
 //javascript files import 
 
-const getBook = require('./pages/script/getBook');  
+const getBook = require('./pages/script/getBook.js');  
 
 
 var bodyParser = require('body-parser');
 const { writerState } = require('xmlbuilder');
+const { response } = require('express');
 const app = express();
+
+app.set("views", path.join(__dirname, "./views")); 
+app.set("view engine", "ejs"); 
 
 
 app.use(session({
@@ -141,9 +144,13 @@ app.post('/search', function(req, res){
     searchtxt = req.body.Answer; 
     console.log(req.body.Answer); 
     
+    if(req.body.titlesearch){
+        var booklist = getBook('title', searchtxt, ); 
+        res.render('search-results.ejs', {data: booklist}); 
+        }
+    }
 
-
-})
+)
 
 
 
