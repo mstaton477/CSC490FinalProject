@@ -89,3 +89,7 @@ An example call: getBook('title', 'the lord of the rings', 10)
 async function getBook(_type, _value, _limit){
     return { "books": getBookHelper(_type, _value, _limit) }
 }
+
+export {
+     getBook 
+}; 
