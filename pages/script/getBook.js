@@ -115,6 +115,7 @@ getBook(type, searchtxt, limit)
 
 //                              toggle (up above) to comment out when done testing
 
-//*///  <- do not touch:    line comment (ignored if in block comment) + end block comment + line comment (to write this description)
+//*/      
+//          do not touch the line above; it ends block comment (ignored if not in a block comment) 
 
 module.exports = getBook; 
