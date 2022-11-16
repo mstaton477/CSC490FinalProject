@@ -62,6 +62,7 @@
     "commander": "^2.20.3",
     "concat-map": "^0.0.1",
     "concat-stream": "^2.0.0",
+    "connect-flash": "^0.1.1",
     "content-type": "^1.0.4",
     "cookie-parser": "^1.4.6",
     "core-util-is": "^1.0.3",
@@ -92,6 +93,7 @@
     "events": "^3.3.0",
     "execa": "^1.0.0",
     "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
     "external-editor": "^3.1.0",
     "extract-stack": "^1.0.0",
@@ -171,6 +173,7 @@
     "jest-worker": "^27.5.1",
     "js-yaml": "^3.14.1",
     "jsbn": "^1.1.0",
+    "jsdom": "^20.0.2",
     "json-buffer": "^3.0.0",
     "json-parse-better-errors": "^1.0.2",
     "json-parse-even-better-errors": "^2.3.1",
@@ -243,6 +246,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "password-prompt": "^1.1.2",
+    "path": "^0.12.7",
     "path-exists": "^4.0.0",
     "path-is-absolute": "^1.0.1",
     "path-key": "^3.1.1",
@@ -382,6 +386,7 @@
   },
   "homepage": "https://github.com/mstaton477/TomeRater#readme",
   "devDependencies": {
+    "ejs-lint": "^2.0.0",
     "nodemon": "^2.0.20"
   }
 }

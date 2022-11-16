@@ -1,4 +1,3 @@
-module.exports = getBook;
 if (typeof window !== 'undefined'){
     const fetch = require("node-fetch");
 }
@@ -95,9 +94,9 @@ async function custom_wait(_f, _timeout, ..._args) {
 _type should be 'key', 'title', or 'isbn'
 _value holds that specific value
 _limit is optional
-
 An example call: getBook('title', 'the lord of the rings', 10)
 */
+
 async function getBook(__type, __value, __limit, __timeout){
     if (__timeout === null) __timeout = 10000;
 
@@ -117,3 +116,5 @@ getBook(type, searchtxt, limit)
 //                              toggle (up above) to comment out when done testing
 
 //*///  <- do not touch:    line comment (ignored if in block comment) + end block comment + line comment (to write this description)
+
+module.exports = getBook; 
