@@ -1,9 +1,16 @@
-if (typeof window !== 'undefined'){
-    const fetch = require("node-fetch");
-}
+
+// LEAVE UNCOMMENTED WHEN DONE
+const fetch = require("node-fetch");
+
+// LEAVE COMMENTED WHEN DONE
+// var base_path = './'
+
+if(typeof base_path === 'undefined') base_path = './pages/script/';
+const getRequest = require(base_path + "getRequest.js");
+const getAuthor = require(base_path + "getAuthor.js");
 
 // DO NOT CALL THIS FUNCTION: call getBook() instead
-async function getBookHelper(_type, _value, _limit) {
+async function bookHelper(_type, _value, _limit) {
     const api_url_base = 'http://www.openlibrary.org';
     var request_url;
     let escaped_value = encodeURIComponent(_value).replaceAll('%20','+');
@@ -81,40 +88,31 @@ async function getBookHelper(_type, _value, _limit) {
  }
 }
 
-//function timeout(_ms) {
-    //return 
-//}
-
-async function custom_wait(_f, _timeout, ..._args) {
-    await new Promise(resolve => setTimeout(resolve, _timeout));
-    return _f(..._args);
-}
-
 /*
 _type should be 'key', 'title', or 'isbn'
 _value holds that specific value
 _limit is optional
 An example call: getBook('title', 'the lord of the rings', 10)
 */
-
 async function getBook(__type, __value, __limit, __timeout){
     if (__timeout === null) __timeout = 10000;
 
-    data = await custom_wait(getBookHelper,  __timeout, __type, __value, __limit);
+    data = await getRequest(bookHelper,  __timeout, __type, __value, __limit);
     return { "books": data};
 }
 
-// example code of it in use; the call to then is crucial
 /* <- add/remove a slash before the block comment to toggle code
-
+// example code of it in use; the call to then is crucial
+//
 let type = 'title', searchtxt = 'the hunger games', limit = 5;
 function dummy_function(x) { console.log(x) }
-
+//
 getBook(type, searchtxt, limit)
     .then(results => dummy_function(results))
-
+//
 //                              toggle (up above) to comment out when done testing
-
-//*///  <- do not touch:    line comment (ignored if in block comment) + end block comment + line comment (to write this description)
+//
+//*/      
+//          do not touch the line above; it ends block comment (ignored if not in a block comment) 
 
 module.exports = getBook; 
