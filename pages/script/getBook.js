@@ -1,6 +1,6 @@
 
 // LEAVE UNCOMMENTED WHEN DONE
-// const fetch = require("node-fetch");
+const fetch = require("node-fetch");
 
 // LEAVE COMMENTED WHEN DONE
 // var base_path = './'
