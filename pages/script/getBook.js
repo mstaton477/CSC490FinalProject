@@ -101,17 +101,17 @@ async function getBook(__type, __value, __limit, __timeout){
     return { "books": data};
 }
 
-// example code of it in use; the call to then is crucial
 /* <- add/remove a slash before the block comment to toggle code
-
+// example code of it in use; the call to then is crucial
+//
 let type = 'title', searchtxt = 'the hunger games', limit = 5;
 function dummy_function(x) { console.log(x) }
-
+//
 getBook(type, searchtxt, limit)
     .then(results => dummy_function(results))
-
+//
 //                              toggle (up above) to comment out when done testing
-
+//
 //*/      
 //          do not touch the line above; it ends block comment (ignored if not in a block comment) 
 
