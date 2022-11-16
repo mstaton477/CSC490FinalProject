@@ -1,3 +1,7 @@
+module.exports = getBook;
+if (typeof window !== 'undefined'){
+    const fetch = require("node-fetch");
+}
 
 // DO NOT CALL THIS FUNCTION: call getBook() instead
 async function getBookHelper(_type, _value, _limit) {
