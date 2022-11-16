@@ -2,18 +2,20 @@
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport'); 
-const LocalStrategy = require('passport-local').Strategy; 
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
-const https = require('https');
-const http = require('http');  
+const path = require('path'); 
 
 
+//javascript files import 
 
-var bodyParser = require('body-parser');
-const { writerState } = require('xmlbuilder');
+const getBook = require('./pages/script/getBook.js');  
+
+
 const app = express();
 
+app.set("view engine", "ejs"); 
+app.set('views', path.join(__dirname, "/views")); 
 
 app.use(session({
     secret: 'secret',
@@ -71,14 +73,14 @@ app.post('/views/signin', async(req, res) => {
         if(err) throw err;
         if(data.length != 0){
             console.log(inputData.Username + " already exists"); 
-            res.send(`${Username} already exists`);
+            return res.send(`${Username} already exists`);
         }else {
             var sql = 'INSERT INTO user SET ?';
             await db.query(sql, inputData, (err, data) => {
                 if (err) throw (err)
                 console.log("You have sucessfully Registered your account"); 
                 console.log(data.insertId); 
-                res.redirect('./login.html');
+                return res.redirect('./login.html');
             })
 
         }
@@ -109,7 +111,7 @@ app.post('/login', async(req, res) => {
                 // res.send(`${Username} is logged in `);   
             }else{
                 console.log("Password Incorrect");
-                res.send("Password incorrect"); 
+                res.send("Password incorrect "); 
             }
             res.redirect('./dashboard');
     
@@ -118,7 +120,7 @@ app.post('/login', async(req, res) => {
 })
 //user specific dashboard 
 //will hold the users book lists, clubs, link to book search
-app.get('/dashboard', function(req, res, next) {
+app.get('/:Username', function(req, res, next) {
     if(req.session.loggedinUser){
         res.send({Username:req.session.Username}); 
     }else{
@@ -134,13 +136,24 @@ app.get('/logout', function(req, res){
 
  
 //search page 
-app.post('/search', function(req, res){
+app.post('/search',  async function(req, res){
     searchtxt = req.body.Answer; 
     console.log(req.body.Answer); 
     
+    if(req.body.titlesearch){
 
+        let results =  getBook('title', searchtxt, 10); 
 
-})
+        res.render("../pages/views/search-results.ejs", 
+            {
+                data: results
+            }); 
+
+        console.log("Got here"); 
+        // console.log(results); 
+    }
+}
+)
 
 
 
