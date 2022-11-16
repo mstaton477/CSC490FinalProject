@@ -1,3 +1,6 @@
+
+const fetch = require("node-fetch");
+
 // DO NOT CALL THIS FUNCTION: call getBook() instead
 async function getBookHelper(_type, _value, _limit) {
     const api_url_base = 'http://www.openlibrary.org'
@@ -86,3 +89,5 @@ An example call: getBook('title', 'the lord of the rings', 10)
 async function getBook(_type, _value, _limit){
     return await { "books": getBookHelper(_type, _value, _limit) };
 }
+
+module.exports = getBook; 
