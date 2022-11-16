@@ -5,25 +5,34 @@ const passport = require('passport');
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const path = require('path'); 
-
+var LocalStrategy   = require('passport-local').Strategy;
 
 //javascript files import 
 
 const getBook = require('./pages/script/getBook.js');  
+const { connect } = require('http2');
 
 
 const app = express();
 
-app.set("view engine", "ejs"); 
-app.set('views', path.join(__dirname, "/views")); 
+
 
 app.use(session({
-    secret: 'secret',
+    key: "cats", 
+    secret: 'cats',
     saveUninitialized:true,
     resave: true 
 }));
 
+
+app.use(passport.initialize());
+app.use(passport.session()); 
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+app.set("view engine", "ejs"); 
+app.set('views', path.join(__dirname, "/views")); 
+
 
 //creating javascript database connecting to remote 
 
@@ -42,21 +51,52 @@ db.connect((err) => {
 //getting homepage
 app.use(express.static(__dirname + '/pages'));
 
-app.use(session({
-    key: "cats",
-    secret: "cats", 
-    resave: false, 
-    saveUninitialized: false
-}));
-
-app.use(passport.initialize());
-app.use(passport.session()); 
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/pages' +'/views/home.html')
 })
+
+
+const customFields={
+    usernameField : 'usernameField', 
+    passwordField : 'passwordField'
+}; 
+
+const verifyCallback = (username, password, done) => {
+    db.query('SELECT * FROM user WHERE Username = ? ', [Username], function(error, results, fields) {
+        if (error)
+            return done(error); 
+        if(results.length == 0){
+            return done(null, false); 
+        }
+
+        const isValid = isValid=validPassword(password,results[0].hash,results[0].salt);
+        user={id:results[0].id,username:results[0].username,hash:results[0].hash,salt:results[0].salt};
+
+        if(isValid) {
+            return done(null, user);
+        }else{
+            return done(null, false); 
+        }
+    }); 
+}
+
+const strategy = new LocalStrategy(customFields, verifyCallback); 
+passport.use(strategy); 
+
+passport.serializeUser((user, done) => {
+    console.log("inside serialize"); 
+    done(null, user.Username)
+}); 
+
+passport.deserializeUser(function(Username, done){
+    console.log("deserializeUser: " + Username); 
+    db.query('SELECT * FROM user WHERE Username = ?', [Username], function(error, results){
+        done(null, results[0]); 
+    }); 
+}); 
+
+
+
 
 //getting signup page and inserting new users into the database, then redirect to login 
 //bycrypt is what we are using the hash the password to make it more secure
@@ -120,7 +160,7 @@ app.post('/login', async(req, res) => {
 })
 //user specific dashboard 
 //will hold the users book lists, clubs, link to book search
-app.get('/:Username', function(req, res, next) {
+app.get('/dashboard', function(req, res, next) {
     if(req.session.loggedinUser){
         res.send({Username:req.session.Username}); 
     }else{
@@ -142,15 +182,15 @@ app.post('/search',  async function(req, res){
     
     if(req.body.titlesearch){
 
-        let results =  getBook('title', searchtxt, 10); 
-
-        res.render("../pages/views/search-results.ejs", 
+        await getBook('title', searchtxt, 10).then((results) => 
+                    res.render("../pages/views/search-results.ejs", 
             {
                 data: results
-            }); 
 
-        console.log("Got here"); 
-        // console.log(results); 
+                
+            }) ) 
+
+            // console.log(results);
     }
 }
 )
