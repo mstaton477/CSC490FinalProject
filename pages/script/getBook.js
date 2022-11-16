@@ -1,13 +1,14 @@
-
-const fetch = require("node-fetch");
+if (typeof window !== 'undefined'){
+    const fetch = require("node-fetch");
+}
 
 // DO NOT CALL THIS FUNCTION: call getBook() instead
 async function getBookHelper(_type, _value, _limit) {
-    const api_url_base = 'http://www.openlibrary.org'
-    var request_url
+    const api_url_base = 'http://www.openlibrary.org';
+    var request_url;
     let escaped_value = encodeURIComponent(_value).replaceAll('%20','+');
-    limit_exists = _limit !== null && _limit > 1;
-    if(limit_exists) escaped_limit = encodeURIComponent(_limit).replaceAll('%20','+')
+    limit_exists = _limit !== null  &&  _limit > 1;
+    if (limit_exists)   escaped_limit = encodeURIComponent(_limit).replaceAll('%20','+')
 
     switch(_type){
         case 'key': request_url = api_url_base + escaped_value.replaceAll('%2F','/') + '.json'; break;
@@ -80,14 +81,40 @@ async function getBookHelper(_type, _value, _limit) {
  }
 }
 
+//function timeout(_ms) {
+    //return 
+//}
+
+async function custom_wait(_f, _timeout, ..._args) {
+    await new Promise(resolve => setTimeout(resolve, _timeout));
+    return _f(..._args);
+}
+
 /*
 _type should be 'key', 'title', or 'isbn'
 _value holds that specific value
 _limit is optional
 An example call: getBook('title', 'the lord of the rings', 10)
 */
-async function getBook(_type, _value, _limit){
-    return await { "books": getBookHelper(_type, _value, _limit) };
+
+async function getBook(__type, __value, __limit, __timeout){
+    if (__timeout === null) __timeout = 10000;
+
+    data = await custom_wait(getBookHelper,  __timeout, __type, __value, __limit);
+    return { "books": data};
 }
+
+// example code of it in use; the call to then is crucial
+/* <- add/remove a slash before the block comment to toggle code
+
+let type = 'title', searchtxt = 'the hunger games', limit = 5;
+function dummy_function(x) { console.log(x) }
+
+getBook(type, searchtxt, limit)
+    .then(results => dummy_function(results))
+
+//                              toggle (up above) to comment out when done testing
+
+//*///  <- do not touch:    line comment (ignored if in block comment) + end block comment + line comment (to write this description)
 
 module.exports = getBook; 
