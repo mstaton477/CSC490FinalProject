@@ -1,22 +1,24 @@
 // Imports
 const express = require('express');
-const session = require('express-session');
-const passport = require('passport'); 
+const session = require('express-session'); 
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const path = require('path'); 
-var LocalStrategy   = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local'); 
+const passport = require('passport'); 
 
 
 //javascript files import 
 
 const getBook = require('./pages/script/getBook.js');  
+const db = require('./database'); 
 
 
+const store = new session.MemoryStore(); 
 const app = express();
 
-// app.set("view engine", "ejs"); 
-// app.set('views', path.join(__dirname, "/views")); 
+app.set("view engine", "ejs"); 
+app.set('views', path.join(__dirname, "/views")); 
 
 app.use(session({
     secret: 'secret',
@@ -25,20 +27,6 @@ app.use(session({
 }));
 
 app.use(express.json());
-
-//creating javascript database connecting to remote 
-
-const db = mysql.createConnection({
-    host: "us-cdbr-east-06.cleardb.net", 
-    user: "bab87ea7d060c5", 
-    password: "c593381b", 
-    database: "heroku_209a0a2d6441663"
-});
-
-db.connect((err) => {
-    if(err) {throw err;}
-    console.log("DB connection OK")
-});
 
 //getting homepage
 app.use(express.static(__dirname + '/pages'));
@@ -92,7 +80,9 @@ app.post('/views/signin', async(req, res) => {
 // then will redirect to the user specific dashboard 
 app.post('/login', async(req, res) => {
     const Username = req.body.username; 
-    const Password = req.body.password;  
+    const Password = req.body.password; 
+    
+    
 
     const sqlSearch = "SELECT * FROM user where Username = ?;"; 
     const search_query = mysql.format(sqlSearch, [Username]);
@@ -112,7 +102,7 @@ app.post('/login', async(req, res) => {
                 // res.send(`${Username} is logged in `);   
             }else{
                 console.log("Password Incorrect");
-                res.send("Password incorrect "); 
+                res.send("Password Incorrect "); 
             }
             res.redirect('./dashboard');
     
@@ -121,9 +111,9 @@ app.post('/login', async(req, res) => {
 })
 //user specific dashboard 
 //will hold the users book lists, clubs, link to book search
-app.get('/dashboard', function(req, res, next) {
+app.get('/dashboard', function(req, res) {
     if(req.session.loggedinUser){
-        res.send({Username:req.session.Username}); 
+        res.render("../pages/views/dashboard.ejs",{Username:req.session.Username}); 
     }else{
         res.redirect('./login');
     }
@@ -140,20 +130,17 @@ app.get('/logout', function(req, res){
 app.post('/search',  async function(req, res){
     searchtxt = req.body.Answer; 
     console.log(req.body.Answer); 
-    
     if(req.body.titlesearch){
 
-        let results =  getBook('title', searchtxt, 10); 
-
-        res.render("../pages/views/search-results.ejs", 
+        await getBook('title', searchtxt, 10).then((results) => 
+                    res.render("../pages/views/search-results.ejs", 
+                    console.log(results), 
             {
                 data: results
-            }); 
+            }) )
+      } 
 
-        console.log("Got here"); 
-        // console.log(results); 
-    }
-}
+   }
 )
 
 app.listen(process.env.PORT || 8080, function () {
