@@ -30,6 +30,8 @@ async function bookHelper(_type, _value, _limit) {
     if(typeof data.type !== 'undefined' && data.type.key === '/type/redirect'){
         return getBook('key', data.results.location)
     }
+
+const author_map = new Map();
  
  // TODO finish this part
  switch(_type){
@@ -61,8 +63,8 @@ async function bookHelper(_type, _value, _limit) {
             title = docs[i].title
             author_keys = docs[i].author_key
             author_names = docs[i].author_name
-        }catch(error){
-          console.error(error);
+        }catch(_error){
+          console.error(_error);
         } finally{
 
             temp_list.push({
@@ -73,6 +75,33 @@ async function bookHelper(_type, _value, _limit) {
             })
         }
     }
+
+    temp_list.forEach((e) => {
+        if(typeof e.author_keys !== 'undefined' && typeof e.author_names !== 'undefined'){
+            for(let j = 0; j < e.author_keys.length && j < e.author_names.length; j++){
+                if(!author_map.has(e.author_keys[j])){
+                    author_map.set(e.author_keys[j], e.author_names[j]);
+                }
+            }
+        }
+    })
+
+    for(let k = 0; k < temp_list.length; k++){
+    
+
+        temp_authors = []
+        temp_list[k].author_keys.forEach((this_key) => {
+            if(author_map.has(this_key)){
+            temp_authors.push({'key':this_key, 'name':author_map.get(this_key)})
+        }})
+
+        temp_list[k] = {
+                'key': temp_list[k].key,
+                'title': temp_list[k].title,
+                'authors': temp_authors
+        };
+    }
+
     return temp_list;
 
     default:
@@ -93,19 +122,5 @@ async function getBook(__type, __value, __limit, __timeout){
     data = await getRequest(bookHelper,  __timeout, __type, __value, __limit);
     return { "books": data};
 }
-
-//* <- add/remove a slash before the block comment to toggle code
-// example code of it in use; the call to then is crucial
-//
-let type = 'key', searchtxt = '/books/OL31905966M', limit = 1;
-function dummy_function(x) { console.log(x) }
-//
-getBook(type, searchtxt, limit)
-    .then(results => dummy_function(results))
-//
-//                              toggle (up above) to comment out when done testing
-//
-//*/      
-//          do not touch the line above; it ends block comment (ignored if not in a block comment) 
 
 module.exports = getBook; 
