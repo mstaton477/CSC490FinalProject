@@ -6,3 +6,4 @@ csc490.iml
 .vs/*
 
 *.class
+node_modules
