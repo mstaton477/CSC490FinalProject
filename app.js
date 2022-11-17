@@ -10,7 +10,7 @@ const passport = require('passport');
 
 //javascript files import 
 
-const getBook = require('./pages/script/getBook.js');  
+const getBook = require('./pages/script/getBook');  
 const db = require('./database'); 
 
 
