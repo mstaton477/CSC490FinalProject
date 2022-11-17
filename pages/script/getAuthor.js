@@ -31,7 +31,7 @@ async function authorHelper(_type_, _value_, _limit_){
 
     switch(_type_){
         case 'key':
-            return [_value_, data.name];
+            return {'key':_value_, 'name':data.name};
         break;
 
         case 'name':
