@@ -5,7 +5,9 @@ const fetch = require("node-fetch");
 // LEAVE COMMENTED WHEN DONE
 // var base_path = './'
 
+
 if(typeof base_path === 'undefined') base_path = './pages/script/';
+
 const getRequest = require(base_path + "getRequest.js");
 const getAuthor = require(base_path + "getAuthor.js");
 
