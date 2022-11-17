@@ -1,17 +1,13 @@
 
 // LEAVE UNCOMMENTED WHEN DONE
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 
-// LEAVE COMMENTED WHEN DONE
-// var base_path = './'
-
-if(typeof base_path === 'undefined') base_path = './pages/script/';
-const getRequest = require(base_path + "getRequest.js");
-const getAuthor = require(base_path + "getAuthor.js");
+const getRequest = require("./getRequest.js");
+const getAuthor = require("./getAuthor.js");
 
 // DO NOT CALL THIS FUNCTION: call getBook() instead
 async function bookHelper(_type, _value, _limit) {
-    const api_url_base = 'http://www.openlibrary.org';
+    const api_url_base = 'https://www.openlibrary.org';
     var request_url;
     let escaped_value = encodeURIComponent(_value).replaceAll('%20','+');
     limit_exists = _limit !== null  &&  _limit > 1;
@@ -26,7 +22,6 @@ async function bookHelper(_type, _value, _limit) {
    
     // Make API call
     const response = await fetch(request_url);
-    console.log(request_url)
  
     // to JSON 
     const data = await response.json();
@@ -38,15 +33,13 @@ async function bookHelper(_type, _value, _limit) {
  
  // TODO finish this part
  switch(_type){
-
+    case 'key':
     case 'isbn':
     temp = [{
         'key': data.key,
         'title': data.title,
-        'authors': data.authors
+        'authors': typeof data.authors !== 'undefined' ? data.authors : []
     }];
-    console.log(temp);
-    console.log(data.authors);
     return temp;
 
 
@@ -101,10 +94,10 @@ async function getBook(__type, __value, __limit, __timeout){
     return { "books": data};
 }
 
-/* <- add/remove a slash before the block comment to toggle code
+//* <- add/remove a slash before the block comment to toggle code
 // example code of it in use; the call to then is crucial
 //
-let type = 'title', searchtxt = 'the hunger games', limit = 5;
+let type = 'key', searchtxt = '/books/OL31905966M', limit = 1;
 function dummy_function(x) { console.log(x) }
 //
 getBook(type, searchtxt, limit)
