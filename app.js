@@ -117,6 +117,10 @@ app.get('/dashboard', function(req, res) {
     }else{
         res.redirect('./login');
     }
+    
+    db.query(`SELECT * FROM book list WHERE Username = ? `, [req.session.loggedinUser], function(error, results, fields){
+        
+    })
 });
 
 // log out function 
