@@ -4,8 +4,34 @@ const getRequest = require("./getRequest.js");
 const getAuthor = require("./getAuthor.js");
 const getBook = require("./getBook.js")
 
-let type = 'title', searchtxt = 'song of ice and fire', limit = 5;
-function dummy_function(x) { console.log(util.inspect(x, false, null, true /* enable colors */)) }
+function dummy_function(x, y) { 
+	
+	if(true){
+		if(x == 1) list_of_books.push(y); else list_of_authors.push(y);
 
-getBook(type, searchtxt, limit)
-    .then(results => dummy_function(results))
+		if(list_of_books.length + list_of_authors.length == num_of_requests){
+			console.log('\n################################################################################\nBook Requests:')
+			list_of_books.forEach(z => {
+				console.log('--------------------------------------------------------------------------------')
+				console.log(util.inspect(z, false, null, true /* enable colors */ )); 
+			});
+			console.log('\n################################################################################\nAuthor Requests:')
+			list_of_authors.forEach(z => {
+				console.log('--------------------------------------------------------------------------------')
+				console.log(util.inspect(z, false, null, true /* enable colors */ )); 
+			});
+		}
+	}
+}
+
+let limit = 5, num_of_requests = 0;
+let list_of_books = [], list_of_authors = [];
+
+getBook('key', '/works/OL17489309W').then( (results) => { dummy_function(1, results) } );
+getBook('title', 'the lord of the rings', limit).then( (results) => { dummy_function(1, results) } );
+getBook('isbn', '9780439700900', limit).then( (results) => { dummy_function(1, results) } );
+num_of_requests += 3;
+
+getAuthor('name', 'Robert Jordan', limit).then( (results) => { dummy_function(2, results); } );
+getAuthor('key', '/authors/OL18319A', limit).then( (results) => { dummy_function(2, results); } );
+num_of_requests += 2;
