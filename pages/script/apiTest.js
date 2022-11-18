@@ -27,11 +27,14 @@ function dummy_function(x, y) {
 let limit = 5, num_of_requests = 0;
 let list_of_books = [], list_of_authors = [];
 
-getBook('key', '/works/OL17489309W').then( (results) => { dummy_function(1, results) } );
-getBook('title', 'the lord of the rings', limit).then( (results) => { dummy_function(1, results) } );
-getBook('isbn', '9780439700900', limit).then( (results) => { dummy_function(1, results) } );
-num_of_requests += 3;
-
-getAuthor('name', 'Robert Jordan', limit).then( (results) => { dummy_function(2, results); } );
-getAuthor('key', '/authors/OL18319A', limit).then( (results) => { dummy_function(2, results); } );
-num_of_requests += 2;
+if(true){
+	getBook('key', '/works/OL17489309W').then( (results) => { dummy_function(1, results) } );
+	getBook('title', 'the lord of the rings', limit).then( (results) => { dummy_function(1, results) } );
+	getBook('isbn', '9780439700900', limit).then( (results) => { dummy_function(1, results) } );
+	num_of_requests += 3;
+}
+if(true){
+	getAuthor('name', 'Robert Jordan', limit).then( (results) => { dummy_function(2, results); } );
+	getAuthor('key', '/authors/OL18319A', limit).then( (results) => { dummy_function(2, results); } );
+	num_of_requests += 2;
+}
