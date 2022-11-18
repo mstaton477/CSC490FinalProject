@@ -17,7 +17,11 @@ const db = require('./database');
 const store = new session.MemoryStore(); 
 const app = express();
 
-app.set("view engine", "ejs"); 
+// app.set("view engine", "ejs"); 
+
+
+app.engine("html", require("ejs").renderFile);
+app.set("view engine", "html");
 app.set('views', path.join(__dirname, "/views")); 
 
 app.use(session({
@@ -119,7 +123,8 @@ app.get('/dashboard', function(req, res) {
     }
     
     db.query(`SELECT * FROM book list WHERE Username = ? `, [req.session.loggedinUser], function(error, results, fields){
-        
+        if (error) throw error; 
+        res.render("../pages/views/dashboard.ejs", {data : results}); 
     })
 });
 
@@ -137,10 +142,11 @@ app.post('/search',  async function(req, res){
     if(req.body.titlesearch){
 
         await getBook('title', searchtxt, 10).then((results) => 
+                   
                     res.render("../pages/views/search-results.ejs", 
-                    console.log(results), 
+                    // console.log(results.books), 
             {
-                data: results
+                data: results.books
             }) )
       } 
 
