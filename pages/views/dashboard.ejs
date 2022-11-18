@@ -9,12 +9,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet">
     
 </head>
-<body>
-    <h2>Welcome to Dashboard</h2>
-
+<body id="dashboard-body">
+    <div class="top">
+        <h2 class="title"><%= Username %>'s Dashboard</h2>
+        <p class="welcome">Welcome  <%= Username %> !</p>
+    </div>
     
-        <p>Welcome  <%= Username %> !</p>
-        <!-- <p><%= results %></p> -->
-        <p><a href="/logout.html">Logout</a></p>
+    
+    <div class="content-container">
+        <div class="box"><div>one</div></div>
+        <div class="box"><div>two</div></div>
+        <div class="box"><div>three</div></div>
+        <div class="box"><div>four</div></div>
+    </div>
+
+        <div class="dashboard-nav">
+            <a class="active" href="./dashboard.ejs">Dashboard</a>
+            <a id='link' href="../views/login.html">Login</a>
+            <a id ='link' href="'../views/logout.html">Logout</a> 
+            <a id ='link' href="../views/home.html">Home</a>
+        </div>
 </body>
 </html>
