@@ -5,8 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
+    <link rel="stylesheet" href="../sass/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet">
 </head>
-<body>
+<body >
+    <h2 style="text-align: center; font-family: 'Vollkorn', serif;">Search Results</h2>
+
     <% data.books.forEach(function(key) { %>
         <li><%= key.title %></li>
         <ul>

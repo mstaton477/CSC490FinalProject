@@ -121,17 +121,17 @@ app.get('/dashboard', async function(req, res) {
         const Username = req.session.Username; 
         const booklistSQL = 'SELECT * FROM `book list` WHERE Username = ? '; 
         const bookList_query = mysql.format(booklistSQL, [Username]);
-
+        let results; 
         await db.query(bookList_query, async function(err, results) {
             if (err) throw err;
             if (results.length == 0){
                 console.log("No Booklists associated with this User"); 
             }
+            
+            return results = Object.values(JSON.parse(JSON.stringify(results)));  
             console.log(results); 
-            return results; 
-
         }, 
-        res.render("../pages/views/dashboard.ejs",{Username:Username
+        res.render("../pages/views/dashboard.ejs",{Username:Username, results
             // , 
             // results:results
         }) 
