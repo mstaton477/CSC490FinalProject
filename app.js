@@ -166,14 +166,12 @@ app.post('/search',  async function(req, res){
     console.log(req.body.Answer); 
     if(req.body.titlesearch){
 
-        await getBook('title', searchtxt, 10).then((results) => 
-                   
+        await getBook('title', searchtxt, 20).then((results) => 
                     res.render("../pages/views/search-results.ejs", 
-                    // console.log(results.books), 
             {
-                data: results.books
+                data: results
             }) )
-      } 
+    } 
 
    }
 )
