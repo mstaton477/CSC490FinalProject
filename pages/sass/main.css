@@ -712,6 +712,45 @@ html {
   width: auto;
   border-radius: 7px;
   box-shadow: 0px 0px 5px 2px #000000;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.BookSearch {
+  width: 50%;
+  height: 25%;
+  padding: 7px;
+  border: none;
+  border-radius: 5px;
+  color: #fefae0;
+  font-weight: bold;
+  background-color: #7f5539;
+  cursor: pointer;
+  outline: none;
+  font-family: "Vollkorn", serif;
+  font-size: 15px;
+  position: relative;
+  top: 25%;
+  left: 25%;
+  text-align: center;
+}
+
+.box1 {
+  justify-content: center;
+  text-align: center;
+  font-size: 30px;
+}
+
+.box3 {
+  justify-content: center;
+  text-align: center;
+  font-size: 30px;
+}
+
+.box4 {
+  justify-content: center;
+  text-align: center;
+  font-size: 30px;
 }
 
 /*Add a black background color to the top navigation bar */
