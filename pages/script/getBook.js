@@ -1,19 +1,13 @@
 
 // LEAVE UNCOMMENTED WHEN DONE
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 
-// LEAVE COMMENTED WHEN DONE
-// var base_path = './'
-
-
-if(typeof base_path === 'undefined') base_path = './';
-
-const getRequest = require(base_path + "getRequest.js");
-const getAuthor = require(base_path + "getAuthor.js");
+const getRequest = require("./getRequest.js");
+const getAuthor = require("./getAuthor.js");
 
 // DO NOT CALL THIS FUNCTION: call getBook() instead
 async function bookHelper(_type, _value, _limit) {
-    const api_url_base = 'http://www.openlibrary.org';
+    const api_url_base = 'https://www.openlibrary.org';
     var request_url;
     let escaped_value = encodeURIComponent(_value).replaceAll('%20','+');
     limit_exists = _limit !== null  &&  _limit > 1;
@@ -28,7 +22,6 @@ async function bookHelper(_type, _value, _limit) {
    
     // Make API call
     const response = await fetch(request_url);
-    console.log(request_url)
  
     // to JSON 
     const data = await response.json();
@@ -37,19 +30,46 @@ async function bookHelper(_type, _value, _limit) {
     if(typeof data.type !== 'undefined' && data.type.key === '/type/redirect'){
         return getBook('key', data.results.location)
     }
+
+const author_map = new Map();
  
  // TODO finish this part
  switch(_type){
-
+    case 'key':
     case 'isbn':
-    temp = [{
-        'key': data.key,
-        'title': data.title,
-        'authors': data.authors
-    }];
-    console.log(temp);
-    console.log(data.authors);
-    return temp;
+    var temp1 = [];
+    var temp3;
+    promise_list = [];
+    if(typeof data.authors === 'undefined') data.authors = [];
+
+    
+    for(let i = 0; i < data.authors.length; i++){
+        temp3 = typeof data.authors[i].key !== 'undefined' ? data.authors[i].key : data.authors[i].author.key;
+        promise_list.push(
+            await getAuthor('key', temp3, -1)
+            .then(x => temp1.push(x))
+        );
+    }
+
+    await Promise.allSettled(promise_list).then( () => {
+        if(false){
+            for(let i = 0; i < temp1.length; i++){
+                temp1[i] = {'key': temp1[i].authors.key, 'name': temp1[i].authors.name}
+            }
+            console.log('there we go:')
+            temp1.forEach(toPrint => console.log(toPrint))
+        }
+
+        temp2 = []
+        temp1.forEach(a => {
+            temp2.push({
+                'key': data.key,
+                'title': data.title,
+                'authors': a.authors
+            });
+        })
+    });
+    return temp2;
 
 
     case 'title':
@@ -62,26 +82,53 @@ async function bookHelper(_type, _value, _limit) {
         let key = docs[i].key;
         if(typeof key === 'undefined') continue;
 
-        var title = null;
-        var author_keys = null;
-        var author_names = null;
+        let temptitle = null;
+        let author_keys = null;
+        let author_names = null;
 
         try{
-            title = docs[i].title
+            temptitle = docs[i].title
             author_keys = docs[i].author_key
             author_names = docs[i].author_name
-        }catch(error){
-          console.error(error);
+        }catch(_error){
+          console.error(_error);
         } finally{
 
             temp_list.push({
                 'key': key,
-                'title': title,
+                'title': temptitle,
                 'author_keys': author_keys,
                 'author_names': author_names
             })
         }
     }
+
+    temp_list.forEach((e) => {
+        if(typeof e.author_keys !== 'undefined' && typeof e.author_names !== 'undefined'){
+            for(let j = 0; j < e.author_keys.length && j < e.author_names.length; j++){
+                if(!author_map.has(e.author_keys[j])){
+                    author_map.set(e.author_keys[j], e.author_names[j]);
+                }
+            }
+        }
+    })
+
+    for(let k = 0; k < temp_list.length; k++){
+    
+
+        let temp_authors = []
+        temp_list[k].author_keys.forEach((this_key) => {
+            if(author_map.has(this_key)){
+            temp_authors.push({'key':this_key, 'name':author_map.get(this_key)})
+        }})
+
+        temp_list[k] = {
+                'key': temp_list[k].key,
+                'title': temp_list[k].title,
+                'authors': temp_authors
+        };
+    }
+
     return temp_list;
 
     default:
@@ -102,19 +149,5 @@ async function getBook(__type, __value, __limit, __timeout){
     data = await getRequest(bookHelper,  __timeout, __type, __value, __limit);
     return { "books": data};
 }
-
-/* <- add/remove a slash before the block comment to toggle code
-// example code of it in use; the call to then is crucial
-//
-let type = 'title', searchtxt = 'the hunger games', limit = 5;
-function dummy_function(x) { console.log(x) }
-//
-getBook(type, searchtxt, limit)
-    .then(results => dummy_function(results))
-//
-//                              toggle (up above) to comment out when done testing
-//
-//*/      
-//          do not touch the line above; it ends block comment (ignored if not in a block comment) 
 
 module.exports = getBook; 
