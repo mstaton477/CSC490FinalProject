@@ -37,13 +37,40 @@ const author_map = new Map();
  switch(_type){
     case 'key':
     case 'isbn':
-    temp = [{
-        'key': data.key,
-        'title': data.title,
-        'authors': typeof data.authors !== 'undefined' ? data.authors : []
-    }];
-    return temp;
+    var temp1 = [];
+    var temp3;
+    promise_list = [];
+    if(typeof data.authors === 'undefined') data.authors = [];
 
+    
+    for(let i = 0; i < data.authors.length; i++){
+        temp3 = typeof data.authors[i].key !== 'undefined' ? data.authors[i].key : data.authors[i].author.key;
+        promise_list.push(
+            await getAuthor('key', temp3, -1)
+            .then(x => temp1.push(x))
+        );
+    }
+
+    await Promise.allSettled(promise_list).then( () => {
+        if(false){
+            for(let i = 0; i < temp1.length; i++){
+                temp1[i] = {'key': temp1[i].authors.key, 'name': temp1[i].authors.name}
+            }
+            console.log('there we go:')
+            temp1.forEach(toPrint => console.log(toPrint))
+        }
+
+        temp2 = []
+        temp1.forEach(a => {
+            temp2.push({
+                'key': data.key,
+                'title': data.title,
+                'authors': a.authors
+            });
+        })
+    });
+
+    return temp2;
 
     case 'title':
 
@@ -55,12 +82,12 @@ const author_map = new Map();
         let key = docs[i].key;
         if(typeof key === 'undefined') continue;
 
-        var title = null;
-        var author_keys = null;
-        var author_names = null;
+        let temptitle = null;
+        let author_keys = null;
+        let author_names = null;
 
         try{
-            title = docs[i].title
+            temptitle = docs[i].title
             author_keys = docs[i].author_key
             author_names = docs[i].author_name
         }catch(_error){
@@ -69,7 +96,7 @@ const author_map = new Map();
 
             temp_list.push({
                 'key': key,
-                'title': title,
+                'title': temptitle,
                 'author_keys': author_keys,
                 'author_names': author_names
             })
@@ -89,7 +116,7 @@ const author_map = new Map();
     for(let k = 0; k < temp_list.length; k++){
     
 
-        temp_authors = []
+        let temp_authors = []
         temp_list[k].author_keys.forEach((this_key) => {
             if(author_map.has(this_key)){
             temp_authors.push({'key':this_key, 'name':author_map.get(this_key)})
