@@ -1,3 +1,7 @@
+
+// LEAVE UNCOMMENTED WHEN DONE
+const fetch = require("node-fetch");
+
 // helper function
 const getRequest = require("./getRequest.js")
 

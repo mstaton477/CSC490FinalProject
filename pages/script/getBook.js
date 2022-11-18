@@ -1,6 +1,6 @@
 
 // LEAVE UNCOMMENTED WHEN DONE
-// const fetch = require("node-fetch");
+const fetch = require("node-fetch");
 
 const getRequest = require("./getRequest.js");
 const getAuthor = require("./getAuthor.js");
