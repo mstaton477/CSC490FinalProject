@@ -12,12 +12,17 @@ const passport = require('passport');
 
 const getBook = require('./pages/script/getBook');  
 const db = require('./database'); 
+const { result } = require('lodash');
 
 
 const store = new session.MemoryStore(); 
 const app = express();
 
-app.set("view engine", "ejs"); 
+// app.set("view engine", "ejs"); 
+
+
+app.engine("html", require("ejs").renderFile);
+app.set("view engine", "html");
 app.set('views', path.join(__dirname, "/views")); 
 
 app.use(session({
@@ -111,16 +116,41 @@ app.post('/login', async(req, res) => {
 })
 //user specific dashboard 
 //will hold the users book lists, clubs, link to book search
-app.get('/dashboard', function(req, res) {
+app.get('/dashboard', async function(req, res) {
     if(req.session.loggedinUser){
-        res.render("../pages/views/dashboard.ejs",{Username:req.session.Username}); 
+        const Username = req.session.Username; 
+        const booklistSQL = 'SELECT * FROM `book list` WHERE Username = ? '; 
+        const bookList_query = mysql.format(booklistSQL, [Username]);
+
+        await db.query(bookList_query, async function(err, results) {
+            if (err) throw err;
+            if (results.length == 0){
+                console.log("No Booklists associated with this User"); 
+            }
+            console.log(results); 
+            return results; 
+
+        }, 
+        res.render("../pages/views/dashboard.ejs",{Username:Username
+            // , 
+            // results:results
+        }) 
+        )
+
+        
+        
+
+
+
+        // db.query('SELECT * FROM `book list` WHERE Username = ? ', [req.session.Username], function(error, results, fields){
+        //     if (error) throw error; 
+        //     res.render("../pages/views/dashboard.ejs", {data : results}); 
+        // })
     }else{
         res.redirect('./login');
     }
     
-    db.query(`SELECT * FROM book list WHERE Username = ? `, [req.session.loggedinUser], function(error, results, fields){
-        
-    })
+    
 });
 
 // log out function 
@@ -136,13 +166,12 @@ app.post('/search',  async function(req, res){
     console.log(req.body.Answer); 
     if(req.body.titlesearch){
 
-        await getBook('title', searchtxt, 10).then((results) => 
+        await getBook('title', searchtxt, 20).then((results) => 
                     res.render("../pages/views/search-results.ejs", 
-                    console.log(results), 
             {
                 data: results
             }) )
-      } 
+    } 
 
    }
 )
