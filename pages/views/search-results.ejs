@@ -15,23 +15,25 @@
 
     <% if (searchChoice == "title") { %> 
         <% data.books.forEach(function(key) { %>
-            <li><%= key.title %></li>
-            <ul>
+            <li style="text-align: left; font-family: 'Vollkorn', serif; font-size: 20px; text-decoration: none; list-style: none;"><%= key.title %></li>
+            <li style="padding-left: 20px; font-family: 'Vollkorn', serif; font-size: 15px; text-decoration: none; list-style: none;">Authors</li>
+            <ul style="list-style: none;">
                <% key.authors.forEach(function(a) { %>
-                      <li><%= a.name %></li>
+                      <li style=" font-family: 'Vollkorn', serif; font-size: 13px; text-decoration: none; list-style: none;"><%= a.name %></li>
                   <% }) %>
             </ul>
       <% }) %>  
     <% }else if(searchChoice == "author"){ %>
             <% data.authors.forEach(function(key) { %>
-                <li><%= key.name %> </li>
+                <li style="text-align: left; font-family: 'Vollkorn', serif; font-size: 20px; text-decoration: none; list-style: none;"><%= key.name %> </li>
             <% }) %> 
      <% }else if (searchChoice == 'isbn') {%>
             <% data.books.forEach(function(key) { %> 
-                <li> <%=key.title %></li>
-                <ul>
+                <li style="text-align: left; font-family: 'Vollkorn', serif; font-size: 20px; text-decoration: none; list-style: none;"> <%=key.title %></li>
+                <li style="padding-left: 20px; font-family: 'Vollkorn', serif; font-size: 15px; text-decoration: none; list-style: none;">Authors</li>
+                <ul style="list-style: none;">
                     <% key.authors.forEach(function(a) { %>
-                           <li><%= a.name %></li>
+                           <li style=" font-family: 'Vollkorn', serif; font-size: 13px; text-decoration: none; list-style: none;"><%= a.name %></li>
                        <% }) %>
                  </ul>
             <% }) %> 
