@@ -1,6 +1,7 @@
 /*home page*/
 .home-body {
   margin: 0;
+  padding: 0;
   height: 100%;
 }
 
@@ -9,13 +10,12 @@
   color: #644c33;
   padding: 10px 5px 10px 5px;
   height: 525px;
-  padding: 1em 13em;
+  padding: 1em 15%;
 }
 
 .home-header {
   display: flex;
   justify-content: space-between;
-  padding-right: 20px;
 }
 
 .main-header {
@@ -46,12 +46,14 @@
 .home-top-links {
   -webkit-text-decoration: underline #7f5539;
           text-decoration: underline #7f5539;
-  height: 30px;
+  height: 100%;
   font-size: 22px;
   font-weight: 700;
   color: #644c33;
   font-family: "Vollkorn", serif;
   margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
   list-style-type: none;
   display: flex;
   width: 35%;
@@ -64,20 +66,25 @@
 
 .home-website-container {
   display: flex;
-  justify-content: space-evenly;
-  padding-top: 40px;
-  padding: 1em 13em;
+  justify-content: space-around;
 }
 
-.left-about, .home-right-img {
-  width: 400px;
-  height: 300px;
-  padding: 15px;
+.left-about {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 3em;
+}
+
+.home-right-img {
+  width: 66%;
+  height: auto;
+  padding-right: 1em;
 }
 
 .home-top-image {
-  width: auto;
-  height: 350px;
+  width: 550px;
   border: 5px solid #fefae0;
 }
 
@@ -105,8 +112,7 @@
 
 .info-side {
   font-family: "Vollkorn", serif;
-  width: 70%;
-  height: 100vh;
+  width: 80%;
   margin: 50px;
   font-size: 22px;
   line-height: 2;
@@ -230,6 +236,7 @@ html {
   display: grid;
   justify-items: center;
   align-items: center;
+  margin: auto;
   background: url("../images/login.jpg");
 }
 
