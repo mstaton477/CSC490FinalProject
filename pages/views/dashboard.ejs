@@ -20,7 +20,12 @@
         <div class="box box1">
             <div>Book Lists</div>
             
-               
+
+            <% for (var i = 0; i < bookListResults.length; i++) { %> 
+                <ul>
+                    <li style="font-size: 20px; text-align: left;"><%- bookListResults[i].ListName %> </li>
+                </ul> 
+            <% } %> 
             
         </div>
         <div class="box box2">
@@ -29,7 +34,14 @@
                 Book Search
             </button>
         </div>
-        <div class="box box3"><div>Clubs</div></div>
+        <div class="box box3">
+            <div>Clubs</div>
+            <% for (var i = 0; i < clubListResults.length; i++) { %> 
+                <ul>
+                    <li style="font-size: 20px; text-align: left;"><%- clubListResults[i].ClubName %> </li>
+                </ul> 
+            <% } %> 
+        </div>
         <div class="box box4"><div>Club List</div></div>
     </div>
 

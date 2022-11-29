@@ -7,7 +7,6 @@ const path = require('path');
 const LocalStrategy = require('passport-local');
 const passport = require('passport');
 
-
 //javascript files import 
 
 const getBook = require('./pages/script/getBook');
@@ -122,22 +121,64 @@ app.get('/dashboard', async function (req, res) {
         const Username = req.session.Username;
         const booklistSQL = 'SELECT * FROM `book list` WHERE Username = ? ';
         const bookList_query = mysql.format(booklistSQL, [Username]);
-        let results;
-        await db.query(bookList_query, async function (err, results) {
-            if (err) throw err;
-            if (results.length == 0) {
-                console.log("No Booklists associated with this User");
+
+        function getBookLists() {
+            return new Promise((reslove, reject) =>{
+                try{
+                    db.query(bookList_query, function (err, bookListResults){
+                        if (err) return reject(err); 
+                        return reslove(bookListResults); 
+                    }); 
+                }catch(e){
+                    reject(e); 
+                }
+            })
             }
 
-            return results = Object.values(JSON.parse(JSON.stringify(results)));
-            console.log(results);
-        },
-            res.render("../pages/views/dashboard.ejs", {
-                Username: Username, results
-                // , 
-                // results:results
+        let bookListResults = await getBookLists();
+        
+        const clublistSQL = 'SELECT * FROM `clubs` WHERE Usernames = ? ';
+        const clubList_query = mysql.format(clublistSQL, [Username]);
+
+        function getclubLists() {
+            return new Promise((reslove, reject) =>{
+                try{
+                    db.query(clubList_query, function (err, clubListResults){
+                        if (err) return reject(err); 
+                        return reslove(clubListResults); 
+                    }); 
+                }catch(e){
+                    reject(e); 
+                }
             })
-        )
+            }
+
+        let clubListResults = await getclubLists();
+        
+        res.render("../pages/views/dashboard.ejs", {
+            Username: Username,
+            bookListResults: bookListResults, 
+            clubListResults: clubListResults
+        })
+
+
+
+        // let results;
+        // await db.query(bookList_query, async function (err, results) {
+        //     if (err) throw err;
+        //     if (results.length == 0) {
+        //         console.log("No Booklists associated with this User");
+        //     }
+
+        //     return results = Object.values(JSON.parse(JSON.stringify(results)));
+        //     console.log(results);
+        // },
+        //     res.render("../pages/views/dashboard.ejs", {
+        //         Username: Username, 
+        //         // , 
+        //         results:results
+        //     })
+        // )
 
 
 
@@ -167,71 +208,43 @@ app.post('/search', async function (req, res) {
     searchtxt = req.body.Answer;
     console.log(req.body.Answer);
     if (req.body.titlesearch) {
-        
-        var results = await getBook('title', searchtxt, 20); 
-        var searchChoice =  req.body.titlesearch; 
 
-        res.render("../pages/views/search-results.ejs", 
-        {
-            searchChoice: searchChoice, 
-            data: results
-        })
+        var results = await getBook('title', searchtxt, 20);
+        var searchChoice = req.body.titlesearch;
 
-        // await getBook('title', searchtxt, 20).then((results) =>
-        //     res.render("../pages/views/search-results.ejs", console.log(results), 
-        //         {  
-        //             searchChoice: req.body.titlesearch, 
-        //             data: results
-                    
-        //         }))
+        res.render("../pages/views/search-results.ejs",
+            {
+                searchChoice: searchChoice,
+                data: results
+            })
     }
 
     if (req.body.authorsearch) {
-        // await getAuthor('name', searchtxt, ).then((results) => 
 
-        //     res.render("../pages/views/search-results.ejs", 
-        //     {
-        //         data2 : results
-        //     })
+        var results = await getAuthor('name', searchtxt, 20);
+        var searchChoice = req.body.authorsearch;
 
-        // )
+        console.log(results);
 
-        // await getAuthor('name', searchtxt, 20).then((results) =>
-        //     res.render("../pages/views/search-results.ejs", console.log(results),
-        //         {
-        //             data: results
-        //         }))
-        var results = await getAuthor('name', searchtxt, 20); 
-        var searchChoice =  req.body.authorsearch;
-
-        console.log(results); 
-
-        res.render("../pages/views/search-results.ejs", 
-        {
-            searchChoice: searchChoice, 
-            data: results
-        })
+        res.render("../pages/views/search-results.ejs",
+            {
+                searchChoice: searchChoice,
+                data: results
+            })
     }
 
     if (req.body.isbnsearch) {
-        // await getBook('isbn', searchtxt,).then((results) =>
-        //     res.render("../pages/views/search-results.ejs",console.log(results),
-        //         {
-        //             data: results
-        //         }
-        //     )
-        // )
 
-        var results = await getBook('isbn', searchtxt,); 
-        var searchChoice =  req.body.isbnsearch;
+        var results = await getBook('isbn', searchtxt,);
+        var searchChoice = req.body.isbnsearch;
 
         console.log(results);
-        
-        res.render("../pages/views/search-results.ejs", 
-        {
-            searchChoice: searchChoice, 
-            data: results
-        })
+
+        res.render("../pages/views/search-results.ejs",
+            {
+                searchChoice: searchChoice,
+                data: results
+            })
 
     }
 
