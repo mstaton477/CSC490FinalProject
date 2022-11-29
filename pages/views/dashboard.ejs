@@ -20,7 +20,12 @@
         <div class="box box1">
             <div>Book Lists</div>
             
-               
+
+            <% for (var i = 0; i < bookListResults.length; i++) { %> 
+                <ul>
+                    <li style="font-size: 20px; text-align: left;"><%- bookListResults[i].ListName %> </li>
+                </ul> 
+            <% } %> 
             
         </div>
         <div class="box box2">

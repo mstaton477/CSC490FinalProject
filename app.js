@@ -7,7 +7,6 @@ const path = require('path');
 const LocalStrategy = require('passport-local');
 const passport = require('passport');
 
-
 //javascript files import 
 
 const getBook = require('./pages/script/getBook');
@@ -122,22 +121,38 @@ app.get('/dashboard', async function (req, res) {
         const Username = req.session.Username;
         const booklistSQL = 'SELECT * FROM `book list` WHERE Username = ? ';
         const bookList_query = mysql.format(booklistSQL, [Username]);
-        let results;
-        await db.query(bookList_query, async function (err, results) {
-            if (err) throw err;
-            if (results.length == 0) {
-                console.log("No Booklists associated with this User");
-            }
 
-            return results = Object.values(JSON.parse(JSON.stringify(results)));
-            console.log(results);
-        },
-            res.render("../pages/views/dashboard.ejs", {
-                Username: Username, results
-                // , 
-                // results:results
-            })
-        )
+        db.query(bookList_query, function(err, bookListResults){
+          if (err) throw err;
+          if(bookListResults.length == -1){
+            console.log("No Booklists associated with the user"); 
+          } 
+ 
+
+          res.render("../pages/views/dashboard.ejs", {
+            Username: Username, 
+            bookListResults: bookListResults
+          })
+        })
+
+
+
+        // let results;
+        // await db.query(bookList_query, async function (err, results) {
+        //     if (err) throw err;
+        //     if (results.length == 0) {
+        //         console.log("No Booklists associated with this User");
+        //     }
+
+        //     return results = Object.values(JSON.parse(JSON.stringify(results)));
+        //     console.log(results);
+        // },
+        //     res.render("../pages/views/dashboard.ejs", {
+        //         Username: Username, 
+        //         // , 
+        //         results:results
+        //     })
+        // )
 
 
 
@@ -176,31 +191,10 @@ app.post('/search', async function (req, res) {
             searchChoice: searchChoice, 
             data: results
         })
-
-        // await getBook('title', searchtxt, 20).then((results) =>
-        //     res.render("../pages/views/search-results.ejs", console.log(results), 
-        //         {  
-        //             searchChoice: req.body.titlesearch, 
-        //             data: results
-                    
-        //         }))
     }
 
     if (req.body.authorsearch) {
-        // await getAuthor('name', searchtxt, ).then((results) => 
-
-        //     res.render("../pages/views/search-results.ejs", 
-        //     {
-        //         data2 : results
-        //     })
-
-        // )
-
-        // await getAuthor('name', searchtxt, 20).then((results) =>
-        //     res.render("../pages/views/search-results.ejs", console.log(results),
-        //         {
-        //             data: results
-        //         }))
+       
         var results = await getAuthor('name', searchtxt, 20); 
         var searchChoice =  req.body.authorsearch;
 
@@ -214,13 +208,6 @@ app.post('/search', async function (req, res) {
     }
 
     if (req.body.isbnsearch) {
-        // await getBook('isbn', searchtxt,).then((results) =>
-        //     res.render("../pages/views/search-results.ejs",console.log(results),
-        //         {
-        //             data: results
-        //         }
-        //     )
-        // )
 
         var results = await getBook('isbn', searchtxt,); 
         var searchChoice =  req.body.isbnsearch;
