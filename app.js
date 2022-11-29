@@ -122,17 +122,43 @@ app.get('/dashboard', async function (req, res) {
         const booklistSQL = 'SELECT * FROM `book list` WHERE Username = ? ';
         const bookList_query = mysql.format(booklistSQL, [Username]);
 
-        db.query(bookList_query, function(err, bookListResults){
-          if (err) throw err;
-          if(bookListResults.length == -1){
-            console.log("No Booklists associated with the user"); 
-          } 
- 
+        function getBookLists() {
+            return new Promise((reslove, reject) =>{
+                try{
+                    db.query(bookList_query, function (err, bookListResults){
+                        if (err) return reject(err); 
+                        return reslove(bookListResults); 
+                    }); 
+                }catch(e){
+                    reject(e); 
+                }
+            })
+            }
 
-          res.render("../pages/views/dashboard.ejs", {
-            Username: Username, 
-            bookListResults: bookListResults
-          })
+        let bookListResults = await getBookLists();
+        
+        const clublistSQL = 'SELECT * FROM `clubs` WHERE Usernames = ? ';
+        const clubList_query = mysql.format(clublistSQL, [Username]);
+
+        function getclubLists() {
+            return new Promise((reslove, reject) =>{
+                try{
+                    db.query(clubList_query, function (err, clubListResults){
+                        if (err) return reject(err); 
+                        return reslove(clubListResults); 
+                    }); 
+                }catch(e){
+                    reject(e); 
+                }
+            })
+            }
+
+        let clubListResults = await getclubLists();
+        
+        res.render("../pages/views/dashboard.ejs", {
+            Username: Username,
+            bookListResults: bookListResults, 
+            clubListResults: clubListResults
         })
 
 
@@ -182,43 +208,43 @@ app.post('/search', async function (req, res) {
     searchtxt = req.body.Answer;
     console.log(req.body.Answer);
     if (req.body.titlesearch) {
-        
-        var results = await getBook('title', searchtxt, 20); 
-        var searchChoice =  req.body.titlesearch; 
 
-        res.render("../pages/views/search-results.ejs", 
-        {
-            searchChoice: searchChoice, 
-            data: results
-        })
+        var results = await getBook('title', searchtxt, 20);
+        var searchChoice = req.body.titlesearch;
+
+        res.render("../pages/views/search-results.ejs",
+            {
+                searchChoice: searchChoice,
+                data: results
+            })
     }
 
     if (req.body.authorsearch) {
-       
-        var results = await getAuthor('name', searchtxt, 20); 
-        var searchChoice =  req.body.authorsearch;
 
-        console.log(results); 
+        var results = await getAuthor('name', searchtxt, 20);
+        var searchChoice = req.body.authorsearch;
 
-        res.render("../pages/views/search-results.ejs", 
-        {
-            searchChoice: searchChoice, 
-            data: results
-        })
+        console.log(results);
+
+        res.render("../pages/views/search-results.ejs",
+            {
+                searchChoice: searchChoice,
+                data: results
+            })
     }
 
     if (req.body.isbnsearch) {
 
-        var results = await getBook('isbn', searchtxt,); 
-        var searchChoice =  req.body.isbnsearch;
+        var results = await getBook('isbn', searchtxt,);
+        var searchChoice = req.body.isbnsearch;
 
         console.log(results);
-        
-        res.render("../pages/views/search-results.ejs", 
-        {
-            searchChoice: searchChoice, 
-            data: results
-        })
+
+        res.render("../pages/views/search-results.ejs",
+            {
+                searchChoice: searchChoice,
+                data: results
+            })
 
     }
 

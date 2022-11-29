@@ -34,7 +34,14 @@
                 Book Search
             </button>
         </div>
-        <div class="box box3"><div>Clubs</div></div>
+        <div class="box box3">
+            <div>Clubs</div>
+            <% for (var i = 0; i < clubListResults.length; i++) { %> 
+                <ul>
+                    <li style="font-size: 20px; text-align: left;"><%- clubListResults[i].ClubName %> </li>
+                </ul> 
+            <% } %> 
+        </div>
         <div class="box box4"><div>Club List</div></div>
     </div>
 
