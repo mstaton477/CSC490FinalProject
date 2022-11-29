@@ -10,14 +10,31 @@
 </head>
 <body >
     <h2 style="text-align: center; font-family: 'Vollkorn', serif;">Search Results</h2>
+ 
 
-    <% data.books.forEach(function(key) { %>
-        <li><%= key.title %></li>
-        <ul>
-            <% key.authors.forEach(function(a) { %>
-                <li><%= a.name %></li>
-            <% }) %>
-        </ul>
-    <% }) %>
-</body>
+
+    <% if (searchChoice == "title") { %> 
+        <% data.books.forEach(function(key) { %>
+            <li><%= key.title %></li>
+            <ul>
+               <% key.authors.forEach(function(a) { %>
+                      <li><%= a.name %></li>
+                  <% }) %>
+            </ul>
+      <% }) %>  
+    <% }else if(searchChoice == "author"){ %>
+            <% data.authors.forEach(function(key) { %>
+                <li><%= key.name %> </li>
+            <% }) %> 
+     <% }else if (searchChoice == 'isbn') {%>
+            <% data.books.forEach(function(key) { %> 
+                <li> <%=key.title %></li>
+                <ul>
+                    <% key.authors.forEach(function(a) { %>
+                           <li><%= a.name %></li>
+                       <% }) %>
+                 </ul>
+            <% }) %> 
+        <% } %> 
+
 </html>
