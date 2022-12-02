@@ -3,7 +3,7 @@
 ## Description 
 A website for online book clubs that allows users to create their own book lists to share with others. Together users can create a club to discuss their readings and vote on their next. Our search page utilizes the [Open Library API](https://openlibrary.org/developers/api), where users can search by Author, Title, and ISBN-13. 
  - Created using JavaScript, Embedded JavaScript (EJS), HTML/CSS, and Sass. 
- - Online server and databas hosted on Heroku 
+ - Online server and database hosted on Heroku. 
 
 ## Website 
 #### [tomerater.herokuapp.com](tomerater.herokuapp.com/)
