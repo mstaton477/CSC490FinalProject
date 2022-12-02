@@ -5,8 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
+    <link rel="stylesheet" href="../sass/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet">
 </head>
-<body>
-    <%-JSON.stringify(data)%>
-</body>
+<body >
+    <h2 style="text-align: center; font-family: 'Vollkorn', serif;">Search Results</h2>
+ 
+
+
+    <% if (searchChoice == "title") { %> 
+        <% data.books.forEach(function(key) { %>
+            <li style="text-align: left; font-family: 'Vollkorn', serif; font-size: 20px; text-decoration: none; list-style: none;"><%= key.title %></li>
+            <li style="padding-left: 20px; font-family: 'Vollkorn', serif; font-size: 15px; text-decoration: none; list-style: none;">Authors</li>
+            <ul style="list-style: none;">
+               <% key.authors.forEach(function(a) { %>
+                      <li style=" font-family: 'Vollkorn', serif; font-size: 13px; text-decoration: none; list-style: none;"><%= a.name %></li>
+                  <% }) %>
+            </ul>
+      <% }) %>  
+    <% }else if(searchChoice == "author"){ %>
+            <% data.authors.forEach(function(key) { %>
+                <li style="text-align: left; font-family: 'Vollkorn', serif; font-size: 20px; text-decoration: none; list-style: none;"><%= key.name %> </li>
+            <% }) %> 
+     <% }else if (searchChoice == 'isbn') {%>
+            <% data.books.forEach(function(key) { %> 
+                <li style="text-align: left; font-family: 'Vollkorn', serif; font-size: 20px; text-decoration: none; list-style: none;"> <%=key.title %></li>
+                <li style="padding-left: 20px; font-family: 'Vollkorn', serif; font-size: 15px; text-decoration: none; list-style: none;">Authors</li>
+                <ul style="list-style: none;">
+                    <% key.authors.forEach(function(a) { %>
+                           <li style=" font-family: 'Vollkorn', serif; font-size: 13px; text-decoration: none; list-style: none;"><%= a.name %></li>
+                       <% }) %>
+                 </ul>
+            <% }) %> 
+        <% } %> 
+
 </html>

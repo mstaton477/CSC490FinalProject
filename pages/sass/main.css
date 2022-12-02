@@ -1,6 +1,7 @@
 /*home page*/
 .home-body {
   margin: 0;
+  padding: 0;
   height: 100%;
 }
 
@@ -9,13 +10,12 @@
   color: #644c33;
   padding: 10px 5px 10px 5px;
   height: 525px;
-  padding: 1em 13em;
+  padding: 1em 15%;
 }
 
 .home-header {
   display: flex;
   justify-content: space-between;
-  padding-right: 20px;
 }
 
 .main-header {
@@ -46,12 +46,14 @@
 .home-top-links {
   -webkit-text-decoration: underline #7f5539;
           text-decoration: underline #7f5539;
-  height: 30px;
+  height: 100%;
   font-size: 22px;
   font-weight: 700;
   color: #644c33;
   font-family: "Vollkorn", serif;
   margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
   list-style-type: none;
   display: flex;
   width: 35%;
@@ -64,20 +66,25 @@
 
 .home-website-container {
   display: flex;
-  justify-content: space-evenly;
-  padding-top: 40px;
-  padding: 1em 13em;
+  justify-content: space-around;
 }
 
-.left-about, .home-right-img {
-  width: 400px;
-  height: 300px;
-  padding: 15px;
+.left-about {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 3em;
+}
+
+.home-right-img {
+  width: 66%;
+  height: auto;
+  padding-right: 1em;
 }
 
 .home-top-image {
-  width: auto;
-  height: 350px;
+  width: 550px;
   border: 5px solid #fefae0;
 }
 
@@ -105,8 +112,7 @@
 
 .info-side {
   font-family: "Vollkorn", serif;
-  width: 70%;
-  height: 100vh;
+  width: 80%;
   margin: 50px;
   font-size: 22px;
   line-height: 2;
@@ -230,6 +236,7 @@ html {
   display: grid;
   justify-items: center;
   align-items: center;
+  margin: auto;
   background: url("../images/login.jpg");
 }
 
@@ -450,6 +457,8 @@ a:hover {
   align-self: flex-start;
   padding: 0;
   margin: 0;
+  position: absolute;
+  bottom: 0;
 }
 
 /* Style the links inside the navigation bar */
@@ -656,4 +665,133 @@ input.submit {
 input:focus {
   outline: none;
   border: 2px solid #3a3a3a;
+}
+
+html {
+  height: 100%;
+  margin: 0;
+}
+
+#dashboard-body {
+  margin: 0;
+  height: 100%;
+  font-family: "Volkron", serif;
+  background-color: burlywood;
+}
+
+.top {
+  font-family: "Volkron", serif;
+  color: #4b3723;
+  display: grid;
+  grid-template: 1fr/1fr;
+  place-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.title .welcome {
+  height: 100px;
+  width: 100px;
+  /* important part */
+  grid-area: inner-div;
+}
+
+.title {
+  font-size: 42px;
+}
+
+.welcome {
+  font-size: 24px;
+}
+
+.content-container {
+  display: flex;
+  flex-flow: row wrap;
+  list-style: none;
+  margin: 32px 0;
+}
+
+.box {
+  margin: 20px 10px;
+  flex-basis: calc(50% - 20px);
+  background-color: #9A774F;
+  height: 200px;
+  width: auto;
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px 2px #000000;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.BookSearch {
+  width: 50%;
+  height: 25%;
+  padding: 7px;
+  border: none;
+  border-radius: 5px;
+  color: #fefae0;
+  font-weight: bold;
+  background-color: #7f5539;
+  cursor: pointer;
+  outline: none;
+  font-family: "Vollkorn", serif;
+  font-size: 15px;
+  position: relative;
+  top: 25%;
+  left: 25%;
+  text-align: center;
+}
+
+.box1 {
+  justify-content: center;
+  text-align: center;
+  font-size: 30px;
+}
+
+.box3 {
+  justify-content: center;
+  text-align: center;
+  font-size: 30px;
+}
+
+.box4 {
+  justify-content: center;
+  text-align: center;
+  font-size: 30px;
+}
+
+/*Add a black background color to the top navigation bar */
+.dashboard-nav {
+  overflow: hidden;
+  background-color: #856440;
+  width: 100%;
+  align-self: flex-start;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+}
+
+/* Style the links inside the navigation bar */
+.dashboard-nav a {
+  float: left;
+  display: block;
+  color: #000000;
+  align-items: flex-start;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.dashboard-nav a:hover {
+  background-color: #fefae0;
+  color: #000000;
+}
+
+/* Style the "active" element to highlight the current page */
+.dashboard-nav a.active {
+  background-color: #3a3a3a;
+  color: #fefae0;
 }/*# sourceMappingURL=main.css.map */

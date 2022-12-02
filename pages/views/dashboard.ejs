@@ -7,13 +7,49 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="../sass/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet">
-
-</head>
-<body>
-    <h2>Welcome to Dashboard</h2>
-
     
-        <p><b>Login Username</b> - <%= Username %></p>
-        <p><a href="/logout.html">Logout</a></p>
+</head>
+<body id="dashboard-body">
+    <div class="top">
+        <h2 class="title"><%= Username %>'s Dashboard</h2>
+        <p class="welcome">Welcome  <%= Username %> !</p>
+    </div>
+    
+    
+    <div class="content-container">
+        <div class="box box1">
+            <div>Book Lists</div>
+            
+
+            <% for (var i = 0; i < bookListResults.length; i++) { %> 
+                <ul>
+                    <li style="font-size: 20px; text-align: left;"><%- bookListResults[i].ListName %> </li>
+                </ul> 
+            <% } %> 
+            
+        </div>
+        <div class="box box2">
+            <button class="BookSearch" onclick="location.href= '../views/search.html';">
+
+                Book Search
+            </button>
+        </div>
+        <div class="box box3">
+            <div>Clubs</div>
+            <% for (var i = 0; i < clubListResults.length; i++) { %> 
+                <ul>
+                    <li style="font-size: 20px; text-align: left;"><%- clubListResults[i].ClubName %> </li>
+                </ul> 
+            <% } %> 
+        </div>
+        <div class="box box4"><div>Club List</div></div>
+    </div>
+
+        <div class="dashboard-nav">
+            <a class="active" href="./dashboard.ejs">Dashboard</a>
+            <a id='link' href="../views/login.html">Login</a>
+            <a id ='link' href="'../views/logout.html">Logout</a> 
+            <a id ='link' href="../views/home.html">Home</a>
+        </div>
 </body>
 </html>
