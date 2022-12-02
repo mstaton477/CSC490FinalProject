@@ -40,37 +40,33 @@ async function authorHelper(_type_, _value_, _limit_){
     var temp1 = [];
 
     switch(_type_){
-        case 'key':
-            return [{'key':data.key, 'name':data.name}];
-        break;
+        case 'key': return [{'key':data.key, 'name':data.name}];
 
         case 'name':
             data.docs.forEach( (e) => { 
                 if ( typeof e.seed !== 'undefined' ) { 
                     e.seed.forEach( (potential_key) => { 
-                        if( author_regex.test(potential_key) ) temp1.push(potential_key) 
-                    } ) 
+                        if( author_regex.test(potential_key) )  temp1.push(potential_key) 
+                    }) 
                 } 
-            } )
-                temp1 = [...new Set(temp1)];
-                let temp2 = [];
+            })
 
-                for(let i = 0; i < temp1.length; i++){
-                    await authorHelper('key', temp1[i]).then(key_name_pair => temp2.push({'key': key_name_pair[0].key, 'name':key_name_pair[0].name}));
-                }
-            return temp2;
-        break;
+            temp1 = [...new Set(temp1)];
+            let temp2 = [];
 
-        default:
-            console.log('invalid _type: ' + _type)
-            return []
+            for(let i = 0; i < temp1.length; i++)
+                await authorHelper('key', temp1[i]).then(key_name_pair => temp2.push({'key': key_name_pair[0].key, 'name':key_name_pair[0].name}));
+        return temp2;
+
+        default: console.log('invalid _type: ' + _type); return [];
     }
 }
 
 /*
 type_ must be 'key' or 'name'
 value_ is the key/name
-limit_ (optional) passed to the API; limits how many authors are returned by the API call
+limit (optional) passed to the API; limits how many authors are returned; pass '' to specify no limit_ if you wish to specify the timeout_
+timeout_ (optional) in milliseconds
 
 Example code:
 getAuthor('name', 'J.R.R. Tolkien')
