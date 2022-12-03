@@ -18,20 +18,14 @@ const { result } = require('lodash');
 const store = new session.MemoryStore();
 const app = express();
 
-// app.set("view engine", "ejs"); 
 
 
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
 app.set('views', path.join(__dirname, "/views"));
 
-app.use(session({
-    secret: 'secret',
-    saveUninitialized: true,
-    resave: true
-}));
 
-app.use(express.json());
+
 
 //getting homepage
 app.use(express.static(__dirname + '/pages'));
@@ -43,8 +37,6 @@ app.use(session({
     saveUninitialized: false
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -161,34 +153,6 @@ app.get('/dashboard', async function (req, res) {
             clubListResults: clubListResults
         })
 
-
-
-        // let results;
-        // await db.query(bookList_query, async function (err, results) {
-        //     if (err) throw err;
-        //     if (results.length == 0) {
-        //         console.log("No Booklists associated with this User");
-        //     }
-
-        //     return results = Object.values(JSON.parse(JSON.stringify(results)));
-        //     console.log(results);
-        // },
-        //     res.render("../pages/views/dashboard.ejs", {
-        //         Username: Username, 
-        //         // , 
-        //         results:results
-        //     })
-        // )
-
-
-
-
-
-
-        // db.query('SELECT * FROM `book list` WHERE Username = ? ', [req.session.Username], function(error, results, fields){
-        //     if (error) throw error; 
-        //     res.render("../pages/views/dashboard.ejs", {data : results}); 
-        // })
     } else {
         res.redirect('./login');
     }
