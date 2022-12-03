@@ -66,6 +66,7 @@
     "connect-flash": "^0.1.1",
     "content-type": "^1.0.4",
     "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
     "core-util-is": "^1.0.3",
     "cross-spawn": "^7.0.3",
     "date-fns": "^2.29.3",
