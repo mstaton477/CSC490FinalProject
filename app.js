@@ -1,6 +1,6 @@
 // Imports
 const express = require('express');
-const session = require('cookie-session');
+const session = require('express-session');
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const path = require('path');
@@ -215,6 +215,20 @@ app.post('/search', async function (req, res) {
 
 }
 )
+
+app.get('/clublist', async function(req, res){
+    const clublistSQL = 'SELECT * FROM `clubs` ';
+    const clubList_query = mysql.format(clublistSQL);
+
+        var clubListResults = await db.query(clubList_query, function(err, clubListResults){
+            if (err) throw err; 
+            return (clubListResults); 
+        }); 
+            
+        res.render("../pages/views/clublist.ejs", {
+            clubListResults: clubListResults
+        })
+})
 
 app.listen(process.env.PORT || 8080, function () {
     console.log('Node app is running on port 8080');
