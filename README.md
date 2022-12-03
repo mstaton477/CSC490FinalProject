@@ -7,6 +7,7 @@ A website for online book clubs that allows users to create their own book lists
 
 ## Website 
 #### [tomerater.herokuapp.com](tomerater.herokuapp.com/)
+##### As of 11/28 Heroku no longer supports the free plan that we were using for this project, so its required to run it locally. But this project has the capability to run on a Heroku server. 
 ![landing_page](https://user-images.githubusercontent.com/62042187/205193160-54cc416a-51a4-4ede-ac92-31a445579750.png)
 
  ![signup](https://user-images.githubusercontent.com/62042187/205193184-e1abe614-5bf1-4a7a-88f2-6d03bef26ebc.png)
