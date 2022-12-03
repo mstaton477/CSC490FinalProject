@@ -1,6 +1,6 @@
 // Imports
 const express = require('express');
-const session = require('express-session');
+const session = require('cookie-session');
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const path = require('path');
