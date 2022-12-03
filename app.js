@@ -20,8 +20,8 @@ const app = express();
 
 
 
-app.engine("html", require("ejs").renderFile);
-app.set("view engine", "html");
+app.set('view engine', 'ejs');
+app.engine('.html', require('ejs').renderFile);
 app.set('views', path.join(__dirname, "/views"));
 
 
@@ -216,17 +216,24 @@ app.post('/search', async function (req, res) {
 }
 )
 
-app.get('/clublist', async function(req, res){
+app.get('/views/clublist', async function(req, res){
     const clublistSQL = 'SELECT * FROM `clubs` ';
     const clubList_query = mysql.format(clublistSQL);
 
-        var clubListResults = await db.query(clubList_query, function(err, clubListResults){
-            if (err) throw err; 
-            return (clubListResults); 
-        }); 
+        // var clubListResults = await db.query(clubList_query, function(err, clubListResults){
+        //     if (err) throw err; 
+        //     return (clubListResults); 
+        // }); 
             
-        res.render("../pages/views/clublist.ejs", {
-            clubListResults: clubListResults
+        // res.render("../pages/views/clublist.ejs", {
+        //     clubListResults: clubListResults
+        // })
+
+        await db.query(clubList_query, function(err, clubListResults){
+            if (err) throw err; 
+            res.render("../pages/views/clublist.ejs", {
+                clubListResults: clubListResults
+            })
         })
 })
 
